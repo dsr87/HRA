@@ -1,0 +1,369 @@
+<HTML
+><HEAD
+><TITLE
+>More examples</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usage"
+HREF="usage.html"><LINK
+REL="PREVIOUS"
+TITLE="Security considerations"
+HREF="usage.security.html"><LINK
+REL="NEXT"
+TITLE="Administration"
+HREF="admin.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="usage.security.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Usage</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="admin.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLES"
+></A
+>More examples</H1
+><P
+>			The application example earlier in this chapter is only a very simple and
+			minimal example on how to use phpSecureSite. The system is built to
+			be as flexible as possible, and this section will give a few examples
+			of how to do other things with phpSecureSite.
+		</P
+><P
+>			All these examples use the <A
+HREF="usage.example.html"
+>example</A
+>
+			earlier in this chapter as a basis, anything which is not explicitly
+			changed can be used from there.
+		</P
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLES.LOGINFORMERROR"
+></A
+>Displaying login errors in the login form</H2
+><P
+>				Some people may want to display "login denied" and similar messages in
+				the login form page itself, so users don't have to click the back
+				button to try again. This is easy.
+			</P
+><P
+>				Change the <TT
+CLASS="FILENAME"
+>loginform.php</TT
+> script to send the username
+				and password to itself, and run the checks there. Redirect the user
+				to the secret page if login is successful, or print an error and
+				the login form in any other case. You can also remove the <TT
+CLASS="FILENAME"
+>login.php</TT
+>
+				script.Here is one way to do this:
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>&lt;?php
+
+// load phpSecureSite
+require("/opt/phpsecuresite/phpss/phpss.php");
+
+$failmessage = "";
+
+// handle form submit
+if (sizeof($_POST) &#62; 0) {
+
+	// check the username and password
+	$status = phpss_login($_POST['username'], $_POST['password']);
+
+	// check if the user is allowed access
+	switch ($status) {
+
+		case "phpss_login_allow":
+			header("Location: secret.php"); // login successful, redirect to secret page
+			exit();
+			break;
+
+		case "phpss_login_authfail":
+			$failmessage = "You entered a wrong username or password";
+			break;
+
+		case "phpss_login_bruteforce_accountlock":
+			$failmessage = "Account is locked for logins";
+			break;
+
+		case "phpss_login_bruteforce_iplock":
+			$failmessage = "IP address is locked for logins";
+			break;
+
+		case "phpss_ipaccess_deny":
+			$failmessage = "Logins not allowed from your IP address";
+			break;
+
+		default:
+			$failmessage = "Unknown return code when authenticating user";
+	}
+}
+
+?&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;?php if($failmessage != "") print("Login denied: " . $failmessage . ". please try again&lt;br&gt;\n"); ?&gt;
+
+&lt;form action="&lt;?php print($_SERVER["SCRIPT_NAME"]); ?&gt;" method="post"&gt;
+	Username : &lt;input type="text" name="username"&gt;&lt;br&gt;
+	Password : &lt;input type="password" name="password"&gt;&lt;br&gt;
+	&lt;input type="submit" value="Log in"&gt;
+&lt;/form&gt;
+
+&lt;body&gt;
+&lt;/html&gt;</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLES.DENYREDIR"
+></A
+>Redirect to login form if not logged in</H2
+><P
+>				Sometimes you may want to redirect users to the login form when they try
+				to access a page without having logged in. To do this, we will change
+				the <TT
+CLASS="FILENAME"
+>include/global.php</TT
+> script so that it redirects
+				user to <TT
+CLASS="FILENAME"
+>loginform.php</TT
+> whenever we get a
+				<TT
+CLASS="LITERAL"
+>phpss_validate_nosession</TT
+> return code (we still want
+				the other messages to be printed).
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>&lt;?php
+
+// load phpSecureSite
+require("/opt/phpsecuresite/phpss/phpss.php");
+
+// define a phpss_validate() wrapper function
+function authwrapper() {
+
+	// call phpss_validate()
+	$status = phpss_validate();
+
+	// check the return value
+	switch($status) {
+
+		case "phpss_validate_allow":
+			break;	// access is allowed, do nothing
+
+		case "phpss_validate_nosession":
+			header("Location: loginform.php"); // redirect to login form if not logged in
+			exit();
+			break;
+
+		case "phpss_validate_acl_deny":
+			exit("You do not have permission to view this page");
+			break;
+
+		case "phpss_validate_hijack_fail":
+			exit("Your IP address  has changed");
+			break;
+
+		case "phpss_validate_ipaccess_deny":
+			exit("Access is not allowed from your IP address");
+			break;
+
+		case "phpss_validate_timeout_fail":
+			exit("You session has timed out, please log in again");
+			break;
+
+		default:
+			exit("Unknown return code when authorizing session");
+	}
+}
+
+?&gt;</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLES.NOCASEUSERNAME"
+></A
+>Case-insensitive usernames</H2
+><P
+>				If you want your usernames to be case-insensitive, you first need to
+				make sure that all usernames are stored in lowercase in the authentication
+				backend. Then you simply change the <A
+HREF="ref.html#REF.FUNC.LOGIN"
+><TT
+CLASS="FUNCTION"
+>phpss_login()</TT
+></A
+>
+				call in <TT
+CLASS="FILENAME"
+>login.php</TT
+> so that it converts the given username
+				to lowercase first, like this: <TT
+CLASS="USERINPUT"
+><B
+>$status = phpss_login(strtolower($_POST["username"]), $_POST["password]);</B
+></TT
+>.
+			</P
+><P
+>				A similar approach can be used with passwords too. However, in that case the
+				password must be stored in plaintext. If a hash of it is stored then the
+				hash computed for the inputted password will be completely different
+				when you change the case of some characters, and they won't match.
+			</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="usage.security.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="admin.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Security considerations</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="usage.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Administration</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

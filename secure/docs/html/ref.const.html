@@ -1,0 +1,534 @@
+<HTML
+><HEAD
+><TITLE
+>Constants</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Reference"
+HREF="ref.html"><LINK
+REL="PREVIOUS"
+TITLE="Reference"
+HREF="ref.html"><LINK
+REL="NEXT"
+TITLE="Events"
+HREF="ref.events.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.events.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="REF.CONST"
+></A
+>Constants</H1
+><P
+>			Constants are used throughout phpSecureSite as identifiers for various purposes.
+			Always use the constant, and not its value, as the actual value may change in
+			later versions.
+		</P
+><P
+>			The constants used as event and handler identifiers are available in the
+			<A
+HREF="ref.events.html"
+><I
+>Events</I
+></A
+> and
+			<A
+HREF="ref.handlers.html"
+><I
+>Handlers</I
+></A
+> setions.
+		</P
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.CONST.MODULETYPE"
+></A
+>Module types</H2
+><P
+>				Most module-related functions expect to be passed a module type
+				identifier, which are contained in these constants. All module
+				types default to <A
+HREF="ref.const.html#REF.CONST.MODULE.NORMAL"
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_NORMAL</TT
+></A
+>.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.CONST.MODULE.AUTH"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_AUTH</TT
+></DT
+><DD
+><P
+>						Authentication module, for authentication and account data lookups
+						in a backend system.
+					</P
+></DD
+><DT
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_CORE</TT
+></DT
+><DD
+><P
+>						Used for the phpSecureSite core, and should not be used by anything
+						else.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.MODULE.DATABASE"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_DATABASE</TT
+></DT
+><DD
+><P
+>						Database module, for communication with a database server.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.MODULE.LOG"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_LOG</TT
+></DT
+><DD
+><P
+>						Log module, writes log entries to a destination.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.MODULE.NORMAL"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_NORMAL</TT
+></DT
+><DD
+><P
+>						Used for normal modules, and the default module type
+						for most functions.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.MODULE.TOOL"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_TOOL</TT
+></DT
+><DD
+><P
+>						Stand-alone tool which works against the phpSecureSite API.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.CONST.LOGCLASS"
+></A
+>Log classes</H2
+><P
+>				Log classes are used to specify the severity of messages passed
+				to the logging subsystem through <A
+HREF="ref.html#REF.FUNC.LOG"
+><TT
+CLASS="FUNCTION"
+>phpss_log()</TT
+></A
+>.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="CONSTANT"
+>PHPSS_LOG_INFO</TT
+></DT
+><DD
+><P
+>						An informational message, such as users logging in/out
+					</P
+></DD
+><DT
+><TT
+CLASS="CONSTANT"
+>PHPSS_LOG_NOTICE</TT
+></DT
+><DD
+><P
+>						A normal, but significant, message - for example when
+						a login is denied, or the database is cleaned
+					</P
+></DD
+><DT
+><TT
+CLASS="CONSTANT"
+>PHPSS_LOG_WARNING</TT
+></DT
+><DD
+><P
+>						A warning, or severe message - like when a session hijack
+						attempt is detected.
+					</P
+></DD
+><DT
+><TT
+CLASS="CONSTANT"
+>PHPSS_LOG_ERROR</TT
+></DT
+><DD
+><P
+>						An error. This class is used by <A
+HREF="ref.html#REF.FUNC.ERROR"
+><TT
+CLASS="FUNCTION"
+>phpss_error()</TT
+></A
+>
+						to log any error messages it receives, and should not be used anywhere else.
+						Pass any and all errors to <A
+HREF="ref.html#REF.FUNC.ERROR"
+><TT
+CLASS="FUNCTION"
+>phpss_error()</TT
+></A
+>.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.CONST.CACHE"
+></A
+>Cache stores</H2
+><P
+>				Constants identifying various caches in the core system,
+				as well as other cache-related constants.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.CONST.CACHE.NOTFOUND"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_NOTFOUND</TT
+></DT
+><DD
+><P
+>						This is a special value returned by the cache lookup
+						functions when an entry is not found.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.CACHE.ACCOUNTDATA"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_ACCOUNTDATA</TT
+></DT
+><DD
+><P
+>						Account data cache.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.CACHE.ACCOUNTGROUPS"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_ACCOUNTGROUPS</TT
+></DT
+><DD
+><P
+>						Account group list cache.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.CACHE.ACCOUNTID"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_ACCOUNTID</TT
+></DT
+><DD
+><P
+>						Account id lookup cache.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.CACHE.GROUPDATA"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_GROUPDATA</TT
+></DT
+><DD
+><P
+>						Group data cache.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.CACHE.GROUPID"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_GROUPID</TT
+></DT
+><DD
+><P
+>						Group id lookup cache.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.CACHE.IPID"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_IPID</TT
+></DT
+><DD
+><P
+>						IP address id lookup cache.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.CACHE.SESSIONDATA"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_SESSIONDATA</TT
+></DT
+><DD
+><P
+>						Session data cache.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.CONST.MISC"
+></A
+>Miscellaneous</H2
+><P
+>				Miscellaneous constants.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.CONST.CONFIGFILE"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_CONFIGFILE</TT
+></DT
+><DD
+><P
+>						This can be used to specify which file to load the
+						configuration from. It must be defined before phpSecureSite
+						is loaded.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.NOINIT"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_NOINIT</TT
+></DT
+><DD
+><P
+>						Disables phpSecureSite initialization when loaded. Mostly
+						useful for tools which need to load phpSecureSite without
+						initializing it.
+					</P
+></DD
+><DT
+><A
+NAME="REF.CONST.ROOT_FS"
+></A
+><TT
+CLASS="CONSTANT"
+>PHPSS_ROOT_FS</TT
+></DT
+><DD
+><P
+>						This specifies the path to the filesystem root directory
+						where phpSecureSite is located. It is used for loading
+						modules and function libraries.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.events.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Reference</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Events</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

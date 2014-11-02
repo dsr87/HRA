@@ -1,0 +1,219 @@
+<HTML
+><HEAD
+><TITLE
+>Tools</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Normal modules"
+HREF="modules.normal.html"><LINK
+REL="NEXT"
+TITLE="Module development"
+HREF="moduledev.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="modules.normal.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="moduledev.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="TOOLS"
+></A
+>Chapter 7. Tools</H1
+><P
+>		phpSecureSite includes tools for handling various administrative tasks.
+		These can be found in the <TT
+CLASS="FILENAME"
+>tools/</TT
+> directory.
+	</P
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="TOOLS.DBCLEAN"
+></A
+>dbclean (database cleanups)</H1
+><P
+><TT
+CLASS="FILENAME"
+>tools/dbclean.php</TT
+></P
+><P
+>			The dbclean tool performs cleanups of the phpSecureSite database,
+			such as removing outdated and corrupt data. It can also remove old
+			and unused session to make the system faster, but this will remove
+			session data which may be useful when reading logs etc.
+		</P
+><P
+>			To keep the database relatively small and the overall performance of the
+			system good, it is recommended that you run this script in a cron-job
+			once every night. It can also be run via your browser by putting it
+			under the document root of your server.
+		</P
+><P
+>			Configuration is done in the tool file itself, near the top.
+		</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>phpss_path</TT
+></DT
+><DD
+><P
+>					The full path to the <TT
+CLASS="FILENAME"
+>phpss.php</TT
+> file. dbclean needs
+					to load phpSecureSite to fetch its config, access the database backend
+					and take advantage of the infrastructure it provides.
+				</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>idlelimit</TT
+></DT
+><DD
+><P
+>					The number of idle hours before a session is considered inactive.
+					Data which is no longer useful will be removed for these sessions.
+				</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>removesessions</TT
+></DT
+><DD
+><P
+>					When <TT
+CLASS="LITERAL"
+>true</TT
+>, all session data for inactive sessions
+					is removed. This should improve the performance of the overall system,
+					but will remove data which may be useful when reading logs or for
+					historical reference.
+				</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="modules.normal.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="moduledev.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Normal modules</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Module development</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

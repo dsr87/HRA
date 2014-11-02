@@ -1,0 +1,222 @@
+<HTML
+><HEAD
+><TITLE
+>Configuration</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Installing phpSecureSite"
+HREF="install.install.html"><LINK
+REL="NEXT"
+TITLE="Configuration options"
+HREF="config.options.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.install.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="config.options.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CONFIG"
+></A
+>Chapter 3. Configuration</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="config.html#CONFIG.INITIAL"
+>Initial configuration</A
+></DT
+><DT
+><A
+HREF="config.options.html"
+>Configuration options</A
+></DT
+><DT
+><A
+HREF="config.file.html"
+>Using a different config file</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="CONFIG.INITIAL"
+></A
+>Initial configuration</H1
+><P
+>			When phpSecureSite has been installed, you need to configure it.
+			You should read this entire chapter to get an idea of what you
+			can do with phpSecureSite, but here is a quick guide for the
+			impatient:
+		</P
+><P
+></P
+><UL
+><LI
+><P
+>				You need to set up a way for phpSecureSite to connect to
+				your database server. Open <TT
+CLASS="FILENAME"
+>config/database.php</TT
+>
+				in a text-editor, set the name of the database module you
+				would like to use in <TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["database_module"]</TT
+>
+				and then set connection information in the modules configuration
+				later in the same file.
+			</P
+></LI
+><LI
+><P
+>				phpSecureSite also needs to know where to find account data.
+				Settings for this is located in <TT
+CLASS="FILENAME"
+>config/authentication.php</TT
+>.
+				The default options will use the normal phpSecureSite database for account
+				data, which usually is what you want. Note that by default, phpSecureSite
+				expects passwords to be in md5 format, you can change this by changing
+				the <TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["auth_pwtype"]</TT
+> option.
+			</P
+></LI
+><LI
+><P
+>				If you want to use logging you must open the file <TT
+CLASS="FILENAME"
+>config/logging.php</TT
+>
+				and set <TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["log_enable"]</TT
+> option to
+				<TT
+CLASS="LITERAL"
+>true</TT
+>. By default, log messages are stored
+				in the phpSecureSite database.
+			</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.install.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="config.options.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Installing phpSecureSite</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Configuration options</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

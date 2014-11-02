@@ -1,0 +1,711 @@
+phpSecureSite changelog
+
+-----------[ 2003-11-15 : 0.1.2 ]------------
+
+2003-11-15  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs/modules: fixed an error in the description of the query_auth
+	option for the mysql and pgsql auth modules; it requires three fields
+	to be returned, not one
+
+2003-11-14  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: updated the release notes
+
+	* docs: fixed a security issue in the "Displaying login errors in
+	the login form" code example - same fault as previous doc fix
+
+2003-11-12  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: fixed a bug in the authwrapper() function in the example,
+	which will give access to a page if phpss returns an unknown error
+	code
+
+2003-11-11  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: added info on ldap auth module
+
+2003-11-09  Erik Grinaker <erikg@wired-networks.net>
+
+	* modules/auth/ldap: completed initial ldap auth module
+
+2003-11-07  Erik Grinaker <erikg@wired-networks.net>
+
+	* database/pgsql: misc cleanups
+
+	* modules/auth/mysql,pgsql, config/auth: fixed a security
+	issue with sql injection if db queries use %i without quotes
+	and the user can pass input to the functions relying on it
+
+2003-11-04  Erik Grinaker <erikg@wired-networks.net>
+
+	* modules/auth/ldap: added initial (incomplete) ldap auth module
+
+2003-11-03  Erik Grinaker <erikg@wired-networks.net>
+
+	* modules/log/database: fixed a bug which made the INSERT query invalid
+	by escaping the quotes around a value
+
+2003-10-21  Erik Grinaker <erikg@wired-network.net>
+
+	* config: fixed a comment referring to phpss_auth(), which is now
+	called phpss_validate()
+
+2003-10-17  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: added phpss_module_set_default_config()
+
+	* core: phpss_module_set_config() no longer removes options already
+	in the config, but not set in the passed config
+
+	* global: set up default configs for core system and all modules
+
+	* core: added phpss_set_session_lastrequest() and used it where needed.
+	fixes bug where cached session data is not updated with new lastrequest
+	time
+
+2003-10-14  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: added articles appendix, with links to security-related
+	articles and documentation
+
+
+
+-----------[ 2003-10-14 : 0.1.1 ]------------
+
+2003-10-13  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: added info about the cache system
+
+	* modules/svars: fixed a bug which caused svars to not be created
+	when a phpss_svars_get() call for the variable was issued before
+	phpss_svars_set() and the cache system was enabled
+
+	* modules/svars: removed phpss_svars_get_session_owner() and calls,
+	as they were not used for anything
+
+	* modules/svars: fixed a bug which caused cached svars to be returned
+	serialized when autoset was enabled
+
+	* docs: updated release notes
+
+	* docs: added phpss_get_ip() info to function reference
+
+	* global: several bugfixes and code cleanups
+
+2003-10-12  Erik Grinaker <erikg@wired-networks.net>
+
+	* tools/benchmark: remove the benchmark tool
+
+2003-10-07  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: fixed multiple occurances of unescaped data being placed in
+	database queries, some of which may be remotely exploitable.
+
+	* core: removed magic_quotes_gpc checks and automatic stripslashes()
+	calls for input expected to come from forms. escaping should be
+	stripped by application developers where necessary
+
+2003-10-06  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: added cache subsystem, and used wherever useful
+
+	* core: added phpss_get_ip()
+
+2003-09-27  Erik Grinaker <erikg@wired-networks.net>
+
+	* tools/benchmark: centralized most functionality in core functions,
+	and did some code cleanups
+
+	* docs/usage : all redirects in examples are followed by an exit()
+	call, in case the redirect fails
+
+2003-09-09  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: system init can be disabled by defining PHPSS_NOINIT as true
+
+	* core: modules and config is loaded in phpss_setup(), not phpss_init()
+
+	* tools/benchmark: added prototype benchmark tool
+
+2003-08-20  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: fixed insignificant typo in value of
+	PHPSS_EVENT_SYSTEM_SHUTDOWN
+
+	* docs: fixed typo in code example, devel chapter
+
+
+
+-----------[ 2003-08-12: 0.1.0 ]------------
+
+2003-08-12  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: minor database changes
+
+	* docs/preface: updated the release notes
+
+2003-08-11  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: renamed phpss_db_escape_quotes() to phpss_db_escape_string()
+	and PHPSS_HANDLER_DB_ESCAPEQUOTES to PHPSS_HANDLER_DB_ESCAPESTRING
+
+	* INSTALL, docs/*: recommended install location is /opt/phpsecuresite/
+
+	* docs/admin: updated the admin chapter
+
+	* database/mssql: added database structure for Microsoft SQL Server
+
+2003-08-07  Erik Grinaker <erikg@wired-networks.net>
+
+	* INSTALL: updated install instructions
+
+2003-08-06  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: replaced phpss_module_get_data() with
+	phpss_module_get_data_value(), and phpss_module_set_data() with
+	phpss_module_set_data_value()
+
+	* func/module, docs: removed phpss_module_get_config_value() and
+	phpss_module_set_config_value()
+
+	* docs: updated the module development chapter
+
+2003-08-05  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: updated the development chapter, and rewrote much of it
+
+2003-08-03  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: updated the modules chapter
+
+	* docs: added the tools chapter
+
+2003-08-02  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: updated the project information chapter
+
+	* docs: updated and restructured the reference chapter
+
+2003-07-28  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: added 0.1.2 id to all script headers
+
+	* docs: updated the function reference for modules
+
+	* docs: updated the database structure reference
+
+	* database/mysql: replaced all columns of type set with varchar
+
+	* docs: updated the constants reference
+
+2003-07-27  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: updated the configuration chapter
+
+	* core: added/rewrote comments
+
+	* docs: updated the function reference for the core
+
+2003-07-24  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: restructured the filesystem layout
+
+	* docs: removed the faq, it should be put on the web-site instead
+
+	* docs: rewrote the introduction chapter
+
+	* docs: updated the installation chapter
+
+2003-07-23  Erik Grinaker <erikg@wired-networks.net>
+
+	* database/*: default value for phpss_account.active is now 1
+
+	* database/*: removed id column for phpss_ipaccess* tables, and set up
+	new primary keys
+
+	* modules/bruteforce: removed use of SQL IF() function in account
+	comparison check
+
+	* modules/database/mysql, modules/auth/mysql: fixed a bug where the
+	normal connection would be used when the authhandler attempted to make
+	its connection. this is because php will return an old connection if it
+	was created using the same arguments
+
+2003-07-22  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: removed the PHPSS_LOG_DEBUG log class
+
+	* database/*: made group names case-sensitive, and raised max length
+	to 255 chars
+
+	* database/mysql: the unsigned attribute is no longer used, as it was
+	a mysql-specific feature. the database should not rely on such features
+	even when available
+
+	* database/mysql: all numeric columns no longer have an explicit
+	length
+
+	* database/mysql: made all varchar columns binary (case-sensitive)
+
+	* database/*, core, modules/auth/database: all boolean columns are now
+	numeric, with <=0 for false, and >0 for true - this both saves space,
+	and is better for database compatibility
+
+	* database/*: bigint columns are no longer used, int should be more
+	than enough
+
+	* database/*, modules/ipaccess: access defs are now numeric, not
+	strings
+
+	* database/pgsql: use text type instead of bytea for phpss_svars.data
+
+	* database/*: misc syntax cleanups
+
+2003-07-21  Erik Grinaker <erikg@wired-networks.net>
+
+	* modules/auth/database: authentication handler explicitly checks if
+	active equals 'true' in for the account entry
+
+	* modules/cachecontrol: gives error when an invalid cache policy is
+	given
+
+	* global: code cleanups
+
+2003-07-20  Erik Grinaker <erikg@wired-networks.net>
+
+	* module/database/mysql,pgsql: mysql_escape_string() and
+	pg_escape_string() used instead of addslashes() in escapequotes handler
+
+	* module/database/*: rework of query result generation
+
+	* module/database/*: query handlers now checks if a valid database
+	link is available before executing query
+
+	* modules/auth/database: explicitly checks that the username and
+	password of the found account matches the user input
+
+	* modules/auth/mysql,pgsql: rework of query result generation
+
+	* modules/auth/mysql,pgsql: mysql_escape_string() and
+	pg_escape_string() used instead of addslashes()
+
+	* modules/log/database: phpss_db_escape_quotes() used instead of
+	addslashes()
+
+	* modules/log/file: rewrote module to store fp when opened, and
+	use it whenever it is needed - this way, the fp is opened only once
+	per request
+
+	* modules/log/syslog: now calls define_syslog_variables() during
+	PHPSS_EVENT_SYSTEM_INIT
+
+	* global: code cleanups
+
+2003-07-19  Erik Grinaker <erikg@wired-networks.net>
+
+	* modules/auth/*: usernames are now case-sensitive
+
+	* core: phpss_module_load() now accepts the optional parameters
+	module, config and moduletype
+
+	* config/modules: any extra modules to load can be placed in the
+	extramodules array
+
+	* core: code cleanups
+
+	* global: changed all phpss_check_* return codes to phpss_validate_*
+
+	* core: added phpss_module_get_config_value(),
+	phpss_module_set_config_value(), phpss_module_get_data_value() and
+	phpss_module_set_data_value(), and made phpss_module_get_data() and
+	phpss_module_set_data() operate on the whole module data set
+
+2003-07-18  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: event identifiers are now constants, with new names
+
+	* config, core: changed the way core config options are set up in the
+	config file and stored in the registry
+
+	* core: added a PHPSS_MODULE_CORE module type, for use by the phpss
+	core system
+
+	* core: renamed phpss_check() to phpss_validate()
+
+	* core, modules/database/*: removed global $phpss_db_link var,
+	database modules must keep track of database link themselves
+
+	* modules/auth/mysql,pgsql: database links are stored in the modules
+	data registry, and a link is opened only once and on demand
+
+	* core, modules/database/*: added the PHPSS_HANDLER_DB_CLOSE handler,
+	and implemented close handlers for all database modules
+
+	* core: added phpss_shutdown(), which is called when script execution
+	ends
+
+	* core: added the PHPSS_EVENT_SYSTEM_SHUTDOWN event
+
+	* modules/auth/mysql,pgsql: database connections are closed on
+	shutdown
+
+	* core, config: an alternate error handler can be used, set in the
+	"error_handler" config option
+
+2003-07-16  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: misc code cleanups
+
+	* core: added PHPSS_HANDLER_DB_ESCAPEQUOTES handler and
+	phpss_db_escape_quotes(), used for escaping potentially harmful
+	characters in user-inputted data
+
+	* core, modules/auth/*: if magic_quotes_gpc is turned on, all escapes
+	are stripped in phpss_authenticate(). Escaping is done again in the
+	authentication module, as various backends have different ways of
+	escaping.
+
+2003-07-15  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: created phpss_module_get_reg_struct(), which returns
+	the module structure in the registry. This is used for all data
+	and config related module functions, which gets a unified interface
+	for any kind of module.
+
+	* core: removed phpss_module_get_data_reference(), as references can
+	be returned by phpss_module_get_data()
+
+2003-07-13  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: renamed global variable $phpss_session_key to
+	$phpss_sessionkey, and $phpss_account_id to $phpss_account
+
+	* core: renamed PHPSS_HANDLER_AUTH_LOGIN to
+	PHPSS_HANDLER_AUTH_AUTHENTICATE
+
+	* core: joined "invkey" and "nocookie" checks
+
+	* global: phpss_login() and phpss_check() now return strings. these
+	should not be compared using constants, but rather the strings
+	themselves. this is in order to let modules return codes without having
+	to register the constant in the core system first.
+
+	* core: added PHPSS_MODULE_TOOL as a module type
+
+	* core, tools/dbclean: removed all database cleanup infrastructure
+	from the core system, and placed it in the dbclean tool. this means
+	that database cleanups can only be performed by using the tool.
+
+2003-07-12  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: more code cleanups
+
+	* core: added phpss_get_handler(), phpss_get_handler_reference()
+	and phpss_handler_type_exists(), and used them wherever useful
+
+2003-07-10  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: normal modules can no longer register any handlers, init
+	handlers should be registered as hooks for the "system_init" event
+
+	* global: major code cleanups
+
+	* ipaccess: removed the checktime option, checks are always done on
+	both login and session validation
+
+	* core: phpss_login() now destroys any session cookie which may be
+	left from a previous session
+
+2003-07-09  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: major overhaul of error and log systems
+
+2003-07-08  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: authhandlers, dbbackends and logbackends are now referred to
+	as auth, database and log modules respectively
+
+	* config: changed the config array layout
+
+	* core: removed phpss_event_register(), and set up event handler lists
+	in phpss_setup()
+
+	* core: renamed phpss_auth() to phpss_check()
+
+	* global: renamed a bunch of functions
+
+	* global: renamed and removed misc events
+
+	* global: event handlers are now referred to as event hooks
+
+2003-07-07  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: implemented mysqls password() algorithm, as
+	phpss_encrypt_mysql(), and added the mysql pwencryption type
+
+	* tools/dbclean: added tool for performing database cleanups from
+	the command line
+
+2003-07-06  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: renamed all module and handler type constants
+
+	* core: module data functions supports all module types
+
+2003-07-04  Erik Grinaker <erikg@wired-networks.net>
+
+	* authhandlers/mysql, authhandlers/pgsql: all database queries can be
+	set in the config, instead of just the field and table names
+
+	* core: added phpss_setup() which sets up misc data structures etc
+
+	* core: restructured the internal registry
+
+	* core: added phpss_module_data_get(), phpss_module_data_set() and
+	phpss_module_data_get_reference() providing easy data storage for
+	modules
+
+	* acl: modified module to use module data functions instead of
+	accessing the registry directly
+
+	* core: renamed phpss_module_config_store() to
+	phpss_module_config_set()
+
+	* bruteforce, config: bruteforce module no longer uses separate config
+	arrays for ip and access settings
+
+2003-07-03  Erik Grinaker <erikg@wired-networks.net>
+
+	* bruteforce, database/*: rewrote module to use separate tables for
+	locks and fails
+
+	* bruteforce: added database cleanup handler
+
+	* core, bruteforce, logbackends/database: phpss_get_ip_id() now
+	automatically registers the ip address if it doesn't exist. updated
+	code using it wherever it is relevant.
+
+	* logbackend/file, logbackend/csv: added new log backend module,
+	file, and removed the csv log backend module as its functionality can
+	be duplicated using the file logbackend.
+
+2003-07-02  Erik Grinaker <erikg@wired-networks.net>
+
+	* config: moved module configuration into file config/modules.php
+
+	* svars: session variables are removed on logout
+
+	* database/*: datatype for svars data no longer binary
+
+	* database/*: removed id and added indexes in tables
+	phpss_bruteforce_account, phpss_bruteforce_ip, phpss_svars and
+	phpss_log
+
+	* database/*: account usernames and passwords can now be up to 255
+	characters long
+
+	* core, config: added database cleanup functionality
+
+	* svars: added database cleanup handler
+
+2003-06-29  Erik Grinaker <erikg@wired-networks.net>
+
+	* core, authhandler/*: moved encryption of user-provided passwords
+	into the core system
+
+	* core: added support for UNIX crypt() and SHA1 passwords
+
+	* svars: autoset vars are made available through $phpss_svars array,
+	not as individual variables
+
+	* docs: requires php version 4.3.0 or newer
+
+2003-06-22  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: phpss_error() can now provide extended information
+
+	* core: database connection errors are now handled in
+	phpss_db_connect(), instead of in phpss.php
+
+	* core, dbbackend/*, authhandler/*: errors are suppressed when calling
+	the handler functions, instead of at the actual php function calls
+
+	* core, dbbackend/*: query handlers now return false on failure, error
+	reporting is handled in phpss_db_query()
+
+	* dbbackend/mssql: minor code cleanups
+
+	* docs: reformatted changelog to standard GNU format
+
+	* docs: added info on mssql dbbackend module
+
+2003-06-22  Dave Rich <drich@nea-online.net>, Mike Hore <mike@nea-online.net>
+
+	* dbbackend/mssql: new module for microsoft sql server
+
+2003-06-13  Erich Iseli <ricky@linuxbourg.ch>
+
+	* core: removed reduntant module_exists check in
+	phpss_module_register()
+
+2003-05-26  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: all times are now in UNIX timestamp format, for database
+	portability
+
+	* database: added indexes wherever useful
+
+2003-05-08  Erik Grinaker <erikg@wired-networks.net>
+
+	* core:  added phpss_fetch_sessionkey() and used it wherever suitable
+
+	* core: the config file to use can be specified by setting
+	PHPSS_CONFIGFILE
+
+	* core: sessions now store dates and times in UNIX timestamp format
+
+	* svars: the session variable is now automatically set in the global
+	scope when phpss_svars_set() is called and the autoset option is on
+
+	* docs: changed install info to use bz2 instead of gz
+
+
+
+-----------[ 2003-05-08: 0.0.5 ]------------
+
+2003-05-08  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: added release notes to docs
+
+2003-05-07  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: a whole bunch of development bug fixes and syntax cleanups
+
+	* acl:  changed name of acl module config option default_policy to
+	policy, and default_preferred_access to preferred
+
+	* docs: updated ipaccess module info
+
+	* docs: updated module development chapter
+
+	* docs:  minor updates
+
+	* docs: restructured and updated the function reference
+
+	* docs: updated the constants reference
+
+	* docs: updated the INSTALL file
+
+2003-05-06  Erik Grinaker <erikg@wired-networks.net>
+
+	* docs: updated config system info
+
+	* docs: removed PHPSS_ROOT_FS info, except in the reference
+
+	* docs: updated the database structure reference in the docs
+
+2003-05-05  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: the fs root, set as PHPSS_ROOT_FS, is now automatically found
+
+	* authhandler/*: all phpss_get_account_id() handlers use case-
+	insensitive usernames
+
+	* dbbackend/*: no longer uses persistent connections
+
+	* acl: fixed a bug which caused conflicting group accesses to be
+	handled incorrectly
+
+	* ipaccess: added account and group support
+
+	* config: authhandler and database backend options are no longer
+	prefixed with conn_
+
+	* docs: removed info on database structure abstraction layer
+
+	* docs: created new section for configuration info
+
+2003-05-04  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: removed the database structure abstraction layer
+
+	* cachecontrol: fixed a few http header bugs
+
+2003-05-02  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: added support for init-functions in normal modules
+
+	* core: moved constants from vars/constants.php to phpss_init()
+
+	* core: fixed a security problem where key values could be preset, for
+	example with register_globals turned on
+
+	* acl: minor changes so it works with new config system. it now uses
+	strings for access rules, not constants
+
+2003-05-01  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: added phpss_init()
+
+	* core: cleaned up the phpss/func/ file layout
+
+	* core: renamed phpss_authhandler_login() to phpss_authenticate()
+
+	* core: refined the new configuration system
+
+2003-04-30  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: added crude version of the new configuration system
+
+2003-04-29  Erik Grinaker <erikg@wired-networks.net>
+
+	* authhandler/database: more secure against sql poisoning
+
+	* authhandler/database: fixed a bug which made plaintext passwords
+	case-insensitive in mysql
+
+	* authhandler/*: usernames are now case-insensitive
+
+2003-04-14  Erik Grinaker <erikg@wired-networks.net>
+
+	* core: added phpss_module_load(), and used it wherever applicable
+
+	* ipaccess: added log messages
+
+2003-04-13  Erik Grinaker <erikg@wired-networks.net>
+
+	* ipaccess: added module
+
+2003-04-04  Erik Grinaker <erikg@wired-networks.net>
+
+	* bruteforce: added thresholdtime and locktime to the bruteforce module
+
+	* cachecontrol: updated the module
+
+	* docs: added info on cachecontrol module
+
+	* docs: added missing filename for secret page in example
+
+2003-04-03  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: reformatted code for tab-stop of 8 chars
+
+	* core: added system_init event
+
+	* log: added syslog log module
+
+	* cachecontrol: added module
+	
+	* database: table phpss_account_group now uses a combined primary key
+
+	* docs: emphasise use of database authhandler for most situations
+
+	* docs: the sgml will now render the index as index.html
+
+2003-02-10  Erik Grinaker <erikg@wired-networks.net>
+
+	* global: all alphanumeric array keys are now explicitly strings
+
+	* docs: added this changelog
+

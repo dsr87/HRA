@@ -1,0 +1,699 @@
+<HTML
+><HEAD
+><TITLE
+>Authentication modules</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Modules"
+HREF="modules.html"><LINK
+REL="PREVIOUS"
+TITLE="Modules"
+HREF="modules.html"><LINK
+REL="NEXT"
+TITLE="Log modules"
+HREF="modules.log.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="modules.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. Modules</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="modules.log.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULES.AUTH"
+></A
+>Authentication modules</H1
+><P
+>			Authentication modules takes care of communication with the authentication
+			backend. It authenticates users by checking a supplied username and password,
+			and it also retreives account and group data from the backend.
+		</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>			If you will be using the phpSecureSite database as an authentication
+			source (which in most cases is what you want) then you should use the
+			<A
+HREF="modules.auth.html#MODULES.AUTH.DATABASE"
+><I
+>database</I
+></A
+>
+			module.
+		</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.AUTH.DATABASE"
+></A
+>database</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/auth/database.php</TT
+></P
+><P
+>				The most commonly used authentication module. It uses the normal
+				phpSecureSite database as an authentication backend, and does lookups
+				over the normal database link.
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.AUTH.LDAP"
+></A
+>ldap</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/auth/ldap.php</TT
+></P
+><P
+>				Perform authentication against an LDAP directory server. Requires
+				LDAP support in php.
+			</P
+><P
+>				The modules uses the posixAccount and posixGroup schemas for
+				authenticating users.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>hostname</TT
+></DT
+><DD
+><P
+>						The address of the LDAP server, either a DNS name or an
+						IP address.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>port</TT
+></DT
+><DD
+><P
+>						The port number of the LDAP server.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>binddn</TT
+></DT
+><DD
+><P
+>						The DN to bind to the server as
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>bindpw</TT
+></DT
+><DD
+><P
+>						The password to use when binding
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>basedn</TT
+></DT
+><DD
+><P
+>						The base DN to search under.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.AUTH.MYSQL"
+></A
+>mysql</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/auth/mysql.php</TT
+></P
+><P
+>				Performs authentication against a separate MySQL database. Mostly meant
+				for use against an already existing account database, such as for email
+				accounts.
+			</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>				If you store accounts in the normal phpSecureSite database, then use the
+				<A
+HREF="modules.auth.html#MODULES.AUTH.DATABASE"
+><I
+>database</I
+></A
+>
+				module instead.
+			</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>hostname</TT
+></DT
+><DD
+><P
+>						Database server address, both IP address and DNS name is accepted.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>port</TT
+></DT
+><DD
+><P
+>						The port number on which the server is listening (MySQL uses port
+						3306 by default).
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>username</TT
+></DT
+><DD
+><P
+>						The username to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>password</TT
+></DT
+><DD
+><P
+>						The password to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>database</TT
+></DT
+><DD
+><P
+>							The database to use.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_auth</TT
+></DT
+><DD
+><P
+>						Query used for authenticating users. <TT
+CLASS="LITERAL"
+>%u</TT
+> will be
+						replaced with the username, and <TT
+CLASS="LITERAL"
+>%p</TT
+> with the password.
+						It must return three fields; account id, username and password.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_accountdata</TT
+></DT
+><DD
+><P
+>						Query for fetching accountdata. <TT
+CLASS="LITERAL"
+>%i</TT
+> will be replaced
+						with the account id. If must return three fields; id, username and password.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_accountid</TT
+></DT
+><DD
+><P
+>						Query for looking up an account id based in a username. <TT
+CLASS="LITERAL"
+>%u</TT
+>
+						will be replaced with the username. It must return one field containing
+						the account id.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_accountgroupd</TT
+></DT
+><DD
+><P
+>						Query for looking up the groups an account is a member of. If you
+						do not have any groups you can just set the query empty. <TT
+CLASS="LITERAL"
+>%i</TT
+>
+						will be replaced with the account id. It must return the group ids one
+						per row, in the first column.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_groupdata</TT
+></DT
+><DD
+><P
+>						Query for fetching group data. If you have no groups you can set this
+						empty. <TT
+CLASS="LITERAL"
+>%i</TT
+> will be replaced with the group id. It must
+						return two fields; id and groupname.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_groupid</TT
+></DT
+><DD
+><P
+>						Query for looking up a group id from a group name. If you have
+						no groups you can set this empty. <TT
+CLASS="LITERAL"
+>%g</TT
+> will be
+						replaced with the group name. It must return the group id as
+						the first field.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.AUTH.PGSQL"
+></A
+>pgsql (PostgreSQL)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/auth/pgsql.php</TT
+></P
+><P
+>				Performs authentication against a separate PostgreSQL database. Mostly meant
+				for use against an already existing account database, such as for email
+				accounts.
+			</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>				If you store accounts in the normal phpSecureSite database, then use the
+				<A
+HREF="modules.auth.html#MODULES.AUTH.DATABASE"
+><I
+>database</I
+></A
+>
+				module instead.
+			</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>hostname</TT
+></DT
+><DD
+><P
+>						Database server address, both IP address and DNS name is accepted.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>port</TT
+></DT
+><DD
+><P
+>						The port number on which the server is listening (PostgreSQL uses port
+						5432 by default).
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>username</TT
+></DT
+><DD
+><P
+>						The username to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>password</TT
+></DT
+><DD
+><P
+>						The password to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>database</TT
+></DT
+><DD
+><P
+>							The database to use.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_auth</TT
+></DT
+><DD
+><P
+>						Query used for authenticating users. <TT
+CLASS="LITERAL"
+>%u</TT
+> will be
+						replaced with the username, and <TT
+CLASS="LITERAL"
+>%p</TT
+> with the password.
+						It must return three fields; account id, username and password.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_accountdata</TT
+></DT
+><DD
+><P
+>						Query for fetching accountdata. <TT
+CLASS="LITERAL"
+>%i</TT
+> will be replaced
+						with the account id. If must return three fields; id, username and password.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_accountid</TT
+></DT
+><DD
+><P
+>						Query for looking up an account id based in a username. <TT
+CLASS="LITERAL"
+>%u</TT
+>
+						will be replaced with the username. It must return one field containing
+						the account id.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_accountgroupd</TT
+></DT
+><DD
+><P
+>						Query for looking up the groups an account is a member of. If you
+						do not have any groups you can just set the query empty. <TT
+CLASS="LITERAL"
+>%i</TT
+>
+						will be replaced with the account id. It must return the group ids one
+						per row, in the first column.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_groupdata</TT
+></DT
+><DD
+><P
+>						Query for fetching group data. If you have no groups you can set this
+						empty. <TT
+CLASS="LITERAL"
+>%i</TT
+> will be replaced with the group id. It must
+						return two fields; id and groupname.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>query_groupid</TT
+></DT
+><DD
+><P
+>						Query for looking up a group id from a group name. If you have
+						no groups you can set this empty. <TT
+CLASS="LITERAL"
+>%g</TT
+> will be
+						replaced with the group name. It must return the group id as
+						the first field.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="modules.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="modules.log.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Modules</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="modules.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Log modules</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

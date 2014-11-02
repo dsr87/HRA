@@ -1,0 +1,1032 @@
+<HTML
+><HEAD
+><TITLE
+>Normal modules</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Modules"
+HREF="modules.html"><LINK
+REL="PREVIOUS"
+TITLE="Log modules"
+HREF="modules.log.html"><LINK
+REL="NEXT"
+TITLE="Tools"
+HREF="tools.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="modules.log.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. Modules</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="tools.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL"
+></A
+>Normal modules</H1
+><P
+>			Normal modules extends phpSecureSite with various kinds of
+			functionality.
+		</P
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL.ACL"
+></A
+>acl (access control lists)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/acl.php</TT
+></P
+><P
+>				This module adds access control lists to phpSecureSite. These are
+				used to define a set of users who are allowed to access a page.
+			</P
+><P
+>				Currently you can only define the acls in the scripts by using
+				functions that are provided by this module. This means that you
+				must set an acl on each and every page you want it. In future versions
+				you should be able to set this in a database, so that you can
+				for example set an acl for all files under a specific directory.
+				In order to make the current solution as easy to use as possible
+				it is recommended that you base your acls on groups, and then add
+				and remove accounts in the groups to control access. You could
+				also set up different files which only contain calls to the
+				acl functions, and then include these files in the respective
+				scripts.
+			</P
+><P
+>				You can set accesses for accounts/groups by using the functions
+				<A
+HREF="ref.html#REF.FUNC.ACL_SET_ACCOUNT_ACCESS"
+><TT
+CLASS="FUNCTION"
+>phpss_acl_set_account_access()</TT
+></A
+>
+				<A
+HREF="ref.html#REF.FUNC.ACL_SET_ACCOUNT_ACCESS"
+><TT
+CLASS="FUNCTION"
+>phpss_acl_set_group_access()</TT
+></A
+>,
+				<A
+HREF="ref.html#REF.FUNC.ACL_SET_ACCOUNT_ACCESS"
+><TT
+CLASS="FUNCTION"
+>phpss_acl_set_policy()</TT
+></A
+>
+				and <A
+HREF="ref.html#REF.FUNC.ACL_SET_ACCOUNT_ACCESS"
+><TT
+CLASS="FUNCTION"
+>phpss_acl_set_preferred()</TT
+></A
+>.
+				More information on these, and other, functions can be found in the
+				<A
+HREF="ref.html#REF.FUNC.ACL"
+>ACL function reference</A
+>.
+			</P
+><P
+>				The acl checking is done in <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.VALIDATE"
+>phpss_validate()</A
+></TT
+>,
+				so the acls must be defined before it is called.
+			</P
+><P
+>				The order in which the ACLs are checked is as follows:
+			</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>					Account access: Has access rules for the account been set explicitly?
+					If so, use this access. If several access rules are set for the account,
+					the last one that was defined is used.
+				</P
+></LI
+><LI
+><P
+>					Group access: Has access rules been set for any of the groups
+					which the account is a member of? If so, the access is used.
+					If access rules are set for several of the accounts groups, and these are conflicting,
+					then the preferred access is used. The preferred access is defined in the acl module config,
+					but can be changed with <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.ACL_SET_PREFERRED"
+>phpss_acl_set_preferred()</A
+></TT
+>.
+				</P
+></LI
+><LI
+><P
+>					Policy: The acl policy will be used. This is defined in the
+					acl config, and can be changed using <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.ACL_SET_POLICY"
+>phpss_acl_set_policy()</A
+></TT
+>.
+					If the policy is set multiple times, the last value will be
+					used.
+				</P
+></LI
+></OL
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>policy</TT
+></DT
+><DD
+><P
+>						Sets the default access policy. This will be used if no
+						matching acl rules are found.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>preferred</TT
+></DT
+><DD
+><P
+>						Sets the default preferred access. This is used
+						when an accounts groups have conflicting access
+						rules.
+					</P
+></DD
+></DL
+></DIV
+><P
+>				This is a simple example of an access control list. We use
+				the <TT
+CLASS="FUNCTION"
+>authwrapper()</TT
+> from earlier
+				examples.
+			</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>require("phpss.php");
+
+phpss_acl_set_policy("deny"); // set default access to deny
+
+phpss_acl_set_group_access(2, "allow"); // allow access for the accounting department
+
+phpss_acl_set_account_access(1, "allow"); // steve from management should have access
+phpss_acl_set_account_access(7, "deny"); // monica in accounting is only a temp, no access
+
+authwrapper();</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL.BRUTEFORCE"
+></A
+>bruteforce (bruteforce attack protection)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/bruteforce.php</TT
+></P
+><P
+>				This module provides protection against brute force account/password
+				guessing attacks. Brute force attacks are attacks where a cracker
+				will typically use a dictionary, list of words, or just try all
+				possible combinations of letters and numbers in order to gain
+				access to an account. These attacks are often automated, and
+				the guessing rate can be several hundred attempts per second.
+			</P
+><P
+>				This module separates brute force attacks into two groups;
+				account based and source ip-address based. Both can be
+				enabled or disabled independently, and they have their own
+				configuration options.
+			</P
+><P
+></P
+><UL
+><LI
+><P
+>					Source IP based protection records every failed login attempt
+					together with the IP address the login attempt came from.
+					When too many failed login attempts have been recorded, the
+					IP address will be denied further login attempts.
+				</P
+></LI
+><LI
+><P
+>					Account based protection will record all failed login attempts
+					where a correct username was given, but the password was wrong.
+					When too many failed login attempts have been recorded,
+					the account will be denied further login attempts.
+				</P
+></LI
+></UL
+><P
+>				Of course, if both account and ip based protection is enabled,
+				a failed login attempt to an existing account will be recorded
+				both as a source IP fail and as an account fail.
+				Whenever a user successfully logs in, all fail records, both
+				for the account and for the IP address, will be removed. In other
+				words; the counters will be reset to zero.
+			</P
+><P
+>				Usually you should really enable both of these, using only one
+				or the other have their obvious flaws. When only ip based
+				protection is enabled, a user with a valid account on your
+				system would be able to first guess an account/password
+				combination, then log in using his own account to reset
+				his IPs fail counter, then try another combination. Using only
+				account based protection would allow any attacker to
+				run an attack where he tries all combinations of user names
+				using only one password (it is frightening how many users
+				have silly passwords such as the old classic "password",
+				or just a blank password).
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration settings</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>account_enable</TT
+>, <TT
+CLASS="VARNAME"
+>ip_enable</TT
+></DT
+><DD
+><P
+>						When true, this will activate account or ip based
+						protection.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>account_threshold</TT
+>, <TT
+CLASS="VARNAME"
+>ip_threshold</TT
+></DT
+><DD
+><P
+>						This value sets the number of failed logins that
+						are allowed before the account or IP address is locked.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>account_thresholdtime</TT
+>, <TT
+CLASS="VARNAME"
+>ip_thresholdtime</TT
+></DT
+><DD
+><P
+>						This sets the time period (in seconds) in which the
+						threshold must be exceeded. If, for example, your threshold
+						is 5 and the thresholdperiod is 60, it means that a lock
+						is set only if there are 5 failed logins within
+						60 seconds. Set to 0 to disable.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>account_locktime</TT
+>, <TT
+CLASS="VARNAME"
+>ip_locktime</TT
+></DT
+><DD
+><P
+>						This sets how long (in seconds) a lock will be in place,
+						before it is removed. When set to 0 the lock will never
+						be removed.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL.CACHECONTROL"
+></A
+>cachecontrol (control cache policies using http headers)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/cachecontrol.php</TT
+></P
+><P
+>				Caching is widely used by both web proxies and browsers to store
+				copies of received web-pages, so they won't have to be re-sent
+				over the network during a later request. This is done both in order
+				to reduce download times for the client, and to spare the server for
+				any extra work. However, when writing dynamic web applications, it
+				may not always be desirable to have web-pages cached, both because
+				old, outdates copies of the web-pages may be displayed to the user,
+				but also because shared caches (such as web proxies) may send private
+				information for one user, to other clients using the same cache.
+			</P
+><P
+>				This module lets you define caching policies. HTTP headers are
+				generated based on the policy you choose, and all browsers and
+				proxies should (unfortunately, some don't) treat the web-pages
+				according to these headers.
+			</P
+><P
+>				The policies you can set are the following:
+			</P
+><P
+>				<P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>nocache</TT
+></DT
+><DD
+><P
+>								Forces the server to retransmit the web-page with every request.
+								This will ensure that users always have an updated version of the
+								web-page, Note that this will have a very negative impact
+								on network traffic and server load.
+							</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>								Both browsers and caches have algorithms for determining
+								if a cached copy should be used or not, so don't be too afraid to
+								use "private" or "public" caching.
+							</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>private</TT
+></DT
+><DD
+><P
+>							This will allow private caches, such as your browser's cache,
+							to store copies of the web-page, but instruct public ones,
+							like web proxies, not to.
+						</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>public</TT
+></DT
+><DD
+><P
+>							The web-page may be cached by both private and public caches
+							(browsers, web proxies and so on).
+						</P
+></DD
+></DL
+></DIV
+>
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration settings</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>policy</TT
+></DT
+><DD
+><P
+>						Sets the caching policy. Valid values are <TT
+CLASS="VARNAME"
+>nocache</TT
+>,
+						<TT
+CLASS="VARNAME"
+>private</TT
+> and <TT
+CLASS="VARNAME"
+>public</TT
+>.
+						See above for information on each.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>revalidate</TT
+></DT
+><DD
+><P
+>						If set to true, the cached copy will always be revalidated against
+						the current copy on the server (bot not necessarily be transferred
+						if already up-to-date). Recommended turned on.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL.HIJACK"
+></A
+>hijack (session hijacking countermeasures)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/hijack.php</TT
+></P
+><P
+>				Session hijacking is a very simple and effective way to gain access
+				to an account, especially if the http traffic is going unencrypted
+				over the network. When a user logs in, phpSecureSite sets a cookie
+				in the client browser. A cookie is a small piece of data which
+				is sent to the server every time the client makes a page request.
+				This cookie contains a 32-byte string which uniquely identifies
+				the user, and this is what lets phpSecureSite see which requests
+				come from Bob, and which come from Mary. If a cracker is able to
+				get hold of this string, he can easily create a copy of the
+				ID cookie in his own browser. Whenever he then makes a request
+				to your application it will think the cracker is the valid user (because
+				the cookie has the exact same id string).
+			</P
+><P
+>				When phpSecureSite creates a session (logs a user in) it also records
+				which IP address the user logged in from. This module checks if
+				the IP address from which a request is sent is the same as the
+				address the user logged in from. If it is different, access will
+				be denied. Please note that there are legitimate reasons for why a client's
+				IP address would change; round-robin web proxy systems, dynamic IP
+				addresses (dhcp) and other things.
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL.IPACCESS"
+></A
+>ipaccess (client ip access control)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/ipaccess.php</TT
+></P
+><P
+>				This module lets you control access based on the IP address of the client.
+				You can set global access rules (which apply to everyone), per-account access
+				rules (which apply to specific accounts only) and per-group access rules (which
+				apply to specific groups only). Global rules are placed in the <TT
+CLASS="LITERAL"
+>phpss_ipaccess</TT
+>
+				database table, account rules in <TT
+CLASS="LITERAL"
+>phpss_ipaccess_account</TT
+>,
+				and group rules in <TT
+CLASS="LITERAL"
+>phpss_ipaccess_group</TT
+>. Access rules apply
+				to every page in the application. It is currently not possible to use IP-based access
+				on a per-page basis.
+			</P
+><P
+>				Access rules are checked in the order below, until a matching rules is found.
+			</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>					Account rules are checked first.
+				</P
+></LI
+><LI
+><P
+>					Group rules are checked next. If an account is member of several groups, and
+					these have conflicting rules, the preferred access will be used (see configuration
+					option below).
+				</P
+></LI
+><LI
+><P
+>					Global rules are checked last.
+				</P
+></LI
+></OL
+><P
+>				If no matching rules are found, then the access policy will be used (see config option below).
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration settings</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>policy</TT
+></DT
+><DD
+><P
+>						This defines the access policy, or default access. If no
+						matching rules can be found, this is used as a fallback.
+						Valid values are <TT
+CLASS="LITERAL"
+>allow</TT
+> and
+						<TT
+CLASS="LITERAL"
+>deny</TT
+>.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>preferred</TT
+></DT
+><DD
+><P
+>						Here you set the preferred access to be used when conflicting
+						group access rules are set (when an account is a member of several
+						groups, and these have different access rules). Valid values are
+						<TT
+CLASS="LITERAL"
+>allow</TT
+> and <TT
+CLASS="LITERAL"
+>deny</TT
+>.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL.LOGINFAILDELAY"
+></A
+>loginfaildelay (delays failed login attempts)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/loginfaildelay.php</TT
+></P
+><P
+>				This module sets a delay before login denied messages are sent. This can be
+				used to slow down attackers who are guessing usernames/passwords or
+				running bruteforce attacks. It will not affect successful login attempts.
+				Also see the <A
+HREF="modules.normal.html#MODULES.NORMAL.BRUTEFORCE"
+><I
+>bruteforce (bruteforce attack protection)</I
+></A
+>
+				module.
+			</P
+><P
+>				This is an extremely simple module, and a great example if you want
+				to have a look at how the module system works.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration settings</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>delay</TT
+></DT
+><DD
+><P
+>						The number of seconds to delay the login failed
+						messages.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL.SVARS"
+></A
+>svars (session variables)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/svars.php</TT
+></P
+><P
+>				One of the most useful services a session handling system should
+				provide are session variables. Usually, in web development,
+				when you set a variable that variable will only be valid
+				for that script or request. You can not pass a variable between
+				different scripts without using POST or GET variables, which
+				quickly gets messy and are also easily changed by the client.
+				Session variables will let you store a variable in the session
+				system, and then retrieve that variable in another script (page
+				request). Session variables are also bound to the session
+				they were created for, and are perfect for storing for example
+				shopping cart contents.
+			</P
+><P
+>				In order to store a session variable you use the <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.SVARS_SET"
+>phpss_svars_set()</A
+></TT
+>
+				function, and you retrieve it using <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.SVARS_GET"
+>phpss_svars_get()</A
+></TT
+>.
+				For example, to store a variable named <TT
+CLASS="VARNAME"
+>myvar</TT
+> as the
+				session variable <TT
+CLASS="VARNAME"
+>sessionvar</TT
+>, you would run the
+				call as <TT
+CLASS="FUNCTION"
+>phpss_svars_set("sessionvar", $myvar)</TT
+>.
+				In order to retrieve it in another page you would run
+				<TT
+CLASS="FUNCTION"
+>phpss_svars_get("sessionvar")</TT
+>.
+			</P
+><P
+>				The svars module supports all datatypes that PHP supports, except
+				resource types. This includes strings, integers and arrays.
+			</P
+><P
+>				When <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.VALIDATE"
+>phpss_validate()</A
+></TT
+>
+				is called, the svars module automatically fetches all session variables
+				for the current session and makes them available through the <TT
+CLASS="VARNAME"
+>$phpss_svars</TT
+>
+				array. This can be disabled by setting the <TT
+CLASS="VARNAME"
+>autoset</TT
+>
+				config option to false.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration settings</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>autoset</TT
+></DT
+><DD
+><P
+>						When this is set to true, phpSecureSite will automatically
+						make all session variables available through the <TT
+CLASS="VARNAME"
+>$phpss_svars</TT
+> array
+						when <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.VALIDATE"
+>phpss_validate()</A
+></TT
+> is called.
+						New session variables will also be added/updated in this array when
+						<TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.SVARS_SET"
+>phpss_svars_set()</A
+></TT
+>
+						is called.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL.TIMEOUT"
+></A
+>timeout (session timeouts)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/timeout.php</TT
+></P
+><P
+>				This module provides session timeout checks. This means that after
+				a client has been inactive (ie no page request has been received
+				from the client) for a given period of time, the session will
+				be made invalid. This is useful for example if a user logs in from a
+				public computer at a library and forgets to log out. The next person
+				who uses the computer (assuming the predefined timeout period has
+				passed) will then be unable to take over the session.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration settings</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>timeout</TT
+></DT
+><DD
+><P
+>						The maximum period of inactivity (in minutes) before the
+						session will be disabled.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.NORMAL.USERTRACK"
+></A
+>usertrack (page request tracking)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/usertrack.php</TT
+></P
+><P
+>				The usertrack module is used for recording user activity on a site.
+				Whenever <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.VALIDATE"
+>phpss_validate()</A
+></TT
+> is called on a page,
+				and the user is authorized to access it, that page request is recorded
+				in the database. This can be very handy for generating statistics or doing
+				other analysis of user activity.
+			</P
+><P
+>				The module records the session id, timestamp and URL for the request.
+				The session id can be used to look up additional information about the
+				session, such as the account which owns it. The request data is stored in
+				the database table <TT
+CLASS="VARNAME"
+>phpss_usertrack_req</TT
+>, while the table
+				<TT
+CLASS="VARNAME"
+>phpss_usertrack_url</TT
+> contains URLs that have been requested.
+			</P
+><P
+>				Please note that phpSecureSite does not perform any analysis of the
+				data at all, it is up to third-party developers (such as yourself)
+				to develop software for analyzing the data.
+			</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="modules.log.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="tools.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Log modules</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="modules.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Tools</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

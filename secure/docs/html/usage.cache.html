@@ -1,0 +1,186 @@
+<HTML
+><HEAD
+><TITLE
+>The cache system</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usage"
+HREF="usage.html"><LINK
+REL="PREVIOUS"
+TITLE="Accessing the database"
+HREF="usage.database.html"><LINK
+REL="NEXT"
+TITLE="Using additional account data"
+HREF="usage.accountdata.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="usage.database.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Usage</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="usage.accountdata.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="USAGE.CACHE"
+></A
+>The cache system</H1
+><P
+>			phpSecureSite uses a cache system to temporarily store data fetched from databases.
+			This way, when a subsequent request for the data comes, it can be retreived
+			from the cache (in memory) rather than from the database. The system can
+			be enabled or disabled in the <A
+HREF="config.options.html#CONFIG.OPTIONS.CORE.CACHE"
+>config</A
+>.
+		</P
+><P
+>			Usually developers won't notice the cache system, but if they decide
+			to directly update data in the phpSecureSite database then they should
+			empty the related cache so that the updated information will be used
+			in future requests.
+		</P
+><P
+>			Emptying the cache is done by a call to <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.CACHE_CLEAR"
+>phpss_cache_clear()</A
+></TT
+>,
+			and pass a cache identifier. A list of identifiers is available in the
+			<A
+HREF="ref.const.html#REF.CONST.CACHE"
+><I
+>Cache stores</I
+></A
+>
+			reference. For example, to clear the account data cache in the core system
+			you would run this command:
+		</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>phpss_cache_clear("phpss", PHPSS_CACHE_ACCOUNTDATA, PHPSS_MODULE_CORE);</PRE
+></TD
+></TR
+></TABLE
+>
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="usage.database.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="usage.accountdata.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Accessing the database</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="usage.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using additional account data</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

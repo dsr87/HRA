@@ -1,0 +1,186 @@
+<HTML
+><HEAD
+><TITLE
+>Using a different config file</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Configuration"
+HREF="config.html"><LINK
+REL="PREVIOUS"
+TITLE="Configuration options"
+HREF="config.options.html"><LINK
+REL="NEXT"
+TITLE="Usage"
+HREF="usage.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="config.options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. Configuration</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="usage.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="CONFIG.FILE"
+></A
+>Using a different config file</H1
+><P
+>			You may want to load a different config file than the default
+			one, <TT
+CLASS="FILENAME"
+>config/phpss.php</TT
+>. To do this, you can
+			set the <A
+HREF="ref.const.html#REF.CONST.CONFIGFILE"
+>PHPSS_CONFIGFILE</A
+>
+			constant to contain the full path to the file phpSecureSite
+			should load its configuration from. This constant must be set
+			before you load phpSecureSite, like this:
+		</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>// set config file to use
+define("PHPSS_CONFIGFILE", "/etc/phpss.conf");
+
+// load phpSecureSite
+require("phpss/phpss.php");</PRE
+></TD
+></TR
+></TABLE
+>
+		</P
+><P
+>			A configuration file is a normal php script, which is included
+			like any other php file. This means that if you, for example,
+			need to load options from several config files, you can use
+			<TT
+CLASS="FUNCTION"
+>require()</TT
+> in you main config file to fetch
+			data from other files.
+		</P
+><P
+>			Specifying which configuration file to use can be useful, for
+			example, if you use the same phpSecureSite installation for
+			multiple web-sites.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="config.options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="usage.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Configuration options</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="config.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Usage</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

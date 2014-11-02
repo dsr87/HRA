@@ -1,0 +1,2170 @@
+<HTML
+><HEAD
+><TITLE
+>Reference</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Logging and error reporting"
+HREF="moduledev.logging.html"><LINK
+REL="NEXT"
+TITLE="Constants"
+HREF="ref.const.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="moduledev.logging.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.const.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="REF"
+></A
+>Chapter 9. Reference</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC"
+>Functions</A
+></DT
+><DT
+><A
+HREF="ref.const.html"
+>Constants</A
+></DT
+><DT
+><A
+HREF="ref.events.html"
+>Events</A
+></DT
+><DT
+><A
+HREF="ref.handlers.html"
+>Handlers</A
+></DT
+><DT
+><A
+HREF="ref.database.html"
+>Database structure</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="REF.FUNC"
+></A
+>Functions</H1
+><P
+>			This is a list of functions provided by phpSecureSite or the modules
+			distributed with it. Note that the list only includes functions which
+			are meant to be used by application developers or module developers,
+			functions used internally by phpSecureSite are not listed.
+		</P
+><P
+>			All functions whose names are prefixed with &amp; can return a reference
+			to the data, as well as a copy of it. See the php docs for more info on
+			references.
+		</P
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.AUTH"
+></A
+>Authentication and account/group data</H2
+><P
+><TT
+CLASS="FILENAME"
+>phpss/func/auth.php</TT
+></P
+><P
+>				Functions for user authentication and account/group data retreival. All
+				usernames, group names and passwords are case-sensitive.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.AUTHENTICATE"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1357"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>int phpss_authenticate</CODE
+>(								str username,
+								str password
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Authenticates a user - returns a positive account id on success, or
+						<TT
+CLASS="LITERAL"
+>false</TT
+> if the provided username/password is wrong
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.ENCRYPT_PASSWORD"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1369"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_encrypt_password</CODE
+>(								str password[,
+								str algorithm]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Encrypts the password for comparison with password stored in the
+						authentication backend. Valid algorithms can be found in the
+						<A
+HREF="config.options.html#CONFIG.OPTIONS.AUTH"
+>authentication config description</A
+>,
+						if algorithm is not defined the configured one will be used.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.GET_ACCOUNT_DATA"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1381"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>arr phpss_get_account_data</CODE
+>(								int accountid
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the id, username and password of an account as an array,
+						or <TT
+CLASS="LITERAL"
+>false</TT
+> if the account doesn't exist
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.GET_ACCOUNT_GROUPS"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1392"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>arr phpss_get_account_groups</CODE
+>(								int accountid
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns an array with ids of groups that an account is a member of.
+						If the account doesn't exist, an empty array will be returned.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.GET_ACCOUNT_ID"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1402"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>int phpss_get_account_id</CODE
+>(								str username
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the account id of a username, or <TT
+CLASS="LITERAL"
+>false</TT
+> if
+						the username doesn't exist.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.GET_GROUP_DATA"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1413"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>arr phpss_get_group_data</CODE
+>(								int groupid
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the id and name of a group, or false if the group doesn't
+						exist
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.GET_GROUP_ID"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1423"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>int phpss_get_group_id</CODE
+>(								str groupname
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the id of a group based on the group name, or
+						<TT
+CLASS="LITERAL"
+>false</TT
+> if the group doesn't exist
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.DB"
+></A
+>Database</H2
+><P
+><TT
+CLASS="FILENAME"
+>phpss/func/database.php</TT
+></P
+><P
+>				Database-related functions, these are mainly wrappers for the
+				database handlers.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.DB_ESCAPE_STRING"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1440"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_db_escape_string</CODE
+>(								str string
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the string with quotes and special chars escaped, so it is
+						safe to place in a database query
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.DB_QUERY"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1450"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>arr phpss_db_query</CODE
+>(								str query
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Executes a database query. The result set is returned as a matrix
+						(a two-dimensional array), with a numeric row index as the first element,
+						and a numeric column index as the second. If the query fails to execute,
+						phpSecureSite will exit with an error
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.CACHE"
+></A
+>Cache</H2
+><P
+><TT
+CLASS="FILENAME"
+>phpss/func/cache.php</TT
+></P
+><P
+>				Functions for using data caches. These are useful for temporarily
+				storing data when looked up in a database, in order to avoid
+				subsequent requests for the data resulting in another database lookup.
+			</P
+><P
+>				All functions take a module name and type, so each module has its own
+				cache store. In addition, you need to pass a cache name, so that you can
+				have separate caches for different types of data.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.CACHE_CLEAR"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1467"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_cache_clear</CODE
+>(								str module,
+								str cachename[,
+								str moduletype ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Empties a cache. Useful when you need to be sure the data you fetch
+						is fresh from the database.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.CACHE_DELETE"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1479"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_cache_delete</CODE
+>(								str module,
+								str cachename
+								mixed key[,
+								str moduletype ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Removes an entry from the cache.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.CACHE_ENABLED"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1492"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>bool phpss_cache_enabled</CODE
+>(							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Checks if the cache system is enabled or not, mostly for internal use.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.CACHE_EXISTS"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1501"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>bool phpss_cache_exists</CODE
+>(								str module,
+								str cachename
+								mixed key[,
+								str moduletype ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Checks if an entry exists in the database.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.CACHE_GET"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1514"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>mixed phpss_cache_get</CODE
+>(								str module,
+								str cachename
+								mixed key[,
+								str moduletype ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Fetches an entry from a cache.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.CACHE_GET_STRUCT"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1527"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>arr &#38;phpss_cache_get_struct</CODE
+>(								str module[, 
+								str moduletype ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Fetches the complete cache structure for a module, mostly for internal use.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.CACHE_SEARCH"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1538"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>mixed phpss_cache_search</CODE
+>(								str module,
+								str cachename,
+								mixed value[,
+								str moduletype ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Searches a cache for a value, and returns the corresponding key. Only works
+						for scalar (ie numerical / string) values.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.CACHE_SET"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1551"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_cache_set</CODE
+>(								str module,
+								str cachename,
+								mixed key,
+								mixed value[,
+								str moduletype ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Stores a value in the cache, may be any data type.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.EVENT"
+></A
+>Event</H2
+><P
+><TT
+CLASS="FILENAME"
+>phpss/func/event.php</TT
+></P
+><P
+>				Event-related functions. Handler functions are also described here,
+				although they are not strictly part of the event system they are
+				somewhat related.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.EVENT_REGISTER_HOOK"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1571"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_event_register_hook</CODE
+>(								str event,
+								str hook
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>							Registers an event hook, the hook parameter is the name of the
+							hook function. Hooks will be called in the registered order when
+							the event is emitted.
+						</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.GET_HANDLER"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1582"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str &#38;phpss_get_handler</CODE
+>(								str handlertype
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the name of the function which is registered as a handler
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.REGISTER_HANDLER"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1592"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_register handler</CODE
+>(								str handlertype,
+								str function
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Registers a handler function
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.LOGGING"
+></A
+>Logging</H2
+><P
+><TT
+CLASS="FILENAME"
+>phpss/func/log.php</TT
+></P
+><P
+>				Functions that are part of, or relevant to, the log system.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.ERROR"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1609"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_error</CODE
+>(								str module,
+								str error[,
+								str info[,
+								str type]]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Prints an error message and exits. Info is any extra info which may help in
+						solving the problem, and type is the type of module (defaults to a normal
+						module)
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.LOG"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1622"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_log</CODE
+>(								str module,
+								int class,
+								str message[,
+								str info[,
+								str type]]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Sends a message to the log subsystem. Class is the message class, info is any
+						extra info and type is the module type
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.LOG_CLASS_NAME"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1636"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_log_class_name</CODE
+>(								int class
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the name of a log class, or false if the class doesn't exist
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.MAIN"
+></A
+>Main control functions</H2
+><P
+><TT
+CLASS="FILENAME"
+>phpss/func/main.php</TT
+></P
+><P
+>				These functions are the main, top-level functions of phpSecureSite.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.LOGIN"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1652"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_login</CODE
+>(								str username,
+								str password
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>							Authenticates a user, and sets up a session if successful.
+							The returned string indicates the action which should be taken.
+							The return values are:
+						</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_login_allow</TT
+></DT
+><DD
+><P
+>									The user successfully logged in.
+								</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_login_authfail</TT
+></DT
+><DD
+><P
+>									The client supplied a wrong username/password combination.
+								</P
+></DD
+><DT
+><TT
+CLASS="CONSTANT"
+>phpss_login_bruteforce_accountlock</TT
+></DT
+><DD
+><P
+>									The account has been locked for logins because of too many
+									failed logins. Requires the
+									<A
+HREF="modules.normal.html#MODULES.NORMAL.BRUTEFORCE"
+><I
+>bruteforce (bruteforce attack protection)</I
+></A
+>
+									module.
+								</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_login_bruteforce_iplock</TT
+></DT
+><DD
+><P
+>									Logins from this IP address have been denied because of too many
+									failed logins. Requires the
+									<A
+HREF="modules.normal.html#MODULES.NORMAL.BRUTEFORCE"
+><I
+>bruteforce (bruteforce attack protection)</I
+></A
+>
+									module.
+								</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_login_ipaccess_deny</TT
+></DT
+><DD
+><P
+>									Logins from the source IP address are denied by the
+									<A
+HREF="modules.normal.html#MODULES.NORMAL.IPACCESS"
+><I
+>ipaccess (client ip access control)</I
+></A
+>
+									module.
+								</P
+></DD
+></DL
+></DIV
+></DD
+><DT
+><A
+NAME="REF.FUNC.LOGOUT"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1692"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_logout</CODE
+>(							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Destroys the current users session.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.VALIDATE"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1701"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_validate</CODE
+>(							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>							Validates the current session. It is the main function of
+							phpSecureSite, and protects the pages in the application from
+							unauthorized users. The return value is a string indicating
+							the action to be taken, possible values are:
+						</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_validate_acl_deny</TT
+></DT
+><DD
+><P
+>									Access is denied by an acl (access control list). Requires the
+									<A
+HREF="modules.normal.html#MODULES.NORMAL.ACL"
+><I
+>acl (access control lists)</I
+></A
+> module.
+								</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_validate_allow</TT
+></DT
+><DD
+><P
+>									The session is successfully validated, and the user is allowed access.
+								</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_validate_hijack_fail</TT
+></DT
+><DD
+><P
+>									The client's IP address has changed since the session was created.
+									May be a session hijack attempt. Requires the <A
+HREF="modules.normal.html#MODULES.NORMAL.HIJACK"
+><I
+>hijack (session hijacking countermeasures)</I
+></A
+>
+									module.
+								</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_validate_ipaccess_deny</TT
+></DT
+><DD
+><P
+>									Access from the source IP address is denied by the
+									<A
+HREF="modules.normal.html#MODULES.NORMAL.IPACCESS"
+><I
+>ipaccess (client ip access control)</I
+></A
+>
+									module.
+								</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_validate_nosession</TT
+></DT
+><DD
+><P
+>									The user either didn't have a session cookie, or the session key
+									was invalid,
+								</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>phpss_validate_timeout_fail</TT
+></DT
+><DD
+><P
+>									The session has timed out (idled for too long), and the user must
+									log in again to gain access. Requires the
+									<A
+HREF="modules.normal.html#MODULES.NORMAL.TIMEOUT"
+><I
+>timeout (session timeouts)</I
+></A
+>
+									module.
+								</P
+></DD
+></DL
+></DIV
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.MISC"
+></A
+>Miscellaneous</H2
+><P
+><TT
+CLASS="FILENAME"
+>phpss/func/misc.php</TT
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.GET_IP"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1750"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_get_ip</CODE
+>(								int id
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Looks up an IP address in the database, based on its database ID.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.GET_IP_ID"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1760"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>int phpss_get_ip_id</CODE
+>(								str ip[,
+								bool autoreg]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the database id of an IP address. <TT
+CLASS="PARAMETER"
+><I
+>ip</I
+></TT
+>
+						is the IP address in dotted-decimal form. If <TT
+CLASS="PARAMETER"
+><I
+>autoreg</I
+></TT
+>
+						is <TT
+CLASS="LITERAL"
+>true</TT
+> (default), the IP address will be registered
+						if it doesn't exist.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.CORE.MOD"
+></A
+>Module</H2
+><P
+><TT
+CLASS="FILENAME"
+>phpss/func/module.php</TT
+></P
+><P
+>				Module-related functions. All <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+> parameters refer
+				to the type of module, and defaults to <A
+HREF="ref.const.html#REF.CONST.MODULE.NORMAL"
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_NORMAL</TT
+></A
+>.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.MODULE_GET_CONFIG"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1783"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>arr &#38;phpss_module_get_config</CODE
+>(								str module[,
+								str type ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Retrieves a modules configuration as an array
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.MODULE_GET_DATA"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1794"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>mixed &#38;phpss_module_get_data</CODE
+>(								str module,
+								str name[,
+								str type]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Retreives a data variable for a module. <TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>
+						is the name of the data variable you want to fetch. If the variable
+						doesn't exist, it will return <TT
+CLASS="LITERAL"
+>false</TT
+>.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.MODULE_REGISTER"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1808"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_module_register</CODE
+>(								str module[,
+								str type]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Registers a module.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.MODULE_SET_CONFIG"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1819"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_module_set_config</CODE
+>(								str module,
+								arr config[,
+								int type ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Stores a configuration for a module. The configuration should be an array
+						of key/value pairs, Any existing config will be overwritten,
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.MODULE_SET_DATA"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1831"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_module_set_data</CODE
+>(								str module,
+								str name,
+								mixed data[,
+								int type ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Stores a data variable for a module.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.MODULE_SET_DEFAULT_CONFIG"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1844"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_module_set_default_config</CODE
+>(								str module,
+								arr config[,
+								int type ]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Sets a default config for a module. Usually called when the module is
+						loaded. It sets options which are not defined in the existing config,
+						but leaves existing ones in place.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.SESSION"
+></A
+>Session</H2
+><P
+>				Session-related functions.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.FETCH_SESSIONKEY"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1860"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_fetch_sessionkey</CODE
+>(							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Retreives the session key from the cookie. Returns false if the cookie
+						doesn't exist.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.GET_SESSION_DATA"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1869"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>arr phpss_get_session_data</CODE
+>(								str sessionkey
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Retreives the id, sessionkey, accountid, ipid, created, lastrequest and active
+						data about a session as an associative array, or <TT
+CLASS="LITERAL"
+>false</TT
+> if
+						the session doesn't exist.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.ACL"
+></A
+>acl module (access control list)</H2
+><P
+>				These functions are provided by the <A
+HREF="modules.normal.html#MODULES.NORMAL.ACL"
+><I
+>acl (access control lists)</I
+></A
+>
+				module. Valid access definitions are <TT
+CLASS="LITERAL"
+>allow</TT
+> and <TT
+CLASS="LITERAL"
+>deny</TT
+>.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.ACL_GET_ACCOUNT_ACCESS"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1887"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_acl_get_account_access</CODE
+>(								int accountid
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the access for an account.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.ACL_GET_GROUP_ACCESS"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1897"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_acl_get_group_access</CODE
+>(								int groupid
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the access for a group.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.ACL_GET_GROUP_ACCESS_MULTIPLE"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1907"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_acl_get_group_access_multiple</CODE
+>(								arr groups
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the access for a set of groups. Will apply the
+						preferred access if the groups have conflicting rules.
+						Expects an array of group ids.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.ACL_GET_POLICY"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1917"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_acl_get_policy</CODE
+>(								void
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the current access policy.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.ACL_GET_PREFERRED"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1927"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>str phpss_acl_get_preferred</CODE
+>(								void
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Returns the preferred access.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.ACL_SET_ACCOUNT_ACCESS"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1937"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_acl_set_account_access</CODE
+>(								int accountid,
+								int access
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Sets an access rule for an account.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.ACL_SET_GROUP_ACCESS"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1948"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_acl_set_group_access</CODE
+>(								int groupid,
+								int access
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Sets an access rule for a group.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.ACL_SET_POLICY"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1959"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_acl_set_policy</CODE
+>(								int access
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Sets the access policy.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.ACL_SET_PREFERRED"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1969"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_acl_set_preferred</CODE
+>(								int access
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Sets the preferred access for users who have conflicting group access
+						rules.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="REF.FUNC.SVARS"
+></A
+>svars module (session variables)</H2
+><P
+>				These functions are provided by the <A
+HREF="modules.normal.html#MODULES.NORMAL.SVARS"
+><I
+>svars (session variables)</I
+></A
+>
+				module.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="REF.FUNC.SVARS_EXISTS"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1984"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>bool phpss_svars_exists</CODE
+>(								str name[,
+								bool ignorecache]
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Checks if a session variable has been registered. <TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>
+						is the name of the variable, and the optional <TT
+CLASS="PARAMETER"
+><I
+>ignorecache</I
+></TT
+>
+						argument which causes the cache to be bypassed. Returns <TT
+CLASS="CONSTANT"
+>true</TT
+>
+						if the variable is set, and <TT
+CLASS="CONSTANT"
+>false</TT
+> if not.
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.SVARS_GET"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN1999"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>mixed phpss_svars_get</CODE
+>(								str name
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>						Retrieves a session variable for the current session. <TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>
+						is the name of the session variable. If the variable does not
+						exist it will return blank ("").
+					</P
+></DD
+><DT
+><A
+NAME="REF.FUNC.SVARS_SET"
+></A
+><DIV
+CLASS="FUNCSYNOPSIS"
+><A
+NAME="AEN2010"
+></A
+><P
+></P
+><P
+><CODE
+><CODE
+CLASS="FUNCDEF"
+>void phpss_svars_set</CODE
+>(								str name,
+								mixed data
+							);</CODE
+></P
+><P
+></P
+></DIV
+></DT
+><DD
+><P
+>							Defines a session variable for the current session.
+							<TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+> is the name of the session variable
+							to create, and <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> is the value.
+							<TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> can be of any datatype supported
+							by PHP except resource types. If a session variable with the
+							same name already exists it will be overwritten.
+						</P
+><P
+>							If the config option <TT
+CLASS="VARNAME"
+>autoset</TT
+> is enabled,
+							the session variable will automatically be set in the
+							<TT
+CLASS="VARNAME"
+>$phpss_svars</TT
+> array in the global scope
+							when this function is called.
+						</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="moduledev.logging.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.const.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Logging and error reporting</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Constants</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

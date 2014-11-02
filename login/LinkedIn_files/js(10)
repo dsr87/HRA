@@ -1,0 +1,681 @@
+(function(){if(LI.BalloonCalloutManager!==undefined){return
+}LI.define("BalloonCalloutManager");
+LI.BalloonCalloutManager=(function(){var f=500,p=f,d=100,u="callout-overlay",y="callout-",n='<span class="callout-arrow"></span>',h={},j={zIndex:10,constraintoviewport:true},v=null,A=false,i=null,l=null,m=null,c=false,s={},g=new YAHOO.util.KeyListener(document,{keys:27},{fn:function(){if(i){i.close(null)
+}}});
+var b=function(C,B){h[C]=B
+};
+var x=function(B){delete h[B]
+};
+var q=function(){A=true
+};
+var r=function(){A=false;
+k()
+};
+var w=function(J){var G=J.config,I,D;
+if(m){window.clearTimeout(m);
+m=null;
+i=null;
+YDom.removeClass(l,"shown")
+}if(i){i.close()
+}i=J;
+if(G.relativeToTrigger===true){v.cfg.setProperty("constraintoviewport",false)
+}if(G.zIndex!==null&&G.zIndex!==undefined){v.cfg.setProperty("zIndex",G.zIndex)
+}f=G.persist?d:p;
+YDom.setStyle(l,"width",G.width);
+l.className=[G.type," ",y,G.orientation," ",G.id].join("");
+if(!G.cacheCalloutContent&&G.id){v.setBody(document.getElementById(G.id).innerHTML+n)
+}else{v.setBody(G.content+n)
+}v.render(document.body);
+v.cfg.setProperty("context",[J.el,G.overlayCorner,G.contextCorner]);
+l.dimensions=o(l);
+J.el.dimensions=o(J.el);
+I=G.orientation.split("-");
+D=s[I[0]](J.el,l,I);
+D.dx+=G.offsetX;
+D.dy+=G.offsetY;
+YDom.setXY(l,[l.dimensions.x+D.dx,l.dimensions.y+D.dy]);
+if(YAHOO.env.ua.ie===6){v.moveTo([l.dimensions.x+D.dx,l.dimensions.y+D.dy])
+}YDom.addClass(l,"shown");
+if(G.eventsOnInternalElements){var C=G.eventsOnInternalElements;
+if(C.elementClass&&C.elementClass!==""){var F=YDom.getElementsByClassName(C.elementClass),H=F.length;
+for(var E=0,B;
+E<H;
+E++){B=F[E];
+YEvent.purgeElement(B,false,C.elementEvent);
+YEvent.on(B,C.elementEvent,J[C.elementAction],J,true)
+}}c=true
+}if(G.persist){g.enable()
+}};
+s={top:function(H,C,B,E){var I=H.dimensions||o(H),G=C.dimensions||o(C),D,F;
+E=E||{};
+if(B[0]==="top"){E.dx=I.x+0.5*I.width-(G.x+0.5*G.width);
+E.dy=I.y+I.height-G.y;
+if(B[1]){this[B[1]](H,C,B,E)
+}}else{D=Y$(".callout-arrow",C,true);
+F=o(D);
+F.height=F.height||0;
+E.dy+=(0.5*G.height-0.5*F.height)
+}return E
+},right:function(H,C,B,E){var I=H.dimensions||o(H),G=C.dimensions||o(C),D,F;
+E=E||{};
+if(B[0]==="right"){E.dx=I.x-(G.x+G.width);
+E.dy=I.y+0.5*I.height-(G.y+0.5*G.height);
+if(B[1]){this[B[1]](H,C,B,E)
+}}else{D=Y$(".callout-arrow",C,true);
+F=o(D);
+F.width=F.width||0;
+E.dx+=(-0.5*G.width+0.5*F.width)
+}return E
+},bottom:function(H,C,B,E){var I=H.dimensions||o(H),G=C.dimensions||o(C),D,F;
+E=E||{};
+if(B[0]==="bottom"){E.dx=I.x+0.5*I.width-(G.x+0.5*G.width);
+E.dy=I.y-(G.y+G.height);
+if(B[1]){this[B[1]](H,C,B,E)
+}}else{D=Y$(".callout-arrow",C,true);
+F=o(D);
+F.height=F.height||0;
+E.dy+=(-0.5*G.height+0.5*F.height)
+}return E
+},left:function(H,C,B,E){var I=H.dimensions||o(H),G=C.dimensions||o(C),D,F;
+E=E||{};
+if(B[0]==="left"){E.dx=I.x+I.width-G.x;
+E.dy=I.y+0.5*I.height-(G.y+0.5*G.height);
+if(B[1]){this[B[1]](H,C,B,E)
+}}else{D=Y$(".callout-arrow",C,true);
+F=o(D);
+F.width=F.width||0;
+E.dx+=(0.5*G.width-0.5*F.width)
+}return E
+}};
+var o=function(D){var C=YDom.getXY(D),F,B,E;
+if(!C||!C.length){return{}
+}F=D.getBoundingClientRect();
+E=parseInt(F.right-F.left,10);
+B=parseInt(F.bottom-F.top,10);
+return{height:B,width:E,x:C[0],y:C[1]}
+};
+var z=function(C){var B=i&&!i.isActive();
+if((!A&&B)||C){v.setBody("");
+i=null;
+YDom.removeClass(l,"shown");
+g.disable()
+}};
+var k=function(){if(!m){m=window.setTimeout(function(){window.clearTimeout(m);
+m=null;
+z(false)
+},LI.BALLOON_CALLOUT_HIDE_DELAY||f)
+}};
+var t=function(){z(true)
+};
+var e=function(){v=new YAHOO.widget.Overlay(u,j);
+v.render(document.body);
+l=YDom.get(u);
+YEvent.on(l,"mouseover",q);
+YEvent.on(l,"mouseout",r);
+if(LI.Events&&typeof LI.Events.trigger==="function"){LI.Events.trigger("LI.BalloonCalloutManager:initialized")
+}};
+var a=function(){return i
+};
+YEvent.onDOMReady(function(){if(YAHOO&&YAHOO.widget&&YAHOO.widget.Overlay){e()
+}else{var B;
+if(!(LI&&LI.UrlPackage&&LI.UrlPackage.containerCore)){throw new Error("The package url for container-core does not exist.")
+}B=LI.UrlPackage.containerCore;
+YAHOO.util.Get.script(B,{onSuccess:e,onFailure:function(){throw new Error("Failed to load dependency: "+B)
+}})
+}});
+return{register:b,destroy:x,overlay:v,show:w,hide:k,showing:a,forceClose:t}
+})()
+})();
+LI.define("BalloonCallout");
+LI.BalloonCallout=function(c,r){var p=LI.BalloonCalloutManager,b=null,f=350,d="hover",a=YDom.get("callout-overlay")||null,m={"left":["tl","tr",5,0],"right":["tr","tl",-5,0],"top":["tl","tl",0,5],"bottom":["bl","tl",0,-5],"top-left":["tl","bl",0,5],"top-right":["tr","br",0,5],"right-top":["tr","tl",-5,0],"right-bottom":["br","bl",-5,0],"bottom-right":["br","tr",0,-5],"bottom-left":["bl","tl",0,-5],"left-bottom":["bl","br",5,0],"left-top":["tl","tr",5,0]},n,k,h,g;
+r=r||{};
+if(c.tagName&&c.tagName.toLowerCase()==="a"&&c.href.indexOf("#")>-1){r.anchor=true;
+r.id=c.href.substring(c.href.indexOf("#")+1)
+}else{r.anchor=false
+}r={anchor:r.anchor,width:r.width||300,id:r.id||"",overlayCorner:r.overlayCorner||null,contextCorner:r.contextCorner||null,orientation:r.orientation||"left-top",content:r.content||null,events:r.events||["mouseover","mouseout"],eventsOnInternalElements:r.eventsOnInternalElements||null,type:r.type||"balloon-callout",offsetX:r.offsetX||0,offsetY:r.offsetY||0,relativeToTrigger:r.relativeToTrigger||false,zIndex:r.zIndex,persist:r.persist||false,delayOpen:r.delayOpen||false,cacheCalloutContent:r.cacheCalloutContent!==undefined?r.cacheCalloutContent:true,toolTipTextAttr:r.toolTipTextAttr||null,openCallback:r.openCallback||null,closeCallback:r.closeCallback||null};
+var o=function(s){YEvent.preventDefault(s);
+if(r.persist){YEvent.stopPropagation(s)
+}};
+var q=function(s){this.persist=true;
+if(YAHOO.util.Dom.hasClass(s.target,"callout-close")){j()
+}};
+var e=function(s){var t=false;
+if(s.button){t=(s.button===2);
+this.persist=t?true:false
+}if(!this.persist){j.call(this,s)
+}else{this.persist=false
+}};
+var i=function(){var t=this;
+this.active=true;
+YDom.addClass(c,d);
+if(g){n=c.title;
+c.title=""
+}function s(){p.show(t);
+t.openEvent.fire();
+if(!a){a=YDom.get("callout-overlay")
+}if(r.persist){YEvent.on(a,"click",q,t,true);
+YEvent.on(document,"click",e,t,true);
+var u=YDom.getElementsByClassName("callout-close",null,a);
+if(u.length>0){u[0].focus()
+}}else{YEvent.removeListener(a,"click",q);
+YEvent.removeListener(document,"click",e)
+}if(r.openCallback&&typeof(r.openCallback)==="function"){r.openCallback(t)
+}}if(r.delayOpen&&!b){b=window.setTimeout(function(){b=null;
+s()
+},f)
+}else{s()
+}};
+var j=function(s){var t=this;
+this.active=false;
+this.persist=false;
+YDom.removeClass(c,d);
+if(g){c.title=n
+}if(r.delayOpen&&b){window.clearTimeout(b);
+b=null
+}if(s){p.hide()
+}else{p.forceClose()
+}if(r.persist){YEvent.removeListener(a,"click",q);
+YEvent.removeListener(document,"click",e);
+if(c){c.focus()
+}}if(r.closeCallback&&typeof(r.closeCallback)==="function"){r.closeCallback(t)
+}};
+var l=function(s){this.active=!this.active;
+if(this.active||this!==p.showing()){i.call(this,s)
+}else{if(!r.persist||(r.events[0]!=="mouseover")){j.call(this,s)
+}else{this.active=true
+}}};
+this.isActive=function(){return this.active
+};
+this.destroy=function(){if(r.anchor){YEvent.removeListener(c,"click",o)
+}if(r.persist){YEvent.removeListener(c,r.events[0],l)
+}else{YEvent.removeListener(c,r.events[0],i);
+YEvent.removeListener(c,r.events[1],j)
+}if(r.eventsOnInternalElements){var w=r.eventsOnInternalElements;
+if(w.elementClass&&w.elementClass!==""){var t=YDom.getElementsByClassName(w.elementClass),v=t.length;
+for(var u=0,s;
+u<v;
+u++){s=t[u];
+YEvent.removeListener(s,w.elementEvent,w.elementAction)
+}}}j();
+p.destroy(c.id)
+};
+this.setContent=function(s){if(!s){s=document.getElementById(r.id).innerHTML
+}r.content=s
+};
+if(!r.content){r.content=document.getElementById(r.id);
+if(!r.content){throw"Could not find info element"
+}else{k=r.content.innerHTML;
+if(r.toolTipTextAttr){n=c.getAttribute(r.toolTipTextAttr);
+k=k.replace("__PLACEHOLDER__",LI.htmlEncode(n))
+}r.content=k
+}}if(r.width!=="auto"){r.width+="px"
+}if(r.anchor){YEvent.on(c,"click",o)
+}if(!r.overlayCorner){r.overlayCorner=m[r.orientation][0]
+}if(!r.contextCorner){r.contextCorner=m[r.orientation][1]
+}r.offsetX+=m[r.orientation][2];
+r.offsetY+=m[r.orientation][3];
+this.openEvent=new YAHOO.util.CustomEvent("open");
+YDom.generateId(c,"callout-trigger-");
+g=(r.toolTipTextAttr==="title");
+this.config=r;
+this.el=c;
+this.active=false;
+this.close=j;
+this.open=i;
+this.toggle=l;
+this.persist=false;
+p.register(c.id,this);
+if(r.persist){YEvent.on(c,r.events[0],l,this,true)
+}else{YEvent.on(c,r.events[0],i,this,true);
+YEvent.on(c,r.events[1],j,this,true)
+}};
+LI.Controls.register("LI.BalloonCallout");
+LI.define("BalloonCalloutDelegator");
+LI.BalloonCalloutDelegator=function(c,a){var b={};
+a=a||{};
+a.dataId=a.dataId?("data"+a.dataId):"data-li-tooltip-id";
+function d(g,e){if(e&&!b[e.id]){a.id=g;
+var f=new LI.BalloonCallout(e,a);
+f.toggle();
+b[e.id]=true
+}}YEvent.on(c,"mouseover",function(e){var f=YEvent.getTarget(e),g=YDom.getAttribute(f,a.dataId);
+if(!g&&YDom.getAttribute(f.parentNode,a.dataId)){f=f.parentNode;
+g=YDom.getAttribute(f,a.dataId)
+}if(g){YDom.generateId(f);
+d(g,f);
+YEvent.stopPropagation(e)
+}})
+};(function(){var c="interrupt success-plus success-timeout task-modal task-modeless task-modeless-secondary no-header noheader-modal";
+var b="POST";
+var a="GET";
+var f={autoSize:"no-header task-modeless success-plus success-timeout",modal:"interrupt task-modal noheader-modal",dragNDrop:"task-modeless task-modeless-secondary success-plus success-timeout",docClick:"success-plus success-timeout",timeout:"success-timeout"};
+var g=null;
+var e={or:LI.i18n.get("Dialog-or"),closeThisWindow:LI.i18n.get("Dialog-closeWindow"),cancel:LI.i18n.get("Dialog-cancel"),submit:LI.i18n.get("Dialog-submit"),start:LI.i18n.get("Dialog-start"),end:LI.i18n.get("Dialog-end")};
+LI.Dialog=function(j,i){var h=g||new d();
+g=h;
+if(j){e=(i.i18n)?i.i18n:e;
+i=i||{};
+i.content=i.content||{};
+i.webtrack=i.webtrack||{};
+i={content:{attentionMsg:i.content.attentionMsg||null,successMsg:i.content.successMsg||null,title:i.content.title||null,node:i.content.node||null,url:i.content.url||null,method:(i.content.method===b)?b:a,postData:i.content.postData||"",useCache:i.content.useCache||false,html:i.content.html||null,submitButton:i.content.submitButton||false,dustData:i.content.dustData||null,dustDataUrl:i.content.dustDataUrl||null,dustTemplate:i.content.dustTemplate||null},dependencies:i.dependencies||null,name:i.name||"config.name=not_set",className:i.className||"",type:(i&&i.type&&c.match(i.type))?i.type:"task-modeless",width:(i&&i.width)?parseInt(i.width,10):500,webtrack:{key:i.webtrack.key||null,val:i.webtrack.val||null},container:(i.container)?i.container:null,extra:(i.extra)?i.extra:null,lazyEvent:(i.lazyEvent)?i.lazyEvent:null,stopEvent:(typeof(i.stopEvent)==="undefined")?true:(!!i.stopEvent),showOnlyWhenReady:i.showOnlyWhenReady||false,childTarget:i.childTarget||null,allowMultipleChildren:i.allowMultipleChildren||false,scrollTopOnOpen:(typeof(i.scrollTopOnOpen)==="undefined")?true:(!!i.scrollTopOnOpen),disableFocusOnClose:(!!i.disableFocusOnClose)?i.disableFocusOnClose:false,noClickListener:i.noClickListener||false,timeout:i.timeout||15000};
+if(i.childTarget){j=Y$(i.childTarget,j,!i.allowMultipleChildren)||j
+}if(!i.noClickListener){YEvent.on(j,"click",g.open,i)
+}if(i.lazyEvent){g.open(i.lazyEvent,i)
+}}return g
+};
+function d(){var O;
+var y;
+var D=null,q=null,H=null;
+var A=parseInt(YDom.getStyle("body","padding-right"),10);
+var w=document.createElement("DIV");
+var I=document.createElement("DIV");
+I.id="dialog-place-holder";
+var p=new YAHOO.util.CustomEvent("close");
+var r=new YAHOO.util.CustomEvent("open");
+var j=new YAHOO.util.CustomEvent("beforeOpen");
+var z=new YAHOO.util.CustomEvent("submit");
+var n=new YAHOO.util.CustomEvent("swap");
+var B=new YAHOO.util.CustomEvent("contentChange");
+var E={};
+function h(){if(O.container){var Q=YDom.getRegion(O.container);
+return Q.width
+}else{return(YDom.getViewportWidth()+30)
+}}function J(Y){var X=(Y&&Y.type==="click"||(Y==="keyPressed"||Y==="timer"||Y==="selfClose")),S=Y$("#dialog-wrapper iframe"),Q=YDom.get("body"),V=(Q)?Q.getElementsByTagName("a")[0]:document.getElementsByTagName("a")[1];
+if(X){if(S.length){LI.hide(S)
+}L();
+var T=YDom.get("dialog-wrapper");
+if(!T){return
+}var R=Y$(".dialog-content",T,true);
+if(R){R.innerHTML=""
+}l();
+YEvent.removeListener(window,"resize",m);
+document.body.removeChild(T);
+YDom.removeClass(document.body,"dialog-mask-active");
+YDom.removeClass(document.body,"dialog-hide-select");
+t.disable();
+YDom.setStyle("body","padding-right",A+"px");
+YDom.setStyle([YDom.get("header"),YDom.get("footer")],"margin-right","auto");
+YDom.setStyle(document.getElementsByTagName("HTML")[0],"overflow","");
+if(q){YEvent.removeListener(document,"click",J);
+q=null
+}if(D){clearTimeout(D);
+D=null
+}if(!O.disableFocusOnClose){if(y&&y.focus){try{y.focus()
+}catch(U){try{V.focus()
+}catch(W){}}}else{if(V){try{V.focus()
+}catch(U){}}}}p.fire(Y.target,H.name,H.extra)
+}YEvent.removeListener(document,"focusin",G);
+return X
+}var t=new YAHOO.util.KeyListener(document,{keys:27},{fn:J});
+function F(R){O=R;
+var T,S,Q="&nbsp";
+if(O.content){if(O.content.title){T=O.content.title
+}else{if(O.content.node){S=Y$(".dialog-title",O.content.node,true);
+if(S){T=S.innerHTML;
+YDom.setStyle(S,"display","none")
+}}}}if(!T){T=Q
+}w.innerHTML=YAHOO.lang.substitute(['<div class="dialog-window" role="document">','<span class="dialog-a11y-hidden">{start}</span>','<div class="dialog-title"><button class="dialog-close"><span class="dialog-a11y-hidden">{closeWindow}</span></button><h3 id="li-dialog-aria-label" class="title">{title}</h3></div>','<div class="dialog-body"></div>','<span class="dialog-a11y-hidden">{end}</span>',"</div>"].join(""),{title:T.replace(/</g,"&lt;").replace(/>/g,"&gt;"),closeWindow:e.closeThisWindow,start:e.start,end:e.end})
+}function k(Q){var R=YEvent.getTarget(Q);
+if(YDom.hasClass(R,"dialog-close")&&!R.disabled){var S=J(Q);
+if(S){YEvent.preventDefault(Q)
+}}else{if(YDom.hasClass(R,"dialog-submit")||(R.tagName==="INPUT"&&R.type&&R.type==="submit")){if(YDom.hasClass(R,"dialog-submit-suppress")){YEvent.preventDefault(Q)
+}z.fire(R,H.name,H.extra)
+}else{if(YDom.hasClass(R,"dialog-mask")&&f.modal.match(H.type)){YEvent.preventDefault(Q);
+J(Q)
+}}}}YEvent.on(w,"click",k);
+function P(Q){var S='<p class="dialog-close">{closeWindow}</p>';
+var R='<input class="btn-primary" type="submit" value="{submit}"> {cancel}';
+return YAHOO.lang.substitute(['<div class="dialog-message">{message}</div>','<div class="dialog-content">{content}</div>','<div class="dialog-actions">',(Q&&Q.content&&Q.content.submitButton)?R:"",(Q&&Q.content&&Q.content.closeMessage)?S:"","</div>"].join(""),{cancel:e.or+' <span class="dialog-cancel dialog-close">'+e.cancel+"</span>",closeWindow:'<span class="dialog-cancel dialog-close">'+e.closeThisWindow+"</span>",message:(Q&&Q.content&&Q.content.msg)?"<p>"+Q.content.msg+"</p>":"",submit:(Q&&Q.content&&Q.content.submitButton!==true)?Q.content.submitButton:e.submit})
+}function C(){YEvent.on(Y$(".dialog-title",w,true),"mousedown",function(Z){if(!YDom.hasClass(YEvent.getTarget(Z),"dialog-close")){T(Z)
+}});
+var X={};
+var W={};
+var Q=0,U=0;
+var V=YDom.get("dialog-wrapper");
+function T(Z){var aa=parseInt(YDom.getStyle(V,"width"),10)||0;
+var ab=parseInt(YDom.getStyle(V,"height"),10)||0;
+YDom.addClass(document.body,"dragging");
+X={x:Z.clientX,y:Z.clientY};
+W.left=W.left||parseInt(YDom.getStyle(V,"left"),10)||0;
+W.top=W.top||parseInt(YDom.getStyle(V,"top"),10)||0;
+Q=YDom.getDocumentWidth()-aa;
+U=YDom.getDocumentHeight()-ab;
+YEvent.on(document,"mouseup",S);
+YEvent.on(document,"mousemove",Y);
+R(true);
+YEvent.stopEvent(Z)
+}function Y(Z){W.left+=Z.clientX-X.x;
+W.top+=Z.clientY-X.y;
+W.left=Math.min(Math.max(W.left,0),Q);
+W.top=Math.min(Math.max(W.top,0),U);
+YDom.setStyle(V,"left",W.left+"px");
+YDom.setStyle(V,"top",W.top+"px");
+X={x:Z.clientX,y:Z.clientY}
+}function S(){YDom.removeClass(document.body,"dragging");
+YEvent.removeListener(document,"mouseup",S);
+YEvent.removeListener(document,"mousemove",Y);
+R(false)
+}function R(Z){if(Z){document.body.ondrag=document.body.onselectstart=function(){return false
+};
+document.body.style.MozUserSelect="none"
+}else{document.body.ondrag=document.body.onselectstart=null;
+document.body.style.MozUserSelect=""
+}}}function v(R){var T=O.content.method,S,Q;
+YAHOO.util.Connect.initHeader("X-IsDialog","1");
+S={success:function(U){if(H.showOnlyWhenReady){YDom.setStyle(w,"visibility","")
+}var V=Y$(".dialog-body",w,true);
+YDom.removeClass(V,"dialog-body-loading");
+if(!U){x();
+return false
+}if(U&&U.responseText){var Y=U.getResponseHeader["Content-Type"];
+if(Y&&Y.indexOf("application/json")>-1){var X=LI.parseJSON(U.responseText);
+u({content:{html:X.html}})
+}else{var W=YAHOO.lang.trim(U.responseText);
+if(W.indexOf("<!DOCTYPE")===0||W.indexOf("<html")===0){x()
+}else{u({content:{html:W}})
+}}}},failure:function(){x()
+},timeout:O.timeout};
+if(T===b){Q=O.content.postData;
+YAHOO.util.Connect.asyncRequest(b,R,S,Q)
+}else{YAHOO.util.Connect.asyncRequest(a,R,S)
+}}function x(){LI.Dialog().close();
+if(!H.showOnlyWhenReady){LI.injectAlert(LI.i18n.get("Dialog-error-generic"),"error")
+}}function o(Q,R){LI.asyncRequest(a,Q,{success:function(S){N(S.responseText,R)
+},custom:{exception:function(S){x(S);
+return false
+}},timeout:O.timeout})
+}function N(R,S){dust.render(S||O.content.dustTemplate,R,function Q(U,T){if(U){x()
+}else{YDom.removeClass(Y$(".dialog-body",w,true),"dialog-body-loading");
+u({content:{html:T,attentionMsg:O.content.attentionMsg,successMsg:O.content.successMsg}})
+}})
+}function m(Q){if(f.modal.match(O.type)){if(YAHOO.env.ua.ie&&YAHOO.env.ua.ie<7){var U=YDom.getClientRegion();
+YDom.setStyle(w,"height",(U.bottom-U.top)+"px")
+}}else{var S=Y$(".dialog-window",w,true),T=YDom.get("dialog-wrapper"),R=parseInt(YDom.getStyle(S,"width"),10);
+YDom.setStyle(T,"left",(h()-R)/2+"px");
+YDom.setStyle(T,"top",YDom.getDocumentScrollTop()+105+"px")
+}}function M(ad,T){var V=(ad===null||typeof ad==="boolean")?"publicAPI":YEvent.getTarget(ad),ac;
+if(YDom.inDocument("dialog-wrapper")&&(V!==y||V==="publicAPI")){J("selfClose")
+}T.className=T.className||"";
+var Y=LI.DialogRetrofitV2Enabled||false;
+if(Y&&(T.className.split(" ").indexOf("dialog-v2")===-1)){T.className+=" dialog-v2-retrofit"
+}H=T;
+var aa=null;
+if(typeof T.i18n==="object"){aa={};
+YAHOO.lang.augmentObject(aa,e);
+YAHOO.lang.augmentObject(e,T.i18n,true)
+}w.className="dialog-mask dialog-"+T.type;
+if(V!==y||V==="publicAPI"){F(T);
+y=V
+}u(T);
+var X=Y$(".dialog-window",w,true);
+YDom.setStyle(X,"width",T.width+"px");
+YDom.setStyle(w,"visibility","hidden");
+var Q=YDom.get("dialog-wrapper")||document.body.appendChild(document.createElement("DIV"));
+Q.id="dialog-wrapper";
+Q.innerHTML="";
+if(T.className!==""){Q.className=T.className
+}YDom.setStyle(Q,"top","");
+YDom.setStyle(Q,"left","");
+Q.appendChild(w);
+LI.Controls.parseFragment(w);
+var R=YDom.getStyle(w,"filter")||null,S=LI.Bidi,ae="left";
+if(S){ae=S.flip("left")
+}if(f.modal.match(T.type)){ac=YAHOO.util.Region.getRegion(X);
+YDom.setStyle(X,"margin-"+ae,(T.width*-0.5)+"px");
+var Z=YAHOO.util.Region.getRegion(Q);
+if(T.scrollTopOnOpen){YDom.setStyle(document.getElementsByTagName("HTML")[0],"overflow","hidden")
+}var U=YAHOO.util.Region.getRegion(Q).right-Z.right;
+var af=U+A;
+YDom.addClass(document.body,"dialog-mask-active");
+if(YAHOO.env.ua.ie&&YAHOO.env.ua.ie<7){var W=YDom.getClientRegion();
+YDom.setStyle(w,"height",(W.bottom-W.top)+"px")
+}}else{ac=YAHOO.util.Region.getRegion(w);
+var ab=parseInt(YDom.getStyle(X,"width"),10);
+YDom.setStyle(Q,ae,(h()-ab)/2+"px");
+YDom.setStyle(Q,"top",YDom.getDocumentScrollTop()+105+"px");
+if(f.autoSize.match(T.type)){YDom.addClass(Q,"auto-size")
+}else{YDom.removeClass(Q,"auto-size")
+}if(f.dragNDrop.match(T.type)){C()
+}}YEvent.on(window,"resize",m);
+j.fire(V,T.name,T.extra);
+if(YDom.getLastChild(document.body)!==Q){document.body.appendChild(document.body.removeChild(Q))
+}if(!H.showOnlyWhenReady){YDom.setStyle(w,"visibility","")
+}t.enable();
+if(f.timeout.match(T.type)){D=setTimeout(function(){J("timer")
+},2000)
+}if(f.docClick.match(T.type)){YEvent.on(document,"click",J);
+q=true
+}if((YAHOO.env.ua.ie===6)&&(T.type==="task-modal"||T.type==="interrupt")){document.location.href="#header"
+}if(ad!==null){if(T.stopEvent){YEvent.stopEvent(ad)
+}else{YEvent.preventDefault(ad)
+}}r.fire(V,T.name,T.extra);
+if(T.webtrack&&T.webtrack.key&&typeof(WebTracking)!=="undefined"){WebTracking.trackUserAction(T.webtrack.key,T.webtrack.val)
+}if(aa){e=aa
+}s();
+if(T.type==="task-modal"){YEvent.addListener(document,"focusin",G)
+}}function G(Q){var R=YEvent.getTarget(Q);
+if(!YDom.isAncestor(w,R)){YEvent.stopEvent(Q);
+w.focus()
+}}function s(){if(!w){return
+}w.setAttribute("aria-labelledby","li-dialog-aria-label");
+w.setAttribute("role","dialog");
+w.tabIndex=-1;
+w.focus()
+}function L(){var Q=YDom.getFirstChild(Y$(".dialog-content",w,true));
+if(!Q){return
+}if(YDom.inDocument(I)){I.parentNode.replaceChild(Q,I)
+}else{if(H.content&&(H.content.url||H.content.dustDataUrl)){E[H.content.url||H.content.dustDataUrl]=Q.parentNode.removeChild(Q)
+}}}function K(R,Q,S){S=S||Y$(".dialog-message",w,true);
+Q=(Q)?Q:"attention";
+S.innerHTML="<p>"+(R)+"</p>";
+YDom.addClass(S,"alert");
+YDom.removeClass(S,"attention");
+YDom.removeClass(S,"success");
+YDom.removeClass(S,"error");
+YDom.addClass(S,Q);
+YDom.setStyle(S,"display","")
+}function l(Q){Q=Q||Y$(".dialog-message",w,true);
+if(Q){Q.innerHTML="";
+LI.hide(Q)
+}}function u(R){var X=(R&&R.content)?R.content:{};
+var Q=Y$(".dialog-body",w,true);
+if(R.dependencies){i(R)
+}else{if((X.url&&(!X.useCache||!E[X.url]))||(X.dustDataUrl&&(!X.useCache||!E[X.dustDataUrl]))){var S=Y$(".dialog-content",w,true);
+if(S){S.innerHTML=""
+}YDom.addClass(Q,"dialog-body-loading");
+if(X.url){v(X.url)
+}else{if(X.dustDataUrl){o(X.dustDataUrl,X.dustTemplate)
+}}}else{if(X.dustData){N(X.dustData,X.dustTemplate)
+}else{if(X.attentionMsg||X.successMsg||X.node||X.html||(X.useCache&&X.url&&E[X.url])||(X.useCache&&X.dustDataUrl&&E[X.dustDataUrl])){var V=function(ad){var af=Y$(".dialog-message",ad,true);
+var ae=Y$(".dialog-content",ad,true);
+var aa=YDom.getNextSibling(ae);
+var ac;
+YDom.setStyle([af,ae,aa],"display","none");
+if(X.attentionMsg||X.successMsg){ae.innerHTML="";
+K((X.attentionMsg||X.successMsg),((X.successMsg)?"success":"attention"),af)
+}if(X.node){var ab=YDom.get(X.node);
+ab.parentNode.replaceChild(I,ab);
+ae.innerHTML="";
+ae.appendChild(ab);
+YDom.setStyle(ae,"display","")
+}else{if(X.html){ae.innerHTML=X.html;
+YDom.setStyle(ae,"display","")
+}else{if(X.useCache&&X.url&&E[X.url]){ae.innerHTML="";
+ae.appendChild(E[X.url]);
+YDom.setStyle(ae,"display","")
+}}}if(R.content&&(R.content.submitButton||R.content.closeMessage)){YDom.setStyle(aa,"display","")
+}LI.Controls.parseFragment(Q);
+ac=Y$("iframe",ae);
+if(ac.length){LI.show(ac)
+}B.fire(H.name,H.extra)
+};
+var Z=P(R);
+var U=YDom.inDocument("dialog-wrapper");
+var T=Q.cloneNode(true);
+var W=Q.parentNode;
+var Y=YDom.getStyle(Q,"height");
+YDom.setStyle(Q,"height",Y);
+L();
+YDom.setStyle(Q,"height","");
+Q.innerHTML=Z;
+V(Q)
+}}}}}function i(V){var X=V.dependencies;
+if(typeof X==="string"){X=LI.Controls.resolveName(X)
+}if(!X){return
+}var Q=(X.jsFiles===undefined),W=(X.cssFiles===undefined),S;
+var U=Y$(".dialog-body",w,true);
+YDom.addClass(U,"dialog-body-loading");
+var T=function(){if(S){return
+}if(Q&&W){S=true;
+YDom.removeClass(U,"dialog-body-loading");
+delete V.dependencies;
+u(V)
+}};
+var R=function(){var Y=['<div class="dialog-container interrupt">','<div class="alert attention"><p><strong>'+LI.i18n.get("Dialog-error-generic")+"</strong></p></div>","</div>"].join(" ");
+u({name:V.name,content:{html:Y,closeMessage:true}})
+};
+if(!Q||!W){if(!Q){YAHOO.util.Get.script(X.jsFiles,{onSuccess:function(){Q=true;
+T()
+},onFailure:function(){R()
+},timeout:1000})
+}if(!W){YAHOO.util.Get.css(X.cssFiles,{onSuccess:function(){W=true;
+T()
+},onFailure:function(){R()
+},timeout:1000})
+}}else{T()
+}}return{contentChangeEvent:B,close:function(){J("selfClose")
+},closeEvent:p,open:function(){var Q,R;
+if(arguments.length===1){Q=null;
+R=arguments[0]
+}else{Q=arguments[0];
+R=arguments[1]
+}M(Q,R)
+},openEvent:r,beforeOpenEvent:j,submitEvent:z,swapEvent:n,swap:function(R){var Q=(H&&H.name)?H.name:"";
+l();
+u(R);
+if(H){n.fire("",Q,H.extra)
+}},injectAlert:K,removeAlert:l,handlesOwnLazyLoading:true}
+}}());
+YAHOO.register("LI.Dialog",LI.Dialog,{});LI.define("FrontierAJAXForm");
+LI.FrontierAJAXForm=function(c,e){e=e||{};
+e.backgroundColor=e.backgoundColor||"#fff";
+e.injectAfter=e.injectAfter||".actions .btn-primary";
+e.enableAJAX=(e.enableAJAX!==false)?true:false;
+e.enableDemo=e.enableDemo||false;
+e.errorId=e.errorId||YDom.generateId();
+e.useGlobalError=e.useGlobalError||false;
+e.injectGlobalError=(e.injectGlobalError!=="undefined"&&e.injectGlobalError===false)?false:true;
+e.injectGlobalErrorOnly=e.injectGlobalErrorOnly||false;
+e.successCallback=e.successCallback||null;
+e.successCallbackScope=e.successCallbackScope||window;
+e.exceptionCallback=e.exceptionCallback||null;
+e.errorCallback=e.errorCallback||null;
+e.failureCallback=e.failureCallback||null;
+e.failureCallbackScope=e.failureCallbackScope||window;
+e.scrollIntoViewOnError=(e.scrollIntoViewOnError!==undefined)?e.scrollIntoViewOnError:true;
+e.showCloseInError=(e.showCloseInError!==undefined)?e.showCloseInError:false;
+e.successParameters=(e.successParameters!==undefined)?e.successParameters:{};
+e.addProgressIndicator=(e.addProgressIndicator!==undefined)?e.addProgressIndicator:true;
+e.enableResizeScreen=(e.enableResizeScreen!==undefined)?e.enableResizeScreen:true;
+e.useDecodeURIComponent=!!e.useDecodeURIComponent;
+if(e.useGlobalError){e.errorId="global-error"
+}var b=this;
+var j=YDom.getRegion(c);
+var l=16;
+b.successHandlers=[];
+b.failureHandlers=[];
+var f=Y$(e.injectAfter,c,true);
+var k=f;
+if(k){while(k.nextSibling){if(k.nextSibling.nodeType===1){YDom.addClass(k.nextSibling,"hidden")
+}k=k.nextSibling
+}}var o=document.createElement("div");
+YDom.addClass(o,"screen");
+c.appendChild(o);
+if(e.addProgressIndicator){var g=document.createElement("div");
+var n=YDom.getRegion(f).height;
+n=(n>l)?n:l;
+if(f){if(f.nextSibling){f.parentNode.insertBefore(g,f.nextSibling)
+}else{f.parentNode.appendChild(g)
+}}YDom.addClass(g,"progress-indicator");
+YDom.setStyle(g,"lineHeight",n+"px")
+}var a=function(r){var q=YDom.get(e.errorId);
+if(!q){q=document.createElement("div");
+q.id=e.errorId;
+c.parentNode.insertBefore(q,c)
+}LI.injectAlert(r,"error",q,false,e.showCloseInError);
+if(e.scrollIntoViewOnError){q.scrollIntoView()
+}};
+var m=function(){YDom.removeClass(c,"form-submit-processing");
+YDom.removeClass(f,"disabled");
+YDom.setStyle(o,"display","none")
+};
+var d=function(){var q=YDom.getRegion(c);
+if(!j||!j.width){j=YDom.getRegion(c)
+}YDom.setStyle(o,"width",j.width+"px");
+YDom.setStyle(o,"height",q.height+"px");
+YDom.setStyle(o,"margin-top",(q.height*-1)+"px")
+};
+var i=function(q){location.href=q
+};
+var p=function(t){if(YDom.hasClass(c,"form-submit-processing")){YEvent.preventDefault(t);
+return
+}YDom.addClass(c,"form-submit-processing");
+YDom.addClass(f,"disabled");
+var s=YDom.getRegion(c);
+YDom.setStyle(o,"backgroundColor",e.backgroundColor);
+YDom.setStyle(o,"display","block");
+if(e.enableResizeScreen){d()
+}var q=document.createElement("input");
+YDom.setStyle(q,"opacity",0);
+YDom.setStyle(q,"height","1px");
+YDom.setStyle(q,"width","1px");
+YDom.setStyle(q,"display","inline");
+c.appendChild(q);
+q.focus();
+c.removeChild(q);
+delete (q);
+if(e.enableDemo){if(t){YEvent.stopEvent(t)
+}var r=(e.enableDemo=="success")?LI.FrontierAJAXForm.DEMO_SUCCESS:LI.FrontierAJAXForm.DEMO_FAILURE;
+b.handleFormSuccess=i;
+b.injectGlobalFormError=a;
+b.markFormErrors=markFormErrors;
+b.resetFormSubmission=m;
+window.setTimeout(function(){r.call(b)
+},5000);
+return false
+}if(e.enableAJAX){if(t){YEvent.preventDefault(t)
+}window.setTimeout(function(){h()
+},1);
+return false
+}};
+var h=function(){YAHOO.util.Connect.setForm(c);
+LI.asyncRequest("POST",YDom.getAttribute(c,"action"),{custom:{error:function(q){LI.removeAlert();
+if(e.injectGlobalError||e.injectGlobalErrorOnly){if(q.globalError){a(q.globalError)
+}else{if(!e.injectGlobalErrorOnly){a(LI.i18n.get("oneOrMoreErrors"))
+}}}if(e.errorCallback){e.errorCallback(q)
+}m();
+if(e.enableResizeScreen){d()
+}},exception:function(){if(e.exceptionCallback){e.exceptionCallback()
+}}},success:function(t){t.successParameters=e.successParameters;
+for(var r=0,q=b.successHandlers.length;
+r<q;
+r++){var s=b.successHandlers[r];
+s.fn.call(s.scope,t)
+}},failure:function(t){for(var r=0,q=b.failureHandlers.length;
+r<q;
+r++){var s=b.failureHandlers[r];
+s.fn.call(s.scope,t)
+}},timeout:25000},null,e.useDecodeURIComponent)
+};
+this.addSuccessHandler=function(r,q){b.successHandlers.push({fn:r||function(){},scope:q||window})
+};
+this.addFailureHandler=function(r,q){b.failureHandlers.push({fn:r||function(){},scope:q||window})
+};
+if(e.successCallback){e.successCallback=(typeof(e.successCallback)=="string")?LI.Controls.resolveName(e.successCallback):e.successCallback;
+if(!e.successCallback){throw new Error(e.successCallback+" is not defined")
+}this.addSuccessHandler(e.successCallback,e.successCallbackScope)
+}if(e.failureCallback){this.addFailureHandler(e.failureCallback,e.failureCallbackScope)
+}this.resetFormSubmit=m;
+this.submitForm=p;
+YEvent.on(c,"submit",p)
+};

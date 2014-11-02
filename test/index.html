@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hemant Kumar || UI Developer</title>
+
+<meta name = "keywords" content = "SMINT jQuery Plugin, SMINT, jQuery Plugin, One Page Website, Sticky Navigation" />
+<meta name = "description" content = "SMINT is a simple plugin for lovers of one page websites, which helps with sticky menus and page scrolling." />
+<meta name="viewport" content="width=device-width">
+
+<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+
+<link href="css/demo.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.bxslider.js"></script>
+<link rel="stylesheet" type="text/css" href="css/dropdown.css">
+<script	src="js/jquery.smint.js" type="text/javascript" ></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.bxslider.css" />
+<script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $( "#datepicker1" ).datepicker();
+  });
+  $(function() {
+    $( "#datepicker2" ).datepicker();
+  });
+$(document).ready( function() {
+	$('.bxslider').bxSlider({
+	  	auto: true,
+
+		});
+    $('.subMenu').smint({
+    	'scrollSpeed' : 1000
+    });
+
+if($(window).width() > 768){
+
+// Hide all but first tab content on larger viewports
+$('.accordion__content:not(:first)').hide();
+// Activate first tab
+$('.accordion__title:first-child').addClass('active');
+
+} else {
+  
+// Hide all content items on narrow viewports
+$('.accordion__content').hide();
+};
+
+// Wrap a div around content to create a scrolling container which we're going to use on narrow viewports
+$( ".accordion__content" ).wrapInner( "<div class='overflow-scrolling'></div>" );
+
+// The clicking action
+$('.accordion__title').on('hover', function() {
+$('.accordion__content').hide();
+$(this).next().show().prev().addClass('active').siblings().removeClass('active');
+});
+
+});
+
+</script>
+
+<style type="text/css">
+.home-text{ text-shadow: 1px 1px 28px #000; width: 100%; text-align: center; float: left; color: #fff; padding: 100px 0;}
+.home-text h1{ font-family: 'Nunito', sans-serif; font-size: 65px;}
+.home-text span{ font-size: 25px;}
+.h-search{
+	float: left;
+	width: 100%;
+	padding: 10px;
+	background: rgba(255,255,255,0.7);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+.h-search .where{  float: left; margin-right: 10px; }
+.h-search .where input{ background:  #fff url(img/icons.png?1409094957) -6px -150px no-repeat; width: 276px; }
+.h-search .check-in{float: left;  margin-right: 10px;}
+.h-search .check-in input{ width: 110px; background: #fff url(img/icons.png?1409094957) -6px -58px no-repeat; }
+.h-search .check-out{  float: left;  margin-right: 10px;}
+.h-search .check-out input{ width: 110px; background: #fff url(img/icons.png?1409094957) -6px -58px no-repeat; }
+.h-search input[type="submit"]{
+	width: auto;
+	padding: 10px 15px !important;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	cursor: pointer;
+	-o-border-radius: 0;
+	border-radius: 0;
+	background: #3eb9eb;
+	color: #fff;
+	text-shadow: rgba(0,0,0,0.6) 0 0 5px;
+	border: 1px solid #0b8bbf;
+	filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0,startColorstr='#FF3EB9EB',endColorstr='#FF1BA1D7');
+	background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#3eb9eb),color-stop(100%,#1ba1d7));
+	background-image: -webkit-linear-gradient(#3eb9eb,#1ba1d7);
+	background-image: -moz-linear-gradient(#3eb9eb,#1ba1d7);
+	background-image: -o-linear-gradient(#3eb9eb,#1ba1d7);
+	background-image: linear-gradient(#3eb9eb,#1ba1d7);
+
+}
+.h-search input[type="submit"]:hover{
+	background: #3eb9eb;
+	color: #fff;
+	-webkit-transition: all .5s ease-in;
+	-moz-transition: all .5s ease-in;
+	-o-transition: all .5s ease-in;
+	transition: all .5s ease-in;
+}
+
+.h-search-wrap{
+	margin: 0 auto;
+	width: 919px;
+}
+.h-search select{ width: 150px !important; padding-left: 10px !important;}
+.h-search input,.h-search select{
+	font-size: 16px;
+	padding: 10px 10px 10px 35px;
+	-webkit-border-radius: 0;
+	float: left;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	-o-border-radius: 0;
+	border-radius: 0;
+	margin-bottom: 0;
+	width: 560px;
+	border:1px solid #999;
+}
+.flags li {
+width: 140px;
+float: left;
+}
+.flags .dropdown-menu {
+width: 600px;
+}
+.flag-ae{background-position:0 -29px}.flag-ag{background-position:0 -2262px}.flag-ai{background-position:0 -58px}.flag-am{background-position:0 -87px}.flag-ar{background-position:0 -116px}.flag-as{background-position:0 -145px}.flag-at{background-position:0 -174px}.flag-au{background-position:0 -203px}.flag-aw{background-position:0 -232px}.flag-ba{background-position:0 -261px}.flag-bb{background-position:0 -290px}.flag-be{background-position:0 -319px}.flag-bg{background-position:0 -348px}.flag-bh{background-position:0 -377px}.flag-bm{background-position:0 -406px}.flag-bo{background-position:0 -435px}.flag-br{background-position:0 -464px}.flag-bs{background-position:0 -493px}.flag-bt{background-position:0 -522px}.flag-by{background-position:0 -551px}.flag-bz{background-position:0 -580px}.flag-ca{background-position:0 -609px}.flag-ch{background-position:0 -638px}.flag-cl{background-position:0 -667px}.flag-cn{background-position:0 -696px}.flag-co{background-position:0 -725px}.flag-cr{background-position:0 -754px}.flag-cy{background-position:0 -783px}.flag-cz{background-position:0 -812px}.flag-de{background-position:0 -841px}.flag-dk{background-position:0 -870px}.flag-do{background-position:0 -899px}.flag-dz{background-position:0 -928px}.flag-ec{background-position:0 -957px}.flag-ee{background-position:0 -986px}.flag-eg{background-position:0 -1015px}.flag-es{background-position:0 -1044px}.flag-eu{background-position:0 -1073px}.flag-fi{background-position:0 -1102px}.flag-fj{background-position:0 -1131px}.flag-fm{background-position:0 -1160px}.flag-fr{background-position:0 -1189px}.flag-gb{background-position:0 -1218px}.flag-gd{background-position:0 -1247px}.flag-ge{background-position:0 -1276px}.flag-gh{background-position:0 -1305px}.flag-gi{background-position:0 -1334px}.flag-gl{background-position:0 -1363px}.flag-gm{background-position:0 -1392px}.flag-gn{background-position:0 -1421px}.flag-gr{background-position:0 -1450px}.flag-gt{background-position:0 -1479px}.flag-gu{background-position:0 -1508px}.flag-hk{background-position:0 -1537px}.flag-hn{background-position:0 -1566px}.flag-hr{background-position:0 -1595px}.flag-ht{background-position:0 -1624px}.flag-hu{background-position:0 -1653px}.flag-id{background-position:0 -1682px}.flag-ie{background-position:0 -1711px}.flag-il{background-position:0 -1740px}.flag-in{background-position:0 -1769px}.flag-is{background-position:0 -1798px}.flag-it{background-position:0 -1827px}.flag-jm{background-position:0 -1856px}.flag-jo{background-position:0 -1885px}.flag-jp{background-position:0 -1914px}.flag-ke{background-position:0 -1943px}.flag-kh{background-position:0 -1972px}.flag-kr{background-position:0 -2001px}.flag-kw{background-position:0 -2030px}.flag-ky{background-position:0 -2059px}.flag-la{background-position:0 -2088px}.flag-lb{background-position:0 -2117px}.flag-lc{background-position:0 -2146px}.flag-li{background-position:0 -2175px}.flag-lk{background-position:0 -2204px}.flag-lt{background-position:0 -2233px}.flag-lu{background-position:0 0}.flag-lv{background-position:0 -2291px}.flag-ma{background-position:0 -2320px}.flag-mc{background-position:0 -2349px}.flag-md{background-position:0 -2378px}.flag-me{background-position:0 -2407px}.flag-mf{background-position:0 -2436px}.flag-mg{background-position:0 -2465px}.flag-mk{background-position:0 -2494px}.flag-mn{background-position:0 -2523px}.flag-mo{background-position:0 -2552px}.flag-mq{background-position:0 -2581px}.flag-mt{background-position:0 -2610px}.flag-mv{background-position:0 -2639px}.flag-mx{background-position:0 -2668px}.flag-my{background-position:0 -2697px}.flag-mz{background-position:0 -2726px}.flag-na{background-position:0 -2755px}.flag-ne{background-position:0 -2784px}.flag-ng{background-position:0 -2813px}.flag-ni{background-position:0 -2842px}.flag-nl{background-position:0 -2871px}.flag-no{background-position:0 -2900px}.flag-np{background-position:0 -2929px}.flag-nz{background-position:0 -2958px}.flag-om{background-position:0 -2987px}.flag-pa{background-position:0 -3016px}.flag-pe{background-position:0 -3045px}.flag-pf{background-position:0 -3074px}.flag-pg{background-position:0 -3103px}.flag-ph{background-position:0 -3132px}.flag-pk{background-position:0 -3161px}.flag-pl{background-position:0 -3190px}.flag-pr{background-position:0 -3219px}.flag-ps{background-position:0 -3248px}.flag-pt{background-position:0 -3277px}.flag-py{background-position:0 -3306px}.flag-qa{background-position:0 -3335px}.flag-ro{background-position:0 -3364px}.flag-rs{background-position:0 -3393px}.flag-ru{background-position:0 -3422px}.flag-rw{background-position:0 -3451px}.flag-sa{background-position:0 -3480px}.flag-se{background-position:0 -3509px}.flag-sg{background-position:0 -3538px}.flag-si{background-position:0 -3567px}.flag-sk{background-position:0 -3596px}.flag-sl{background-position:0 -3625px}.flag-sm{background-position:0 -3654px}.flag-sn{background-position:0 -3683px}.flag-sv{background-position:0 -3712px}.flag-sz{background-position:0 -3741px}.flag-td{background-position:0 -3770px}.flag-tg{background-position:0 -3799px}.flag-th{background-position:0 -3828px}.flag-tl{background-position:0 -3857px}.flag-tm{background-position:0 -3886px}.flag-tn{background-position:0 -3915px}.flag-tr{background-position:0 -3944px}.flag-tt{background-position:0 -3973px}.flag-tw{background-position:0 -4002px}.flag-tz{background-position:0 -4031px}.flag-ua{background-position:0 -4060px}.flag-ug{background-position:0 -4089px}.flag-uk{background-position:0 -1218px}.flag-us{background-position:0 -4118px}.flag-uy{background-position:0 -4147px}.flag-uz{background-position:0 -4176px}.flag-va{background-position:0 -4205px}.flag-vc{background-position:0 -4234px}.flag-ve{background-position:0 -4263px}.flag-vg{background-position:0 -4292px}.flag-vi{background-position:0 -4321px}.flag-vn{background-position:0 -4350px}.flag-ws{background-position:0 -4379px}.flag-ye{background-position:0 -4408px}.flag-za{background-position:0 -4437px}.flag-zm{background-position:0 -4466px}.flag-zw{background-position:0 -4495px}
+[class^=flag-], [class*=" flag-"]{
+background-image: url(img/flag.png);
+display: inline-block;
+width: 24px;
+height: 24px;
+line-height: 20px;
+vertical-align: text-top;
+background-repeat: no-repeat;
+margin-top: -4px;
+}
+</style>
+
+</head>
+<body style="padding:0 !important; margin-top:-0px;">
+
+<div class="pager subMenu">
+	<ul>
+		<li><a href="#home" >h</a></li>
+		<li><a href="#s1">1</a></li>
+		<li><a href="#s3">3</a></li>
+		<li><a href="#s4">4</a></li>
+		<li><a href="#s5">5</a></li>
+	</ul>
+</div>
+<div class="wrap ">
+	<div class="section sTop home">
+		<div class="overlay">
+
+			<div class="header">
+				<div class="wrapper">	
+					<div class="logo">
+						<img src="img/logo.png">
+					</div>
+
+					<div class="menu">
+						<ul>
+					<li class="flags dropdown hidden-tablet">
+	                <a href="#" id="switch-locale-drop" class="us dropdown-toggle no-dropdown-backdrop" role="button" data-toggle="dropdown">
+	                    <i class="hidden-phone flag-us"></i>
+	                </a>
+					<ul class="flags dropdown-menu" role="menu" aria-labelledby="switch-locale-drop">
+					        <li class="us">
+					            <a href="http://lovesmok.com" alt="United States">
+					                <i class="flag-us"></i> United States
+					            </a>
+					        </li>
+					        <li class="gb">
+					            <a href="http://lovesmok.co.uk" alt="United Kingdom">
+					                <i class="flag-gb"></i> United Kingdom
+					            </a>
+					        </li>
+					        <li class="de">
+					            <a href="http://www.fewo-direkt.de" alt="Deutschland">
+					                <i class="flag-de"></i> Deutschland
+					            </a>
+					        </li>
+					        <li class="fr">
+					            <a href="http://lovesmok.fr" alt="France">
+					                <i class="flag-fr"></i> France
+					            </a>
+					        </li>
+					        <li class="se">
+					            <a href="http://lovesmok.se" alt="Sverige">
+					                <i class="flag-se"></i> Sverige
+					            </a>
+					        </li>
+					        <li class="es">
+					            <a href="http://lovesmok.es" alt="España">
+					                <i class="flag-es"></i> España
+					            </a>
+					        </li>
+					        <li class="no">
+					            <a href="http://lovesmok.no" alt="Norge">
+					                <i class="flag-no"></i> Norge
+					            </a>
+					        </li>
+					        <li class="pt">
+					            <a href="http://lovesmok.pt" alt="Portugal">
+					                <i class="flag-pt"></i> Portugal
+					            </a>
+					        </li>
+					        <li class="fi">
+					            <a href="http://lovesmok.fi" alt="Suomi">
+					                <i class="flag-fi"></i> Suomi
+					            </a>
+					        </li>
+					        <li class="nl">
+					            <a href="http://lovesmok.nl" alt="Nederland">
+					                <i class="flag-nl"></i> Nederland
+					            </a>
+					        </li>
+					        <li class="dk">
+					            <a href="http://lovesmok.dk" alt="Danmark">
+					                <i class="flag-dk"></i> Danmark
+					            </a>
+					        </li>
+					        <li class="it">
+					            <a href="http://lovesmok.it" alt="Italia">
+					                <i class="flag-it"></i> Italia
+					            </a>
+					        </li>
+					        <li class="br">
+					            <a href="http://www.aluguetemporada.com.br" alt="Brazil">
+					                <i class="flag-br"></i> Brazil
+					            </a>
+					        </li>
+					        <li class="ca">
+					            <a href="http://lovesmok.ca" alt="Canada">
+					                <i class="flag-ca"></i> Canada
+					            </a>
+					        </li>
+					        <li class="mx">
+					            <a href="http://lovesmok.com.mx" alt="México">
+					                <i class="flag-mx"></i> México
+					            </a>
+					        </li>
+					        <li class="au">
+					            <a href="http://lovesmok.com.au" alt="Australia">
+					                <i class="flag-au"></i> Australia
+					            </a>
+					        </li>
+					        <li class="at">
+					            <a href="http://lovesmok.at" alt="Österreich">
+					                <i class="flag-at"></i> Österreich
+					            </a>
+					        </li>
+					        <li class="ar">
+					            <a href="http://lovesmok.com.ar" alt="Argentina">
+					                <i class="flag-ar"></i> Argentina
+					            </a>
+					        </li>
+					        <li class="co">
+					            <a href="http://lovesmok.com.co" alt="Colombia">
+					                <i class="flag-co"></i> Colombia
+					            </a>
+					        </li>
+					        <li class="in">
+					            <a href="http://lovesmok.co.in" alt="India">
+					                <i class="flag-in"></i> India
+					            </a>
+					        </li>
+					        <li class="nz">
+					            <a href="http://www.bookabach.co.nz" alt="New Zealand">
+					                <i class="flag-nz"></i> New Zealand
+					            </a>
+					        </li>
+					</ul>
+	                <div class="clearfix"></div>
+	            </li>
+	            <li><a href="#">About Us</a></li>
+				<li><a href="#">Login</a></li>
+				<li><a href="#">List your space</a></li>
+						</ul>
+					</div>
+
+
+
+				
+					<div class="home-text">
+						<span>To Travel Is To Live</span>
+					</div>
+
+					<div class="h-search-wrap">
+						
+						<div class="h-search">
+							<form>
+								<div class="where">
+									<input type="text" placeholder="Where do you want to search"/>
+								</div>
+								<div class="check-in">
+									<input type="text" placeholder="Check in" id="datepicker1"/>
+								</div>
+								<div class="check-out">
+									<input type="text" placeholder="Check out" id="datepicker2"/>
+								</div>
+								<div class="check-out">
+									<select placeholder="Sleeps">
+										<option>Sleeps</option>
+										<option>2</option>
+										<option>3</option>
+									</select>
+								</div>
+								<input type="submit" value="Search" />
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!-- Header -->
+
+		</div>
+		<div class="subMenu down" style="bottom:0 !important">
+			<a href="#s1"><img src="img/up-ar.png"></a>
+		</div>
+
+	</div>
+
+
+
+<!-- 
+	<div class="subMenu" >
+	 	<div class="inner">
+	 		<a href="#sTop" class="subNavBtn">Home</a>
+	 		<a href="#s1" class="subNavBtn">Section 1</a> 
+			<a href="#s2" class="subNavBtn">Section 2</a>
+			<a href="#s3" class="subNavBtn">Section 3</a>
+			<a href="#s4" class="subNavBtn">Section 4</a>
+			<a href="#s5" class="subNavBtn">Section 5</a>
+			<a href="https://twitter.com/rabmyself" class="subNavBtn extLink end">External Link</a>
+		</div>
+	</div>
+ -->
+	<div class="section s1">
+		<div class="inner ">
+			<div class="left subscription ">
+				<div class="" style="background-color: #fff; margin-top:70px; padding: 80px 40px;border: 1px solid #EEE;">
+				    <p style="color:#ff007e; font-size:24px;">ONE TIME SUBSCRIPTION ONLY</p>
+
+				<p style="line-height: 38px;color: #666;">Earn up to $35,000 per year* by renting out your property through us without paying a single cent.</p>
+				    </div>
+			</div>
+			<div class=" five">
+				<div class="five left">
+					<div class="full">
+						<a href="http://ownersrentwithme.com/rentals/Province-of-Rome" class="thumbnail">
+			        		<img src="img/ht1.jpg">
+			            </a>
+					</div>
+					<div class="full">
+						<a href="http://ownersrentwithme.com/rentals/Province-of-Rome" class="thumbnail">
+			        		<img src="img/ht3.jpg">
+			            </a>
+					</div>
+				</div>	
+				<div class="five right" style="width:48%:">
+					<a href="http://ownersrentwithme.com/rentals/Province-of-Rome" class="thumbnail">
+			        		<img src="img/ht2.jpg" style="width: 305px; float:right">
+			        </a>
+				</div>	
+			</div>
+
+		</div>
+
+
+	</div>
+
+	<div class="section s2">
+		<div class="overlay2">
+		<div class="subMenu down" style="top:-12px !important">
+			<a href="#s3"><img src="img/dw-ar.png"></a>
+		</div>
+			<div class="inner">
+				<!-- <h1 class="text-center">Welcome User</h1> -->
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="section s3 popular-destination">
+		<div class="inner">
+			<h1 class="head text-center">Popular Destination</h1>
+				<ul class="bxslider" style="margin:0; padding: 0">
+					  <li>
+
+					  	<ul class="list">
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<h1>Lorem</h1>
+						  				<p>Inpsum</p>
+						  			</div>
+						  		</a>
+					  		</li>
+
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<h1>Lorem</h1>
+						  				<p>Inpsum</p>
+						  			</div>
+						  		</a>
+					  		</li>
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<h1>Lorem</h1>
+						  				<p>Inpsum</p>
+						  			</div>
+						  		</a>
+					  		</li>
+					  							  	</ul>
+
+					  </li>
+
+					  <li>
+
+					  	<ul class="list">
+					  		
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<h1>Lorem</h1>
+						  				<p>Inpsum</p>
+						  			</div>
+						  		</a>
+					  		</li>
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<h1>Lorem</h1>
+						  				<p>Inpsum</p>
+						  			</div>
+						  		</a>
+					  		</li>
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<h1>Lorem</h1>
+						  				<p>Inpsum</p>
+						  			</div>
+						  		</a>
+					  		</li>
+					  	</ul>
+
+					  </li>
+
+					  <li>
+
+					  	<ul class="list">
+					  	
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<h1>Lorem</h1>
+						  				<p>Inpsum</p>
+						  			</div>
+						  		</a>
+					  		</li>
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<h1>Lorem</h1>
+						  				<p>Inpsum</p>
+						  			</div>
+						  		</a>
+					  		</li>
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<h1>Lorem</h1>
+						  				<p>Inpsum</p>
+						  			</div>
+						  		</a>
+					  		</li>
+					  	</ul>
+
+					  </li>					  
+				</ul>
+		</div>
+	</div>
+
+	<div class="section s4 feature-list">
+			<div class="subMenu down" style="top:-12px !important">
+			<a href="#s5"><img src="img/dw-ar.png"></a>
+		</div>
+		<div class="inner">
+			<h1 class="head text-center">Featured Listings</h1>
+
+				<ul class="bxslider" style="margin:0; padding: 0">
+					  <li>
+
+					  	<ul class="list">
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<a href="#"><span>2 </span>REVIEWS</a>
+						  				<p>View all in</p>
+						  				<a href="#">New Delhi NCR</a>
+						  			</div>
+						  		</a>
+					  		</li>
+
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<a href="#"><span>2 </span>REVIEWS</a>
+						  				<p>View all in</p>
+						  				<a href="#">New Delhi NCR</a>
+						  			</div>
+						  		</a>
+					  		</li>
+
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<a href="#"><span>2 </span>REVIEWS</a>
+						  				<p>View all in</p>
+						  				<a href="#">New Delhi NCR</a>
+						  			</div>
+						  		</a>
+					  		</li>
+					  	</ul>
+
+					  </li>
+
+					  <li>
+
+					  	<ul class="list">
+						  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<a href="#"><span>2 </span>REVIEWS</a>
+						  				<p>View all in</p>
+						  				<a href="#">New Delhi NCR</a>
+						  			</div>
+						  		</a>
+					  		</li>
+
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<a href="#"><span>2 </span>REVIEWS</a>
+						  				<p>View all in</p>
+						  				<a href="#">New Delhi NCR</a>
+						  			</div>
+						  		</a>
+					  		</li>
+
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<a href="#"><span>2 </span>REVIEWS</a>
+						  				<p>View all in</p>
+						  				<a href="#">New Delhi NCR</a>
+						  			</div>
+						  		</a>
+					  		</li>
+					  	</ul>
+
+					  </li>
+
+					  <li>
+
+					  	<ul class="list">
+					  	
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<a href="#"><span>2 </span>REVIEWS</a>
+						  				<p>View all in</p>
+						  				<a href="#">New Delhi NCR</a>
+						  			</div>
+						  		</a>
+					  		</li>
+
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<a href="#"><span>2 </span>REVIEWS</a>
+						  				<p>View all in</p>
+						  				<a href="#">New Delhi NCR</a>
+						  			</div>
+						  		</a>
+					  		</li>
+
+					  		<li>
+						  		<a href="#">
+						  			
+						  			<img src="img/1.png">
+						  			<div class="detail">
+						  				<a href="#"><span>2 </span>REVIEWS</a>
+						  				<p>View all in</p>
+						  				<a href="#">New Delhi NCR</a>
+						  			</div>
+						  		</a>
+					  		</li>x
+					  	</ul>
+
+					  </li>					  
+				</ul>
+		</div>
+	</div>
+
+	<div class="section s5">
+		<div class="inner">
+			<h1 class="text-center head">Benefits of listing your space with us</h1>
+
+		
+<div class="full">
+<dl class="accordion">
+    <dt class="accordion__title"><img src="img/011.png"/></dt>
+    <dd class="accordion__content">
+     <div class="fade">
+			<div class="list">
+				<img src="img/01.jpg"/>
+				<div class="content">
+					<h1>Social Media Promotions</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+				</div>
+			</div>
+		</div>
+    </dd>
+    <dt class="accordion__title"><img src="img/021.png"/></dt>
+    <dd class="accordion__content">
+     <div class="fade">
+			<div class="list">
+				<img src="img/02.jpg"/>
+				<div class="content">
+					<h1>24/7 Online Support</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+				</div>
+			</div>
+		</div>
+    </dd>
+    <dt class="accordion__title"><img src="img/031.png"/></dt>
+    <dd class="accordion__content">
+     <div class="fade">
+			<div class="list">
+				<img src="img/03.jpg"/>
+				<div class="content">
+					<h1>Google Maps</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+				</div>
+			</div>
+		</div>
+    </dd>
+        <dt class="accordion__title"><img src="img/051.png"/></dt>
+    <dd class="accordion__content">
+     <div class="fade">
+			<div class="list">
+				<img src="img/05.jpg"/>
+				<div class="content">
+					<h1>Personal Website</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+				</div>
+			</div>
+		</div>
+    </dd>
+    <dt class="accordion__title"><img src="img/041.png"/></dt>
+    <dd class="accordion__content">
+     <div class="fade">
+			<div class="list">
+				<img src="img/04.jpg"/>
+				<div class="content">
+					<h1>Personal Website</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+				</div>
+			</div>
+		</div>
+    </dd>
+    
+    <dt class="accordion__title" style="margin-right:0"><img src="img/061.png"/></dt>
+    <dd class="accordion__content">
+     <div class="fade">
+			<div class="list">
+				<iframe width="100%" height="510" src="//www.youtube.com/embed/4YXV7C7zAwQ" frameborder="0" allowfullscreen></iframe>
+				<div class="content">
+					<h1>About Us</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+				</div>
+			</div>
+		</div>
+    </dd>
+   
+</div>
+
+		<div class="join">
+			
+			<a href="#">LIST YOUR SPACE</a>
+
+		</div>
+		</div>
+	</div>
+
+	<div class="logos">
+		<div class="wrapper">
+			
+		<ul>
+			<li><a href="#"><img src="img/logo/google.jpg"></a></li>
+			<li><a href="#"><img src="img/logo/yahoo.jpg"></a></li>
+			<li><a href="#"><img src="img/logo/toi.jpg"></a></li>
+			<li><a href="#"><img src="img/logo/aus.png"></a></li>
+			<li><a href="#"><img src="img/logo/lu.gif"></a></li>
+			<li><a href="#"><img src="img/logo/T&L.png"></a></li>
+			<li><a href="#"><img src="img/logo/nzd.png"></a></li>
+		</ul>
+
+		</div>
+
+	</div>
+
+	<div class="footer">
+		<div class="wrapper">
+			<div class="company">
+				<h1>Company</h1>
+				<ul>
+					<li><a href="#">About</a></li>
+					<li><a href="#">The Team</a></li>
+					<li><a href="#">Press</a></li>
+					<li><a href="#">Careers</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</div>
+			<div class="fun">
+				<h1>Fun</h1>
+				<ul>
+					<li><a href="#">2014 Travelers' Favorites</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">Blogger Tools</a></li>
+					<li><a href="#">Top Users</a></li>
+					<li><a href="#">Recent Questions</a></li>
+					<li><a href="#">Featured Postcards</a></li>
+				</ul>				
+			</div>
+			<div class="legal">
+				<h1>Legal</h1>
+				<ul>
+					<li><a href="#">Privacy Policy</a></li>
+					<li><a href="#">Terms of Use</a></li>
+					<li><a href="#">Guidelines</a></li>
+				</ul>				
+			</div>
+			<div class="app right">
+				<p ><img src="img/playfoot.png" class="right"></p>
+				<p><img src="img/appfoot.png" class="right"></p>
+				<ul class="social-icons">
+					<li><a href="#"><img src="img/fb.png"></a></li>
+					<li><a href="#"><img src="img/tw.png"></a></li>
+					<li><a href="#"><img src="img/g.png"></a></li>
+					<li><a href="#"><img src="img/p.png"></a></li>
+				</ul>
+			</div>
+			<div class="copyright">
+				<p><span>Copyright &copy; 2014 Company</span> <span class="power">Powered By : <a href="http://lovesmok.com">Lovesmok</a></span></p>
+			</div>
+		</div>
+
+	</div>
+
+	
+</div>
+
+</body>
+</html>

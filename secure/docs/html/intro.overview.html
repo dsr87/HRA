@@ -1,0 +1,182 @@
+<HTML
+><HEAD
+><TITLE
+>Overview</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Introduction"
+HREF="intro.html"><LINK
+REL="PREVIOUS"
+TITLE="Introduction"
+HREF="intro.html"><LINK
+REL="NEXT"
+TITLE="Licence"
+HREF="intro.licence.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="intro.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Introduction</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="intro.licence.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="INTRO.OVERVIEW"
+></A
+>Overview</H1
+><P
+>			The system consists of a relatively stripped down core which just handles
+			the basic session handling and provides miscellaneous infrastructure, and
+			modules for just about everything else. The core system is made up of the
+			main phpSecureSite file, <TT
+CLASS="FILENAME"
+>phpss/phpss.php</TT
+> and function
+			libraries under <TT
+CLASS="FILENAME"
+>phpss/func/</TT
+>, while the modules are
+			placed in the <TT
+CLASS="FILENAME"
+>phpss/modules/</TT
+> directory.
+		</P
+><P
+>			phpSecureSite needs to store some data in order to keep track of
+			everything that's going on. For this it uses an SQL database
+			as a backend. The structure of this database can be found in the
+			<TT
+CLASS="FILENAME"
+>database/</TT
+> directory.
+		</P
+><P
+>			Modules are used for just about everything; database modules handles
+			basic database communication so that you can use any database server
+			you wish (as long as a database module is available for it),
+			authentication modules handles authentication and account/group data
+			lookups from various backends, log modules handle message logging to
+			miscellaneous destinations such as the database or text-files, and
+			normal modules take care of any extra functionality.
+		</P
+><P
+>			The main mechanism for the session handling system is cookies. When
+			a user logs in, a cookie, which is simply a piece of data, is stored in
+			the client browser. This cookie contains a unique identifier for the
+			session, called the session key, which is sent back to the web-server
+			on every page request. phpSecureSite will then compare this session key
+			against the data it has stored about the session, and allow or deny access
+			accordingly.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="intro.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="intro.licence.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introduction</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="intro.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Licence</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

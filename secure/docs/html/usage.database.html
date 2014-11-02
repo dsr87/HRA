@@ -1,0 +1,200 @@
+<HTML
+><HEAD
+><TITLE
+>Accessing the database</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usage"
+HREF="usage.html"><LINK
+REL="PREVIOUS"
+TITLE="Usage"
+HREF="usage.html"><LINK
+REL="NEXT"
+TITLE="The cache system"
+HREF="usage.cache.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="usage.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Usage</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="usage.cache.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="USAGE.DATABASE"
+></A
+>Accessing the database</H1
+><P
+>			It may be a good idea to use a common database both for phpSecureSite
+			and your application. By doing so you only need to open one database
+			link when you execute a script, instead of two. To do this you will need
+			to access the database through phpSecureSites database functions.
+			You also need to make sure phpSecureSite is loaded in all scripts,
+			even if you don't use any of phpSecureSites other functionality.
+		</P
+><P
+>			The database link will automatically be created when you load phpSecureSite,
+			so you can just go ahead and run queries against the database.
+			To execute a query you use the function <A
+HREF="ref.html#REF.FUNC.DB_QUERY"
+><TT
+CLASS="FUNCTION"
+>phpss_db_query()</TT
+></A
+>.
+			This function takes the database query as an argument, and returns the
+			result as a matrix. A matrix is a two-dimensional array, where the first
+			element is the row number, and the second is the column number.
+		</P
+><P
+>			For example, to print the third column of the seventh row you would
+			do this: <TT
+CLASS="USERINPUT"
+><B
+>print($result[6][2]);</B
+></TT
+>. and to count the
+			number of rows in the result set you simply run <TT
+CLASS="USERINPUT"
+><B
+>sizeof($result);</B
+></TT
+>.
+			To go through the result one row at a time you run <TT
+CLASS="USERINPUT"
+><B
+>foreach($result AS $row)</B
+></TT
+>.
+		</P
+><P
+>			It is very important that you escape special characters in any external
+			data you put in a query, for example form data you send to the database.
+			If you don't, people can manipulate your queries to get information they
+			should not have access to. This can be done by running
+			<A
+HREF="ref.html#REF.FUNC.DB_ESCAPE_STRING"
+><TT
+CLASS="FUNCTION"
+>phpss_db_escape_string()</TT
+></A
+>
+			on the data first, which will return the data with special characters escaped
+			so that it is safe to place in a query.
+		</P
+><P
+>			Also, don't access the phpSecureSite tables directly, use the functions
+			provided by phpSecureSite to fetch and update data.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="usage.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="usage.cache.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Usage</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="usage.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The cache system</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

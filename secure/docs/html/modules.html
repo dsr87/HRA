@@ -1,0 +1,410 @@
+<HTML
+><HEAD
+><TITLE
+>Modules</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Managing user accounts"
+HREF="admin.accounts.html"><LINK
+REL="NEXT"
+TITLE="Authentication modules"
+HREF="modules.auth.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="admin.accounts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="modules.auth.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="MODULES"
+></A
+>Chapter 6. Modules</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="modules.html#MODULES.DATABASE"
+>Database modules</A
+></DT
+><DT
+><A
+HREF="modules.auth.html"
+>Authentication modules</A
+></DT
+><DT
+><A
+HREF="modules.log.html"
+>Log modules</A
+></DT
+><DT
+><A
+HREF="modules.normal.html"
+>Normal modules</A
+></DT
+></DL
+></DIV
+><P
+>		phpSecureSite uses modules for most functionality outside the core system,
+		so you can adapt it to your needs. This chapter contains a description
+		of the modules that are included in the phpSecureSite distribution.
+	</P
+><P
+>		Current modules are divided into four categories; authentication modules,
+		database modules, log modules and normal modules.
+	</P
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULES.DATABASE"
+></A
+>Database modules</H1
+><P
+>			Database backend modules handles basic database communication,
+			such as connecting and executing queries.
+		</P
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.DATABASE.MSSQL"
+></A
+>mssql (Microsoft SQL Server)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/database/mssql.php</TT
+></P
+><P
+>				This module lets you use a Microsoft SQL Server as a backend for phpSecureSite.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>hostname</TT
+></DT
+><DD
+><P
+>						Address of database server, both an IP address and a DNS name
+						is accepted.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>username</TT
+></DT
+><DD
+><P
+>							Username to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>password</TT
+></DT
+><DD
+><P
+>						Password to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>database</TT
+></DT
+><DD
+><P
+>						Name of the database to use
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.DATABASE.MYSQL"
+></A
+>mysql</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/database/mysql.php</TT
+></P
+><P
+>				This module lets you use a MySQL database server as a backend for phpSecureSite.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>hostname</TT
+></DT
+><DD
+><P
+>						Address of database server, both an IP address and a DNS name
+						is accepted.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>port</TT
+></DT
+><DD
+><P
+>						Port number on which the server is listening (MySQL uses
+						port 3306 by default).
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>username</TT
+></DT
+><DD
+><P
+>						Username to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>password</TT
+></DT
+><DD
+><P
+>						Password to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>database</TT
+></DT
+><DD
+><P
+>						Name of the database to use
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.DB.PGSQL"
+></A
+>pgsql (PostgreSQL)</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/database/pgsql.php</TT
+></P
+><P
+>				This module lets you use a PostgreSQL database server as a backend for phpSecureSite.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>hostname</TT
+></DT
+><DD
+><P
+>						Address of database server, both an IP address and a DNS name
+						is accepted.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>port</TT
+></DT
+><DD
+><P
+>						Port number on which the server is listening (PostgreSQL
+						uses port 5432 by default).
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>username</TT
+></DT
+><DD
+><P
+>						Username to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>password</TT
+></DT
+><DD
+><P
+>						Password to use when connecting.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>database</TT
+></DT
+><DD
+><P
+>						Name of the database to use
+					</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="admin.accounts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="modules.auth.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Managing user accounts</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Authentication modules</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

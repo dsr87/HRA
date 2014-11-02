@@ -1,0 +1,730 @@
+<HTML
+><HEAD
+><TITLE
+>Configuration options</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Configuration"
+HREF="config.html"><LINK
+REL="PREVIOUS"
+TITLE="Configuration"
+HREF="config.html"><LINK
+REL="NEXT"
+TITLE="Using a different config file"
+HREF="config.file.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="config.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. Configuration</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="config.file.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="CONFIG.OPTIONS"
+></A
+>Configuration options</H1
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="CONFIG.OPTIONS.CORE"
+></A
+>Core system</H2
+><P
+>				The core system is configured in <TT
+CLASS="FILENAME"
+>config/phpss.php</TT
+>.
+			</P
+><DIV
+CLASS="SECTION"
+><H3
+CLASS="SECTION"
+><A
+NAME="CONFIG.OPTIONS.CORE.ERROR"
+></A
+>Error reporting</H3
+><P
+>					These options are used to control the error reporting
+					facilities, and can be very useful when debugging a problem.
+				</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["error_handler"]</TT
+></DT
+><DD
+><P
+>							You can specify your own error handling function here, in order
+							to make the error messages better integrated with your site.
+							Put the name of the function which will handle error messages
+							here, but make sure it takes the error data as an argument.
+							It should <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+> abort script execution,
+							as that would prevent phpSecureSite from logging the error.
+						</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["error_extrainfo"]</TT
+></DT
+><DD
+><P
+>								When this is enabled, error messages will be printed
+								with extended information about the error, such as the
+								location of the error and any extra information provided.
+						</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["error_backtrace"]</TT
+></DT
+><DD
+><P
+>							When enabled, errors will include a backtrace of the error call.
+							This is very useful for tracking down exactly where the error
+							occurs.
+						</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>					The <TT
+CLASS="VARNAME"
+>error_extrainfo</TT
+> and <TT
+CLASS="VARNAME"
+>error_backtrace</TT
+>
+					options will reveal alot of information about how your system works.
+					They should only be enabled when debugging a known problem, and be left
+					off during normal operation.
+				</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H3
+CLASS="SECTION"
+><A
+NAME="CONFIG.OPTIONS.CORE.CACHE"
+></A
+>Cache options</H3
+><P
+>					The cache system is used to temporarily store data from the database in
+					memory when it is looked up, so that later requests for the data won't
+					result in another database lookup. This is usually a good thing, but
+					you may want to disable it for various reasons.
+				</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["cache"]</TT
+></DT
+><DD
+><P
+>							Enables or disables the cache system.
+						</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H3
+CLASS="SECTION"
+><A
+NAME="CONFIG.OPTIONS.CORE.COOKIE"
+></A
+>Session cookie</H3
+><P
+>					You can set a few parameters for the cookie phpSecureSite uses to
+					identify sessions. Normally, the default settings should be just fine,
+					but in certain environments they may need to be changed.
+				</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["cookie_name"]</TT
+></DT
+><DD
+><P
+>								The name of the cookie
+						</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["cookie_path"]</TT
+></DT
+><DD
+><P
+>								The server path under which the cookie is valid. Should be
+								set to the url root of your application.
+						</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["cookie_domain"]</TT
+></DT
+><DD
+><P
+>								The domain for which the cookie is valid. Defaults to the
+								server hostname. If you have several web-servers with phpSecureSite
+								working against a shared database, authenticated users don't need
+								to log in again to access resources on a different server if
+								they are in the same domain.
+						</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="CONFIG.OPTIONS.DB"
+></A
+>Database options</H2
+><P
+>				You need to tell phpSecureSite how to access the database server.
+				This is done in the file <TT
+CLASS="FILENAME"
+>config/database.php</TT
+>.
+				First you must set which database module to use, and then configure
+				the database module in the same file. The options for the various
+				database modules are described in the <A
+HREF="modules.html#MODULES.DATABASE"
+><I
+>Database modules</I
+></A
+>
+				section.
+			</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>				All modules have a <TT
+CLASS="VARNAME"
+>modulefile</TT
+> option. This is
+				used internally in phpSecureSite to map the name of a module to a file,
+				and should not be changed.
+			</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["database_module"]</TT
+></DT
+><DD
+><P
+>						The name of the database module to use.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="CONFIG.OPTIONS.AUTH"
+></A
+>Authentication options</H2
+><P
+>				Authentication is configured in the file <TT
+CLASS="FILENAME"
+>config/authentication.php</TT
+>.
+				You must first define which authentication module to use, and
+				then set options for the module in the same file. Information
+				on config options for the various authentication modules is available
+				in the <A
+HREF="modules.auth.html"
+><I
+>Authentication modules</I
+></A
+>
+				section.
+			</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>				Normally, you should use the <A
+HREF="modules.auth.html#MODULES.AUTH.DATABASE"
+><I
+>database</I
+></A
+>
+				module, which will look up module information in the normal phpSecureSite
+				database. The other modules are for authenticating against different
+				databases, such as an existing e-mail account database.
+			</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>				All modules have a <TT
+CLASS="VARNAME"
+>modulefile</TT
+> option. This is
+				used internally in phpSecureSite to map the name of a module to a file,
+				and should not be changed.
+			</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["auth_module"]</TT
+></DT
+><DD
+><P
+>						The name of the authentication module to use.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["auth_pwtype"]</TT
+></DT
+><DD
+><P
+>							Defines the format passwords are stored with in the database.
+							The password processing is done in the core system, which means
+							that all these algorithms are available regardless of the
+							authentication module which is used. Valid values are:
+						</P
+><P
+></P
+><UL
+><LI
+><P
+>								<TT
+CLASS="LITERAL"
+>crypt</TT
+> : encrypted using the UNIX crypt() function.
+								The algorithm is determined by the underlying system libraries.
+							</P
+></LI
+><LI
+><P
+>								<TT
+CLASS="LITERAL"
+>md5</TT
+> : hashed using the md5 algorithm
+							</P
+></LI
+><LI
+><P
+>								<TT
+CLASS="LITERAL"
+>mysql</TT
+> : hashed using MySQLs PASSWORD() algorithm.
+								It is <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+> recommended to use it, as it uses
+								a very insecure algorithm (even the MySQL manual says it should not
+								be used). It is available for compatibility only.
+							</P
+></LI
+><LI
+><P
+>								<TT
+CLASS="LITERAL"
+>plaintext</TT
+> : passwords are stored as-is
+							</P
+></LI
+><LI
+><P
+>								<TT
+CLASS="LITERAL"
+>sha1</TT
+> : hashed using the sha1 algorithm
+							</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="CONFIG.OPTIONS.LOG"
+></A
+>Logging options</H2
+><P
+>				The log system is configured in the <TT
+CLASS="FILENAME"
+>config/logging.php</TT
+>
+				file. Define which log module to use, and then configure the module
+				in the same file. Descriptions of the various log module options can
+				be found in the <A
+HREF="modules.log.html"
+><I
+>Log modules</I
+></A
+>
+				sectiond.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["log_class"]</TT
+></DT
+><DD
+><P
+>							Which log message classes to log. Log messages of
+							equal or higher severity will be logged. Valid values
+							are:
+						</P
+><P
+></P
+><UL
+><LI
+><P
+>								PHPSS_LOG_INFO : informational messages (user login/logout etc)
+							</P
+></LI
+><LI
+><P
+>								PHPSS_LOG_NOTICE : significant but normal messages (database cleanups etc)
+							</P
+></LI
+><LI
+><P
+>								PHPSS_LOG_WARNING : warnings (session hijack attempts etc)
+							</P
+></LI
+><LI
+><P
+>								PHPSS_LOG_ERROR : error messages (database connection failures etc)
+							</P
+></LI
+></UL
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["log_enable"]</TT
+></DT
+><DD
+><P
+>						Set to true to enable logging.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>$phpss_cfg["phpss"]["log_module"]</TT
+></DT
+><DD
+><P
+>						The name of the log module to use.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="CONFIG.OPTIONS.MODULES"
+></A
+>Configuring normal modules</H2
+><P
+>				Normal modules are configured in <TT
+CLASS="FILENAME"
+>config/modules.php</TT
+>.
+			</P
+><P
+>				All modules share two common options; <TT
+CLASS="VARNAME"
+>enable</TT
+>
+				and <TT
+CLASS="VARNAME"
+>modulefile</TT
+>. <TT
+CLASS="VARNAME"
+>enable</TT
+>
+				defines if the module should be loaded and activated, or not -
+				<TT
+CLASS="LITERAL"
+>true</TT
+> if it should be loaded, and <TT
+CLASS="LITERAL"
+>false</TT
+>
+				if not. <TT
+CLASS="VARNAME"
+>modulefile</TT
+> sets the full path to the
+				module file, and normally shouldn't be changed.
+			</P
+><P
+>				Descriptions of the modules and their options are found in the
+				<A
+HREF="modules.normal.html"
+><I
+>Normal modules</I
+></A
+>
+				section.
+			</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="config.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="config.file.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Configuration</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="config.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using a different config file</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

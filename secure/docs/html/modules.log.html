@@ -1,0 +1,401 @@
+<HTML
+><HEAD
+><TITLE
+>Log modules</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Modules"
+HREF="modules.html"><LINK
+REL="PREVIOUS"
+TITLE="Authentication modules"
+HREF="modules.auth.html"><LINK
+REL="NEXT"
+TITLE="Normal modules"
+HREF="modules.normal.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="modules.auth.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. Modules</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="modules.normal.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULES.LOG"
+></A
+>Log modules</H1
+><P
+>			Log modules writes log entries to various backends.
+		</P
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.LOG.DATABASE"
+></A
+>database</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/log/database.php</TT
+></P
+><P
+>				Inserts log entries into the phpss_log table in the phpSecureSite database.
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.LOG.FILE"
+></A
+>file</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/log/file.php</TT
+></P
+><P
+>				Sends log messages to a plain-text file, or to a command
+				through a pipe, in a user-specified format.
+			</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>file</TT
+></DT
+><DD
+><P
+>						The file which log messages should be written to. If this
+						starts with a | (pipe), it will instead execute the command
+						following the | and pass the log data to it through stdin.
+					</P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>format</TT
+></DT
+><DD
+><P
+>							The format in which log messages should be written. You
+							can use special expansion identifiers which will be replaced
+							with actual data when the entry is generated:
+						</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%%</TT
+> : A percent sign</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%a</TT
+> : Account id (0 if not logged in)</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%A</TT
+> : Account name (username)</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%c</TT
+> : Log class</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%i</TT
+> : IP address of the client</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%l</TT
+> : Log message</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%L</TT
+> : Extra information</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%m</TT
+> : Module which sent the message</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%M</TT
+> : Type of module</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%s</TT
+> : Session id</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%S</TT
+> : Session key</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%t</TT
+> : Time in UNIX timestamp format</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%T</TT
+> : Time in ISO format</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>%u</TT
+> : Page URI</P
+></LI
+></UL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="MODULES.LOG.SYSLOG"
+></A
+>syslog</H2
+><P
+><TT
+CLASS="FILENAME"
+>modules/log/syslog.php</TT
+></P
+><P
+>				Sends log messages to the syslog on UNIX systems (on Windows
+				it is supposed to be sent to the Event Viewer, but it has never
+				been tested).
+			</P
+><P
+>				The module maps the <A
+HREF="ref.const.html#REF.CONST.LOGCLASS"
+>message class</A
+>
+				to the corresponding syslog classes, wo you can use them for filtering.
+			</P
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>				If you have configured apache to use syslog for logging as well,
+				Apache will not reset it's log ident and facility, and will
+				send log messages using the phpss ident. <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Do not use this module
+				if your Apache installation is using syslog for logging.</I
+></SPAN
+>
+			</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+>Configuration options</B
+></P
+><DL
+><DT
+><TT
+CLASS="VARNAME"
+>facility</TT
+></DT
+><DD
+><P
+>						The facility ("category") to use for logging messages.
+						A list of constants for use here can be found in the
+						syslog(3) man page. Default is <TT
+CLASS="CONSTANT"
+>LOG_AUTHPRIV</TT
+>.
+					</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="modules.auth.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="modules.normal.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Authentication modules</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="modules.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Normal modules</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

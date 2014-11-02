@@ -1,0 +1,234 @@
+<HTML
+><HEAD
+><TITLE
+>Storing temporary data</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Module development"
+HREF="moduledev.html"><LINK
+REL="PREVIOUS"
+TITLE="Configuration options"
+HREF="moduledev.config.html"><LINK
+REL="NEXT"
+TITLE="The event system"
+HREF="moduledev.events.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="moduledev.config.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Module development</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="moduledev.events.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULEDEV.DATA"
+></A
+>Storing temporary data</H1
+><P
+>			phpSecureSite also provides functions for storing and retreiving temporary
+			data. This may be useful for many things, most importantly to communicate
+			between event hooks. Permanent or long-term (ie inter-request) data should
+			be stored in the database.
+		</P
+><P
+>			Temporary data is stored by calling <A
+HREF="ref.html#REF.FUNC.MODULE_SET_DATA"
+><TT
+CLASS="FUNCTION"
+>phpss_module_set_data()</TT
+></A
+>,
+			which takes the name of the module, the name of the data, the data itself and
+			optionally the type of module (as usual). It supports all datatypes PHP supports.
+		</P
+><P
+>			To fetch the data you call <A
+HREF="ref.html#REF.FUNC.MODULE_GET_DATA"
+><TT
+CLASS="FUNCTION"
+>phpss_module_get_data()</TT
+></A
+>,
+			which takes the name of the module, the name of the data and the optional
+			module type as an argument.
+		</P
+><P
+>			When you fetch data you can also fetch a reference to the data. This is
+			very useful for example if you store an array and need to change a single
+			value. References are explained in detail in the PHP docs, so we won't
+			go to deep into it here, but here is a small example of how references
+			can make your life easier:
+		</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$data = array("data1" =&#62; "abcd", "data2" =&#62; "efgh");
+phpss_module_set_data("mymodule", "data", $data);
+
+$dataref = &amp;phpss_module_get_data("mymodule", "data");
+$dataref["data1"] = "1234";</PRE
+></TD
+></TR
+></TABLE
+>
+		</P
+><P
+>			After this, the data stored as <TT
+CLASS="LITERAL"
+>"data"</TT
+> will look like
+			<TT
+CLASS="LITERAL"
+>array("data1" =&#62; "1234", "data2" =&#62; "efgh")</TT
+>.
+			This is because instead of fetching a <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>copy</I
+></SPAN
+> of the data,
+			we get a <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>reference</I
+></SPAN
+> to the data. We do this by putting an
+			<TT
+CLASS="LITERAL"
+>&amp;</TT
+> before the <A
+HREF="ref.html#REF.FUNC.MODULE_GET_DATA"
+><TT
+CLASS="FUNCTION"
+>phpss_module_get_data</TT
+></A
+>
+			function call. When we have a reference to the data, any changes we do to
+			the reference (<TT
+CLASS="VARNAME"
+>$dataref</TT
+> in this example) will also
+			affect the centrally stored data. This way we don't have to fetch a whole
+			copy of the data, make the change and then store the whole array again.
+			It is both much faster and more convenient.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="moduledev.config.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="moduledev.events.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Configuration options</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="moduledev.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The event system</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

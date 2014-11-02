@@ -1,0 +1,744 @@
+<HTML
+><HEAD
+><TITLE
+>phpSecureSite 0.1.2 documentation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="NEXT"
+TITLE="Release Notes"
+HREF="preface.html"></HEAD
+><BODY
+CLASS="BOOK"
+><DIV
+CLASS="BOOK"
+><A
+NAME="INDEX"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+></A
+>phpSecureSite 0.1.2 documentation</H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN4"
+></A
+>Erik Grinaker</H3
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 2002-2003 Erik Grinaker</P
+><DIV
+CLASS="LEGALNOTICE"
+><A
+NAME="AEN10"
+></A
+><P
+></P
+><P
+>				Permission is granted to copy, distribute and/or modify this document
+				under the terms of the GNU Free Documentation License, Version 1.2
+				or any later version published by the Free Software Foundation;
+				with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+				A copy of the license is included in the section entitled "GNU
+				Free Documentation License".
+			</P
+><P
+></P
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="preface.html"
+>Release Notes</A
+></DT
+><DT
+>1. <A
+HREF="intro.html"
+>Introduction</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="intro.html#INTRO.WHAT"
+>What is it?</A
+></DT
+><DT
+><A
+HREF="intro.overview.html"
+>Overview</A
+></DT
+><DT
+><A
+HREF="intro.licence.html"
+>Licence</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="install.html"
+>Installation</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="install.html#INSTALL.REQS"
+>Requirements</A
+></DT
+><DT
+><A
+HREF="install.install.html"
+>Installing phpSecureSite</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="config.html"
+>Configuration</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="config.html#CONFIG.INITIAL"
+>Initial configuration</A
+></DT
+><DT
+><A
+HREF="config.options.html"
+>Configuration options</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="config.options.html#CONFIG.OPTIONS.CORE"
+>Core system</A
+></DT
+><DT
+><A
+HREF="config.options.html#CONFIG.OPTIONS.DB"
+>Database options</A
+></DT
+><DT
+><A
+HREF="config.options.html#CONFIG.OPTIONS.AUTH"
+>Authentication options</A
+></DT
+><DT
+><A
+HREF="config.options.html#CONFIG.OPTIONS.LOG"
+>Logging options</A
+></DT
+><DT
+><A
+HREF="config.options.html#CONFIG.OPTIONS.MODULES"
+>Configuring normal modules</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="config.file.html"
+>Using a different config file</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="usage.html"
+>Usage</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="usage.html#USAGE.INTRO"
+>Introduction</A
+></DT
+><DT
+><A
+HREF="usage.database.html"
+>Accessing the database</A
+></DT
+><DT
+><A
+HREF="usage.cache.html"
+>The cache system</A
+></DT
+><DT
+><A
+HREF="usage.accountdata.html"
+>Using additional account data</A
+></DT
+><DT
+><A
+HREF="usage.example.html"
+>A simple example application</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="usage.example.html#USAGE.EXAMPLE.LOGINFORM"
+>Login form</A
+></DT
+><DT
+><A
+HREF="usage.example.html#USAGE.EXAMPLE.LOGIN"
+>Login script</A
+></DT
+><DT
+><A
+HREF="usage.example.html#USAGE.EXAMPLE.GLOBAL"
+>Global-include</A
+></DT
+><DT
+><A
+HREF="usage.example.html#USAGE.EXAMPLE.SECRET"
+>Secret page</A
+></DT
+><DT
+><A
+HREF="usage.example.html#USAGE.EXAMPLE.LOGOUT"
+>Logout script</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="usage.security.html"
+>Security considerations</A
+></DT
+><DT
+><A
+HREF="usage.examples.html"
+>More examples</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="usage.examples.html#USAGE.EXAMPLES.LOGINFORMERROR"
+>Displaying login errors in the login form</A
+></DT
+><DT
+><A
+HREF="usage.examples.html#USAGE.EXAMPLES.DENYREDIR"
+>Redirect to login form if not logged in</A
+></DT
+><DT
+><A
+HREF="usage.examples.html#USAGE.EXAMPLES.NOCASEUSERNAME"
+>Case-insensitive usernames</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>5. <A
+HREF="admin.html"
+>Administration</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="admin.html#ADMIN.INTRO"
+>Introduction</A
+></DT
+><DT
+><A
+HREF="admin.accounts.html"
+>Managing user accounts</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="admin.accounts.html#ADMIN.ACCOUNTS.ADD"
+>Adding users</A
+></DT
+><DT
+><A
+HREF="admin.accounts.html#ADMIN.ACCOUNTS.DELETE"
+>Deleting users</A
+></DT
+><DT
+><A
+HREF="admin.accounts.html#ADMIN.GROUPS.MANAGE"
+>Managing groups</A
+></DT
+><DT
+><A
+HREF="admin.accounts.html#ADMIN.GROUPS.MEMBERSHIP"
+>Group memberships</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>6. <A
+HREF="modules.html"
+>Modules</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="modules.html#MODULES.DATABASE"
+>Database modules</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="modules.html#MODULES.DATABASE.MSSQL"
+>mssql (Microsoft SQL Server)</A
+></DT
+><DT
+><A
+HREF="modules.html#MODULES.DATABASE.MYSQL"
+>mysql</A
+></DT
+><DT
+><A
+HREF="modules.html#MODULES.DB.PGSQL"
+>pgsql (PostgreSQL)</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="modules.auth.html"
+>Authentication modules</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="modules.auth.html#MODULES.AUTH.DATABASE"
+>database</A
+></DT
+><DT
+><A
+HREF="modules.auth.html#MODULES.AUTH.LDAP"
+>ldap</A
+></DT
+><DT
+><A
+HREF="modules.auth.html#MODULES.AUTH.MYSQL"
+>mysql</A
+></DT
+><DT
+><A
+HREF="modules.auth.html#MODULES.AUTH.PGSQL"
+>pgsql (PostgreSQL)</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="modules.log.html"
+>Log modules</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="modules.log.html#MODULES.LOG.DATABASE"
+>database</A
+></DT
+><DT
+><A
+HREF="modules.log.html#MODULES.LOG.FILE"
+>file</A
+></DT
+><DT
+><A
+HREF="modules.log.html#MODULES.LOG.SYSLOG"
+>syslog</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="modules.normal.html"
+>Normal modules</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="modules.normal.html#MODULES.NORMAL.ACL"
+>acl (access control lists)</A
+></DT
+><DT
+><A
+HREF="modules.normal.html#MODULES.NORMAL.BRUTEFORCE"
+>bruteforce (bruteforce attack protection)</A
+></DT
+><DT
+><A
+HREF="modules.normal.html#MODULES.NORMAL.CACHECONTROL"
+>cachecontrol (control cache policies using http headers)</A
+></DT
+><DT
+><A
+HREF="modules.normal.html#MODULES.NORMAL.HIJACK"
+>hijack (session hijacking countermeasures)</A
+></DT
+><DT
+><A
+HREF="modules.normal.html#MODULES.NORMAL.IPACCESS"
+>ipaccess (client ip access control)</A
+></DT
+><DT
+><A
+HREF="modules.normal.html#MODULES.NORMAL.LOGINFAILDELAY"
+>loginfaildelay (delays failed login attempts)</A
+></DT
+><DT
+><A
+HREF="modules.normal.html#MODULES.NORMAL.SVARS"
+>svars (session variables)</A
+></DT
+><DT
+><A
+HREF="modules.normal.html#MODULES.NORMAL.TIMEOUT"
+>timeout (session timeouts)</A
+></DT
+><DT
+><A
+HREF="modules.normal.html#MODULES.NORMAL.USERTRACK"
+>usertrack (page request tracking)</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>7. <A
+HREF="tools.html"
+>Tools</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="tools.html#TOOLS.DBCLEAN"
+>dbclean (database cleanups)</A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="moduledev.html"
+>Module development</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="moduledev.html#MODULEDEV.INTRO"
+>Introduction</A
+></DT
+><DT
+><A
+HREF="moduledev.reg.html"
+>Module registration</A
+></DT
+><DT
+><A
+HREF="moduledev.config.html"
+>Configuration options</A
+></DT
+><DT
+><A
+HREF="moduledev.data.html"
+>Storing temporary data</A
+></DT
+><DT
+><A
+HREF="moduledev.events.html"
+>The event system</A
+></DT
+><DT
+><A
+HREF="moduledev.handlers.html"
+>Handlers</A
+></DT
+><DT
+><A
+HREF="moduledev.cache.html"
+>Using caches</A
+></DT
+><DT
+><A
+HREF="moduledev.logging.html"
+>Logging and error reporting</A
+></DT
+></DL
+></DD
+><DT
+>9. <A
+HREF="ref.html"
+>Reference</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ref.html#REF.FUNC"
+>Functions</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ref.html#REF.FUNC.AUTH"
+>Authentication and account/group data</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.DB"
+>Database</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.CACHE"
+>Cache</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.EVENT"
+>Event</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.LOGGING"
+>Logging</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.MAIN"
+>Main control functions</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.MISC"
+>Miscellaneous</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.CORE.MOD"
+>Module</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.SESSION"
+>Session</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.ACL"
+>acl module (access control list)</A
+></DT
+><DT
+><A
+HREF="ref.html#REF.FUNC.SVARS"
+>svars module (session variables)</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="ref.const.html"
+>Constants</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ref.const.html#REF.CONST.MODULETYPE"
+>Module types</A
+></DT
+><DT
+><A
+HREF="ref.const.html#REF.CONST.LOGCLASS"
+>Log classes</A
+></DT
+><DT
+><A
+HREF="ref.const.html#REF.CONST.CACHE"
+>Cache stores</A
+></DT
+><DT
+><A
+HREF="ref.const.html#REF.CONST.MISC"
+>Miscellaneous</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="ref.events.html"
+>Events</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ref.events.html#REF.EVENTS.SYSTEM"
+>System-related events</A
+></DT
+><DT
+><A
+HREF="ref.events.html#REF.EVENTS.LOGIN"
+>Session creation, <TT
+CLASS="FUNCTION"
+>phpss_login()</TT
+></A
+></DT
+><DT
+><A
+HREF="ref.events.html#REF.EVENTS.VALIDATE"
+>Session validation, <TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+></DT
+><DT
+><A
+HREF="ref.events.html#REF.EVENTS.LOGOUT"
+>Session closing, <TT
+CLASS="FUNCTION"
+>phpss_logout()</TT
+></A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="ref.handlers.html"
+>Handlers</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ref.handlers.html#REF.HANDLERS.AUTH"
+>Authentication handlers</A
+></DT
+><DT
+><A
+HREF="ref.handlers.html#REF.HANDLERS.DB"
+>Database handlers</A
+></DT
+><DT
+><A
+HREF="ref.handlers.html#REF.HANDLERS.LOG"
+>Log handlers</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="ref.database.html"
+>Database structure</A
+></DT
+></DL
+></DD
+><DT
+>A. <A
+HREF="project.html"
+>Project information</A
+></DT
+><DT
+>B. <A
+HREF="articles.html"
+>Related articles and documents</A
+></DT
+><DT
+>C. <A
+HREF="gpl.html"
+>GNU General Public Licence, version 2</A
+></DT
+><DT
+>D. <A
+HREF="gfdl.html"
+>GNU Free Documentation License, version 1.2</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="preface.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Release Notes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

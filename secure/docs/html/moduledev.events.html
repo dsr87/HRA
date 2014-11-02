@@ -1,0 +1,180 @@
+<HTML
+><HEAD
+><TITLE
+>The event system</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Module development"
+HREF="moduledev.html"><LINK
+REL="PREVIOUS"
+TITLE="Storing temporary data"
+HREF="moduledev.data.html"><LINK
+REL="NEXT"
+TITLE="Handlers"
+HREF="moduledev.handlers.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="moduledev.data.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Module development</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="moduledev.handlers.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULEDEV.EVENTS"
+></A
+>The event system</H1
+><P
+>			The event system is one of the two mechanisms used by modules to integrate
+			with the core system, and it is mainly used by normal modules. The other
+			method is handlers, which are discussed in the next section.
+		</P
+><P
+>			During execution, phpSecureSite will trigger a set of events at certain
+			places, for example when a user has successfully logged in. A list of these
+			events is avilable in the <A
+HREF="ref.events.html"
+><I
+>Events</I
+></A
+>
+			reference. Modules can register hooks for these events, which are functions that
+			are to be called when a specific event occurs. The functions are also passed
+			a set of data which are related to the event.
+		</P
+><P
+>			Event hooks can be named whatever you want, and they must take two arguments;
+			the name of the event, and an array of data for the event. The hook
+			must be registered by calling <A
+HREF="ref.html#REF.FUNC.EVENT_REGISTER_HOOK"
+><TT
+CLASS="FUNCTION"
+>phpss_event_register_hook()</TT
+></A
+>,
+			which takes the name of the event and the name of the hook function
+			as arguments. An events hooks are called in the order they are registered.
+			They can also return a value, but if they do then execution of the event
+			will be aborted, and the return code will be returned to the caller.
+			Usually the caller (for example <A
+HREF="ref.html#REF.FUNC.LOGIN"
+><TT
+CLASS="FUNCTION"
+>phpss_login()</TT
+></A
+>)
+			will abort and further return the value. So normally the hook should
+			not return a value.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="moduledev.data.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="moduledev.handlers.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Storing temporary data</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="moduledev.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Handlers</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

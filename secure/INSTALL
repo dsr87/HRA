@@ -1,0 +1,13 @@
+Full installation instructions are available in the main documentation,
+located under the docs/ directory.
+
+These are very brief installation instructions:
+
+- copy the phpsecuresite directory to somewhere *outside* your web-tree,
+  for example /opt/phpsecuresite
+
+- import the database structure for your database server type
+  from the correct file under the database/ directory
+
+- configure the system by editing the files under phpss/config/
+

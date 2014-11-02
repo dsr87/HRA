@@ -1,0 +1,473 @@
+<HTML
+><HEAD
+><TITLE
+>Managing user accounts</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Administration"
+HREF="admin.html"><LINK
+REL="PREVIOUS"
+TITLE="Administration"
+HREF="admin.html"><LINK
+REL="NEXT"
+TITLE="Modules"
+HREF="modules.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="admin.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. Administration</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="modules.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="ADMIN.ACCOUNTS"
+></A
+>Managing user accounts</H1
+><P
+>			This section assumes you are using the <A
+HREF="modules.auth.html#MODULES.AUTH.DATABASE"
+><I
+>database</I
+></A
+>
+			authentication handler. Other authentication handlers have different
+			methods of managing user accounts.
+		</P
+><P
+>			Managing accounts involves using SQL queries directly against the database server.
+			If you aren't too familar with SQL you can use a database administration tool such
+			as <A
+HREF="http://www.phpmyadmin.net"
+TARGET="_top"
+>phpMyAdmin</A
+> for MySQL, or
+			<A
+HREF="http://phppgadmin.sourceforge.net"
+TARGET="_top"
+>phpPgAdmin</A
+> for PostgreSQL.
+		</P
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="ADMIN.ACCOUNTS.ADD"
+></A
+>Adding users</H2
+><P
+>				User accounts are created by adding entries to the table <TT
+CLASS="VARNAME"
+>phpss_account</TT
+>.
+				This table has four columns; id, username, password and active. The id
+				is an auto-incrementing column, so you won't need to set anything here. This
+				is just a unique identifier for the account used internally by phpSecureSite.
+				Username is, as the name implies, the username of the account, password
+				is the account password, and active sets whether or not the account is active
+				(allowed to be used). You normally won't need to set anything for the active column
+				as it defaults to active.
+			</P
+><P
+>				The password column is a bit special. phpSecureSite will expect passwords to
+				be stored in a specific format - see the <A
+HREF="config.options.html#CONFIG.OPTIONS.AUTH"
+><I
+>Authentication options</I
+></A
+>
+				for info on configuring it. If you plan on having functionality such as mailing
+				passwords to users who have forgotten it you must store the password in plaintext
+				format, as encrypted passwords can only be retreived by already knowing the password
+				(they use themselves as an encryption key).
+			</P
+><P
+>				If you would like to create an account with a plaintext password you would
+				run a query such as this:
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>INSERT INTO phpss_account (username, password) VALUES ('newuser', 'secretpassword');</B
+></TT
+>
+Query OK, 1 row affected (0.00 sec)</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				Let us say you would like to store passwords in md5 format, scrambling them so
+				that neither you, as an admin, or other database users (or crackers) are able to
+				access them, you could use this query :
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>INSERT INTO phpss_account (username, password) VALUES ('newuser', MD5('secretpassword'));</B
+></TT
+>
+Query OK, 1 row affected (0.00 sec)</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				If your database backend doesn't support the MD5() function, you may use other means
+				of generating the md5 string (such as using the UNIX <B
+CLASS="COMMAND"
+>md5</B
+> command)
+				and insert the resulting string as if it was a plaintext password.
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="ADMIN.ACCOUNTS.DELETE"
+></A
+>Deleting users</H2
+><P
+>				Accounts could have been deleted simply by removing their entry from the account
+				table, but usually you really don't want to do this. Deleting accounts means
+				that all sessions, log entries and other data that is bound against the account
+				no longer have an owner, and in effect loses some of their usefulness. So instead
+				of deleting an account it is better to simply deactivate it. This is easily done by
+				setting the account.active field to 0. If you, at a later time, would like
+				to re-active the account you just set this field to 1.
+			</P
+><P
+>				If you want to deactivate the 'myuser' account you would run a query like this :
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>UPDATE phpss_account SET active = 0 WHERE username = 'myuser';</B
+></TT
+>
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				And for reactivating the account you run a similar query :
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>UPDATE phpss_account SET active = 1 WHERE username = 'myuser';</B
+></TT
+>
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="ADMIN.GROUPS.MANAGE"
+></A
+>Managing groups</H2
+><P
+>				Groups are currently only used by the <A
+HREF="modules.normal.html#MODULES.NORMAL.ACL"
+><I
+>acl (access control lists)</I
+></A
+>
+				module for defining page access based on group memberships, but it will
+				probably be used for other things in the future.
+			</P
+><P
+>				Groups are added by inserting an entry into the <TT
+CLASS="VARNAME"
+>phpss_group</TT
+>
+				table. A group only has a name field, so this is easy:
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>INSERT INTO phpss_group (name) VALUES ('newgroup');</B
+></TT
+>
+Query OK, 1 row affected (0.00 sec)</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				Deleting a group is just as easy. However, when you delete a group you
+				should also remember to delete all group memberships for this group,
+				so that no accounts are members of non-existant groups.
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>DELETE FROM phpss_group WHERE id = 7;</B
+></TT
+>
+Query OK, 1 row affected (0.01 sec)
+
+mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>DELETE FROM phpss_account_group WHERE groupfid = 7;</B
+></TT
+>
+Query OK, 1 row affected (0.00 sec)</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="ADMIN.GROUPS.MEMBERSHIP"
+></A
+>Group memberships</H2
+><P
+>				An account is made a member of a group by inserting an entry into the
+				<TT
+CLASS="VARNAME"
+>phpss_account_group</TT
+> table. A group membership
+				consists of an account id and a group id, specifying that account x
+				is member of group y.
+			</P
+><P
+>				When creating group memberships you need to know the id of both the account
+				and the group. When you have this you run a query:
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>INSERT INTO phpss_account_group (accountfid, groupfid) VALUES (18, 5);</B
+></TT
+>
+Query OK, 1 row affected (0.00 sec)</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				Consequently, removing an account from a group is only a matter of removing
+				the corresponding entry from the same table:
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>DELETE FROM phpss_account_group WHERE accountfid = 18 AND groupfid = 5;</B
+></TT
+>
+Query OK, 1 row affected (0.00 sec)</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="admin.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="modules.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Administration</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="admin.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Modules</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

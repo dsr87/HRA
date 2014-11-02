@@ -1,0 +1,244 @@
+<HTML
+><HEAD
+><TITLE
+>Security considerations</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usage"
+HREF="usage.html"><LINK
+REL="PREVIOUS"
+TITLE="A simple example application"
+HREF="usage.example.html"><LINK
+REL="NEXT"
+TITLE="More examples"
+HREF="usage.examples.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="usage.example.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Usage</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="usage.examples.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="USAGE.SECURITY"
+></A
+>Security considerations</H1
+><P
+>			Even though phpSecureSite is designed to take care of as much as possible
+			of the security of a web-application it is not magic pixie dust that will
+			make your application impregnable. Misconfigurations, poor infrastructure
+			security, bad code and other factors can make all the security provided
+			by phpSecureSite useless. Here are a few tips for making your application
+			secure.
+		</P
+><P
+></P
+><UL
+><LI
+><P
+>				Run your application over SSL (Secure Socket Layer) or TLS (Transport
+				Layedr Security). SSL and TLS encrypts the data which is sent
+				back and forth between the client and the web server. If you don't
+				encrypt the data, it can easily be picked up from the network and
+				people can get access to session data and even sensitive data which
+				may be transmitted. Most web-servers today come with SSL and/or TLS,
+				ask your sysadmin for info. Also, to avoid session hijacking, check out the
+				<A
+HREF="modules.normal.html#MODULES.NORMAL.HIJACK"
+><I
+>hijack (session hijacking countermeasures)</I
+></A
+>
+				module.
+			</P
+></LI
+><LI
+><P
+>				Escape special characters in data which you place in SQL queries.
+				If you don't, then crackers can put special characters in form data
+				etc which will manipulate your SQL queries. If you use the same
+				database for phpSecureSite and your application (see the
+				<A
+HREF="usage.database.html"
+><I
+>Accessing the database</I
+></A
+>
+				section) then you can use the <A
+HREF="ref.html#REF.FUNC.DB_ESCAPE_STRING"
+><TT
+CLASS="FUNCTION"
+>phpss_db_escape_string()</TT
+></A
+>
+				function.
+			</P
+></LI
+><LI
+><P
+>				Urge your users to use secure passwords. Many users have extremely
+				simple passwords (such as "password", "12345678" or "sex"), these can
+				be easily guessed by crackers to gain access to an account. Random
+				combinations of capital letters, small letters and numbers, with
+				eight or more characters, are best. Also see the
+				<A
+HREF="modules.normal.html#MODULES.NORMAL.BRUTEFORCE"
+><I
+>bruteforce (bruteforce attack protection)</I
+></A
+>
+				module.
+			</P
+></LI
+><LI
+><P
+>				Only give information to people who should have access to it.
+				When someone requests a specific data item you should make sure
+				that the user making the request is the owner of the data
+				(for example for viewing customer receipts in a web-store).
+				You can use the <A
+HREF="modules.normal.html#MODULES.NORMAL.ACL"
+><I
+>acl (access control lists)</I
+></A
+>
+				module to restrict access to a page to specific users.
+			</P
+></LI
+><LI
+><P
+>				Turn off the register_globals setting for PHP. If it is enabled,
+				crackers can make your application do unexpected things by setting
+				script variables through GET variables etc.
+			</P
+></LI
+><LI
+><P
+>				Make sure your network infrastructure is secure. Use firewalls
+				and other security devices, and only give access to services
+				which needs to be accessed (don't leave your database server open
+				for the whole Internet, for example). A good policy is "that which
+				is not explicitly allowed, is denied".
+			</P
+></LI
+><LI
+><P
+>				Keep your software up-to-date. Most projects and vendors have mailing
+				lists which notify you of important upgrades and security problems in
+				the software - make sure you are on them.
+			</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="usage.example.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="usage.examples.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>A simple example application</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="usage.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>More examples</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,361 @@
+@charset "utf-8";
+/* CSS Document */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0px;
+    padding: 0px;
+    border: 0px none;
+
+    font-style: inherit;
+    font-variant: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    font-size-adjust: inherit;
+    font-stretch: inherit;
+    -moz-font-feature-settings: inherit;
+    -moz-font-language-override: inherit;
+    vertical-align: baseline;
+	font-family: Arial,sans-serif;
+font-size: 13px;
+
+}
+ul {list-style:none;}
+a {
+    color: #0077B5;
+    text-decoration: none;
+}
+#pagekey-uas-login-with-profile-internal, #pagekey-uas-consumer-login-internal {
+    min-width: 974px;
+    min-height: 510px;
+    background: url('../images/New-York.jpg') no-repeat fixed center bottom / cover transparent;
+    height: 100%;
+    width: 100%;
+    image-rendering: optimizespeed;
+}
+#pagekey-member-home #body, #pagekey-uas-consumer-login-internal #body {
+    margin-left: auto;
+    margin-right: auto;
+    width: 974px;
+}
+.chrome-v5-responsive #body {
+    margin-top: 80px;
+    margin-bottom: 10px;
+}
+#pagekey-uas-login-with-profile-internal, #pagekey-uas-consumer-login-internal {
+    image-rendering: optimizespeed;
+}
+#body .wrapper {
+    padding: 0px 10px;
+}
+#main.signin fieldset {
+    border: medium none;
+    text-align: center;
+    background: none repeat scroll 0% 0% transparent;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -180px !important;
+    margin-left: -240px !important;
+    padding: 0px;
+    width: 455px;
+	margin: 0px 2px;
+}
+form {
+    margin: 0px;
+}
+#main.signin legend {
+    position: absolute;
+    text-indent: -119988px;
+    overflow: hidden;
+    text-align: left;
+}
+.stacked-form label, .stacked-form legend, .stacked-form legend span {
+    float: left;
+}
+legend {
+    border: 0px none;
+    padding: 0px;
+    white-space: normal;
+}
+#main.signin fieldset .outer-wrapper {
+    position: relative;
+    border: medium none;
+}
+#main.signin fieldset {
+    text-align: center;
+}
+#main.signin fieldset .inner-wrapper {
+    background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.7);
+    padding: 30px 40px;
+    z-index: 999999999;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    overflow: hidden;
+    width: 375px;
+}
+#main.signin .logo_container {
+    background: url('/scds/common/u/images/logos/linkedin/logo_linkedin_242x59_v1.png') no-repeat scroll center top transparent;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    text-indent: -119988px;
+    overflow: hidden;
+    text-align: left;
+    height: 59px;
+    width: 375px;
+}
+#main.signin ul {
+    width: 375px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    position: relative;
+}
+#main.signin ul li {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+#main.signin ul .fieldgroup {
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+}
+.stacked-form fieldset label {
+    float: none;
+}
+.stacked-form label, .stacked-form legend span {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 17px;
+    color: #000;
+    margin: 0px 5px 5px 0px;
+}
+#main.signin ul .fieldgroup {
+    text-align: left;
+}
+#main.signin ul .fieldgroup label {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 17px;
+    color: #000;
+	float:none;
+    margin: 0px 5px 15px 0px;
+}
+.stacked-form strong.error, .stacked-form span.error {
+    font-size: 13px;
+    line-height: 17px;
+    color: #DD3737;
+    font-weight: normal;
+}
+.stacked-form span {
+    vertical-align: middle;
+}
+#main.signin ul input.email, #main.signin ul input[type="email"], #main.signin ul input[type="text"] {
+    padding-right: 7px;
+}
+#main.signin ul input[type="text"]
+ {
+    background: none repeat scroll 0% 0% #FDFDFD;
+    vertical-align: middle;
+    border-radius: 2px;
+    padding: 8px 7px 5px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1) inset;
+    border: 1px solid #C1C1C1;
+    font-size: 16px;
+    line-height: 16px;
+    color: #333;
+    width: 359px;
+}
+#main.signin ul li {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+.stacked-form strong.error, .stacked-form span.error {
+    font-size: 13px;
+    line-height: 17px;
+    color: #DD3737;
+    font-weight: normal;
+}
+.stacked-form span {
+    vertical-align: middle;
+}
+#main.signin ul .password_wrapper {
+    position: relative;
+    overflow: hidden;
+}
+#main.signin ul input.password, #main.signin ul input[type="password"] {
+    border-radius: 2px 0px 0px 2px;
+    width: 326px;
+    float: left;
+}
+#main.signin ul input[type="password"] {
+    background: none repeat scroll 0% 0% #FDFDFD;
+    vertical-align: middle;
+    border-radius: 2px;
+    padding: 8px 7px 5px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1) inset;
+    border: 1px solid #C1C1C1;
+    font-size: 16px;
+    line-height: 16px;
+    color: #333;
+}
+.stacked-form input[type="password"]
+{
+	max-width::100%;
+	margin: 0px;
+}
+#main.signin ul .nav-link.forgot-password-link {
+    text-indent: 0px;
+    font-weight: bold;
+    border-width: 1px 1px 1px 0px;
+    border-style: solid;
+    cursor: pointer;
+    margin: 0px;
+    overflow: visible;
+    text-decoration: none !important;
+    width: auto;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75);
+    border-radius: 0px 3px 3px 0px;
+    box-sizing: border-box;
+    color: #444;
+    background-color: #F2F2F2;
+    border-color: #A7A7A7;
+    background-image: -moz-linear-gradient(center top , #F2F2F2 0%, #E9E9E9 32%, #D8D8D8 74%, #D1D1D1 100%);
+    white-space: nowrap;
+    vertical-align: middle;
+    float: left;
+    display: block;
+    font-size: 16px;
+    line-height: 33px;
+    height: 100%;
+    padding: 0px 11px;
+}
+#main.signin ul .nav-link {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+	text-align: left;
+}
+#main.signin .button {
+    margin-bottom: 0px;
+}
+#main.signin ul li {
+    margin-top: 0px;
+}
+#main.signin .button .btn-primary {
+    font-weight: bold;
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer;
+    margin: 0px 0px 20px;
+    overflow: visible;
+    text-decoration: none !important;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.35);
+    border-radius: 3px;
+    padding: 0px 15px;
+    height: 34px;
+    line-height: 32px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #FFF;
+    background-color: #287BBC;
+    border-color: #1B5480;
+    background-image: -moz-linear-gradient(center top , #287BBC 0%, #23639A 100%);
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+}
+.btn-primary {
+    background: -moz-linear-gradient(center top , #73AEC9 0px, #73AEC9 1px, #338AB0 1px, #0571A6 100%) repeat scroll 0% 0% transparent;
+    color: #FFF !important;
+}
+    color: #666;
+}
+.stacked-form span {
+    vertical-align: middle;
+}
+#main.signin fieldset .outer-wrapper .gaussian-blur {
+    height: 100%;
+   
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    width: 455px;
+}
+#footer {
+    position: fixed;
+    bottom: 0px;
+    min-width: 974px;
+    width: 100%;
+    background: none repeat scroll 0% 0% #202020;
+    border: medium none;
+    padding: 15px 0px 15px 15px;
+    text-align: center;
+}
+#footer {
+    font-size: 12px;
+    line-height: 14px;
+    color: #666;
+    font-weight: normal;
+    margin-left: auto;
+    margin-right: auto;
+}
+#footer .wrapper {
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+#footer #copyright {
+    float: none;
+    margin-top: 4px;
+    border: medium none;
+    line-height: 17px;
+}
+#footer #copyright, #footer #nav-legal {
+    font-size: 12px;
+    color: #FFF;
+    font-weight: normal;
+    display: inline-block;
+    vertical-align: middle;
+}
+#footer #copyright {
+    margin-right: 8px;
+    padding-right: 8px;
+    margin-bottom: 5px;
+}
+
+#footer #nav-legal {
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFF;
+    font-weight: normal;
+    display: inline-block;
+    vertical-align: middle;
+}
+ #footer #nav-legal > li:first-child {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+#footer #nav-legal > li {
+    border: medium none;
+}
+#footer #nav-legal > li {
+    padding-right: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float: left;
+}
+#footer #nav-legal > li {
+    border: medium none;
+    margin-left: 25px;
+    margin-right: 0px;
+}
+ #footer #nav-legal > li.last {
+    border-right: medium none;
+}
+#footer #copyright a, #footer #nav-legal a {
+    font-size: 12px;
+    line-height: 14px;
+    text-decoration: none;
+    color: #FFF;
+    font-weight: bold;
+}

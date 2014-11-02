@@ -1,0 +1,304 @@
+<HTML
+><HEAD
+><TITLE
+>Installing phpSecureSite</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation"
+HREF="install.html"><LINK
+REL="PREVIOUS"
+TITLE="Installation"
+HREF="install.html"><LINK
+REL="NEXT"
+TITLE="Configuration"
+HREF="config.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Installation</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="config.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="INSTALL.INSTALL"
+></A
+>Installing phpSecureSite</H1
+><P
+>			Before installing phpSecureSite please make sure that your web-server
+			and database server are functioning properly. You should also note
+			that these instructions are for UNIX systems - for Windows systems you
+			are pretty much on your own (although the process is roughly the same).
+		</P
+><P
+>			Installing phpSecureSite is a rather straight-forward job. The first
+			thing to do is to unpack the source archive and cd into the phpSecureSite
+			archive directory. This is done with these commands:
+		</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ <TT
+CLASS="USERINPUT"
+><B
+>tar -jxvf phpsecuresite-0.1.2.tar.bz2</B
+></TT
+>
+$ <TT
+CLASS="USERINPUT"
+><B
+>cd phpsecuresite-0.1.2/</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+		</P
+><P
+>			(if your version of tar doesn't support bunzip'ing you can instead use
+			a command such as <TT
+CLASS="USERINPUT"
+><B
+>bzip2 -c -d phpsecuresite-0.1.2.tar.bz2 | tar -xv</B
+></TT
+>
+			to unpack the archive)
+		</P
+><P
+>			Next you must create a database for phpSecureSite to use, and then import the
+			database structure. This structure is available as SQL-queries in normal
+			ASCII text-files under the <TT
+CLASS="FILENAME"
+>database/</TT
+> directory. There is a
+			file for each supported database backend - use the one appropriate for your
+			server.
+		</P
+><P
+>			Before importing the database structure you should make sure a valid database
+			account exists for phpSecureSite to use. See your database server's documentation
+			for information on setting up an account. phpSecureSite needs to have permissions
+			to run SELECT, INSERT, UPDATE and DELETE operations on all tables in the database.
+		</P
+><P
+>			Here is an example on how to import the structure into a MySQL database server
+			(for other database servers please refer to the server's official documentation) :
+		</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>CREATE DATABASE phpss;</B
+></TT
+>
+Query OK, 1 row affected (0.04 sec)
+
+mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>USE phpss;</B
+></TT
+>
+Database changed
+mysql&#62; <TT
+CLASS="USERINPUT"
+><B
+>source database/mysql.sql;</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+		</P
+><P
+>			Next you need to place phpSecureSite itself somewhere. It is <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+>
+			recommended to place it under the web-servers document root (often
+			<TT
+CLASS="FILENAME"
+>/var/www/htdocs</TT
+>), as it can then be accessed and
+			manipulated by anyone. You could, for example, place it under
+			<TT
+CLASS="FILENAME"
+>/opt/phpsecuresite/</TT
+>, but this is really up to you.
+			For example:
+		</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ <TT
+CLASS="USERINPUT"
+><B
+>mkdir /opt/phpsecuresite</B
+></TT
+>
+$ <TT
+CLASS="USERINPUT"
+><B
+>cp -Rv * /opt/phpsecuresite</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+		</P
+><P
+>			That's it, phpSecureSite is now installed and ready for use. Now you need to
+			configure it, take a look at the <A
+HREF="config.html"
+><I
+>Configuration</I
+></A
+>
+			section for more information. You should also add an account to the database
+			for testing - info on this is available in the
+			<A
+HREF="admin.accounts.html"
+><I
+>Managing user accounts</I
+></A
+>
+			section.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="config.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Installation</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Configuration</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

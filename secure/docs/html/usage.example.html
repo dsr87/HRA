@@ -1,0 +1,630 @@
+<HTML
+><HEAD
+><TITLE
+>A simple example application</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usage"
+HREF="usage.html"><LINK
+REL="PREVIOUS"
+TITLE="Using additional account data"
+HREF="usage.accountdata.html"><LINK
+REL="NEXT"
+TITLE="Security considerations"
+HREF="usage.security.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="usage.accountdata.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Usage</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="usage.security.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLE"
+></A
+>A simple example application</H1
+><P
+>			For this example we will assume that the application is placed under
+			<TT
+CLASS="FILENAME"
+>/var/www/htdocs/</TT
+>, and that phpSecureSite has been
+			installed into <TT
+CLASS="FILENAME"
+>/opt/phpsecuresite/</TT
+>. You should
+			also have configured it for use in your environment.
+		</P
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLE.LOGINFORM"
+></A
+>Login form</H2
+><P
+><TT
+CLASS="FILENAME"
+>/var/www/htdocs/loginform.php</TT
+></P
+><P
+>				We'll start off with the login form. This is a pure HTML form
+				which asks for a username and password. Let's take a look at
+				the source code.
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>&lt;html&gt;
+&lt;body&gt;
+
+&lt;form action="login.php" method="post"&gt;
+	Username : &lt;input type="text" name="username"&gt;&lt;br&gt;
+	Password : &lt;input type="password" name="password"&gt;&lt;br&gt;
+	&lt;input type="submit" value="Log in"&gt;
+&lt;/form&gt;
+
+&lt;body&gt;
+&lt;/html&gt;</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				There shouldn't be any surprises here. A simple HTML form with
+				a text-input box for the username, a password box for hidden
+				password entry, and a submit button which sends the form input
+				to <TT
+CLASS="FILENAME"
+>login.php</TT
+> as POST variables.
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLE.LOGIN"
+></A
+>Login script</H2
+><P
+><TT
+CLASS="FILENAME"
+>/var/www/htdocs/login.php</TT
+></P
+><P
+>				Next, we'll write the script which takes care of logging users in.
+				This script takes a username and password, which was passed from
+				the login form as POST variables, and checks them against the
+				authentication backend, creating a session if successful.
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>&lt;?php
+
+// load phpSecureSite
+require("/opt/phpsecuresite/phpss/phpss.php");
+
+// check the username and password
+$status = phpss_login($_POST['username'], $_POST['password']);
+
+// check if the user is allowed access
+switch ($status) {
+
+	case "phpss_login_allow":
+		header("Location: secret.php"); // login successful, redirect to secret page
+		exit();
+		break;
+
+	case "phpss_login_authfail":
+		print("You entered a wrong username or password");
+		break;
+
+	case "phpss_login_bruteforce_accountlock":
+		print("Account is locked for logins");
+		break;
+
+	case "phpss_login_bruteforce_iplock":
+		print("IP address is locked for logins");
+		break;
+
+	case "phpss_ipaccess_deny":
+		print("Logins not allowed from your IP address");
+		break;
+
+	default:
+		print("Unknown return code when authenticating user");
+}
+
+?&gt;</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				We start by loading phpSecureSite. This is done through a normal
+				<TT
+CLASS="FUNCTION"
+>require()</TT
+> call. This sets up everything we need in
+				order for us to it.
+			</P
+><P
+>				Next, we send the username and password, which was passed from the HTML
+				form, to <A
+HREF="ref.html#REF.FUNC.LOGIN"
+><TT
+CLASS="FUNCTION"
+>phpss_login()</TT
+></A
+>.
+				This will validate it through the authentication module, and return a
+				value based on the result. The result is stored in the <TT
+CLASS="VARNAME"
+>$status</TT
+>
+				variable. If the login was successful, a session is created.
+			</P
+><P
+>				Then we check the value of <TT
+CLASS="VARNAME"
+>$status</TT
+> to see what we should
+				do next. If the login was successful (<TT
+CLASS="LITERAL"
+>"phpss_login_allow"</TT
+>),
+				we redirect the user to the secret page. If not, we print a message for the
+				user.
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLE.GLOBAL"
+></A
+>Global-include</H2
+><P
+><TT
+CLASS="FILENAME"
+>/var/www/htdocs/include/global.php</TT
+></P
+><P
+>				This script is what we call a "global-include". That means that it
+				will do some things that are common to almost all scripts in our
+				application. By setting these in one file, we can simply load this
+				file using <TT
+CLASS="FUNCTION"
+>require()</TT
+> in every page, and avoid
+				having to duplicate our code on all pages.
+			</P
+><P
+>				In this case the global-include has a rather simple task; to load
+				phpSecureSite and define a so-called "wrapper function". This wrapper
+				function will call <A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+>
+				and then check its return value and execute an appropriate action.
+				We can then simply call the wrapper function wherever we need it
+				in our application scripts, and this way we'll avoid alot of code
+				duplication. Let's have a look...
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>&lt;?php
+
+// load phpSecureSite
+require("/opt/phpsecuresite/phpss/phpss.php");
+
+// define a phpss_validate() wrapper function
+function authwrapper() {
+
+	// call phpss_validate()
+	$status = phpss_validate();
+
+	// check the return value
+	switch($status) {
+
+		case "phpss_validate_allow":
+			break;	// access is allowed, do nothing
+
+		case "phpss_validate_nosession":
+			exit("You need to be logged in to access this page");
+			break;
+
+		case "phpss_validate_acl_deny":
+			exit("You do not have permission to view this page");
+			break;
+
+		case "phpss_validate_hijack_fail":
+			exit("Your IP address has changed");
+			break;
+
+		case "phpss_validate_ipaccess_deny":
+			exit("Access is not allowed from your IP address");
+			break;
+
+		case "phpss_validate_timeout_fail":
+			exit("You session has timed out, please log in again");
+			break;
+
+		default:
+			exit("Unknown return code when authorizing session");
+	}
+}
+
+?&gt;</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				First we load phpSecureSite, this way we won't have to explicitly load it
+				on every page.
+			</P
+><P
+>				We also define a wrapper function, <TT
+CLASS="FUNCTION"
+>authwrapper()</TT
+>. In
+				the wrapper we call <A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+>
+				and place the return value in <TT
+CLASS="VARNAME"
+>$status</TT
+>. Then we check the
+				return value. If the value is <TT
+CLASS="LITERAL"
+>"phpss_validate_allow"</TT
+> access
+				is allowed, and we do nothing (the function will then exit without doing anything
+				more). If the return code is something else we stop script execution
+				by calling <TT
+CLASS="FUNCTION"
+>exit()</TT
+> with a message explaining why access
+				was denied. A description of the return codes is available in the
+				<A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+> function reference</A
+>.
+			</P
+><P
+>				When we call <TT
+CLASS="FUNCTION"
+>authwrapper()</TT
+> in a page it will be just
+				as if we had simply called <A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+>,
+				but it also checks the return value.
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLE.SECRET"
+></A
+>Secret page</H2
+><P
+><TT
+CLASS="FILENAME"
+>/var/www/htdocs/secret.php</TT
+></P
+><P
+>				Now we'll take a look at how a private page is made. This page will only be
+				accessible by authenticated users with a valid session. Since we have
+				set up a global-include which defines a wrapper for
+				<A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+> this is
+				really simple. Have a look:
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>&lt;?php
+
+// load the global-include
+require("include/global.php");
+
+// check if the session is valid
+authwrapper();
+
+?&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+Welcome to the secret page! Nothing of interest here...
+&lt;p&gt;
+You may now &lt;a href="logout.php"&gt;log out&lt;/a&gt;.
+
+&lt;/body&gt;
+&lt;/html&gt;</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				Simple, wasn't it? First we load out global include <TT
+CLASS="FILENAME"
+>include/global.php</TT
+>,
+				which loads phpSecureSite and then defines the <TT
+CLASS="FUNCTION"
+>authwrapper()</TT
+>
+				function. Then we call <TT
+CLASS="FUNCTION"
+>authwrapper()</TT
+>, which in turn calls
+				<A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+> and then
+				checks the return codes and takes appropriate action. If everything went ok,
+				the script continues by printing a simple html page.
+			</P
+><P
+>				This is all you will really need to do to enable phpSecureSite in your application.
+				Just add the <TT
+CLASS="FUNCTION"
+>authwrapper()</TT
+> call (and load the global-include
+				if you don't already have one) and you're good to go.
+			</P
+><P
+>				The "log out" link points to the <TT
+CLASS="FILENAME"
+>logout.php</TT
+> script, which
+				is the last script in out small application. We'll have a look at this next.
+			</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="USAGE.EXAMPLE.LOGOUT"
+></A
+>Logout script</H2
+><P
+><TT
+CLASS="FILENAME"
+>/var/www/htdocs/logout.php</TT
+></P
+><P
+>				This script will destroy a session, in effect logging a user out, and then
+				redirect the user to the login form.
+			</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>&lt;?php
+
+require("include/global.php");
+
+// check that we actually have a valid session to destroy
+authwrapper();
+
+// destroy the session
+phpss_logout();
+
+// redirect to login form
+header("Location: loginform.php");
+
+?&gt;</PRE
+></TD
+></TR
+></TABLE
+>
+			</P
+><P
+>				This script probably don't even need an explanation, but you'll get
+				one in any case.
+			</P
+><P
+>				We first load phpSecureSite through the global-include, which also
+				sets up <TT
+CLASS="FUNCTION"
+>authwrapper()</TT
+>. We then check that the user
+				actually has a valid session that we can destroy by calling <TT
+CLASS="FUNCTION"
+>authwrapper()</TT
+>.
+				Then we destroy the session by calling <A
+HREF="ref.html#REF.FUNC.LOGOUT"
+><TT
+CLASS="FUNCTION"
+>phpss_logout()</TT
+></A
+>,
+				which deactivates the session in the database, and removes the client cookie.
+				Then it redirects the user to the login form, so he can log in again.
+			</P
+><P
+>				That's all there is to it. I hope you'll find phpSecureSite useful in
+				your own application.
+			</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="usage.accountdata.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="usage.security.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using additional account data</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="usage.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Security considerations</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,49 @@
+LI.define("Login.handleSuccess");
+LI.Login.handleSuccess=function(e){var d=e.responseText,a=LI.ChangePassword.Styles,b=LI.ChangePassword.JS,c=LI.Controls.getControl("login","FrontierAJAXForm");
+LI.Dialog().open({name:"change-password-dialog",type:"interrupt",width:500,content:{title:LI.i18n.get("change_your_password"),html:d},dependencies:{jsFiles:b,cssFiles:a}});
+c.resetFormSubmit()
+};
+LI.define("Login.handleError");
+LI.Login.handleError=function(c){var e=YDom.get("session_password-login"),d=YDom.get("session_key-login"),a=YDom.get("session_key-login-error"),b=YDom.get("session_password-login-error"),h=YDom.get("mini-profile--js"),l=YDom.get("domainSuggestion"),g=(h?h.children[0]:"");
+function k(p,o,n){var m=p.parentNode;
+YDom.addClass(p,"error");
+p.focus();
+if(!o){o=document.createElement("span");
+o.className="error hidden";
+m.appendChild(o);
+YDom.insertBefore(o,m);
+p.className.replace("hidden","")
+}if(h){o.innerHTML=LI.i18n.get(n)
+}}YDom.removeClass(e,"error");
+YDom.removeClass(d,"error");
+e.value="";
+if(c.domainSuggestions==""){YDom.addClass(l,"hide");
+YDom.removeClass(g,"wp-margin")
+}if(c.ec==="wp"){k(e,b,"wrong_password");
+YDom.addClass(g,"wp-margin")
+}else{if(c.ec==="iu"){var i=d.parentNode;
+a=(!a)?Y$(".error",i)[0]:a;
+if(a){k(d,a,"invalid_username")
+}if(c.domainSuggestions!=""){var f=c.domainSuggestions;
+YDom.addClass(g,"wp-margin");
+YDom.removeClass(l,"hide");
+document.getElementById("suggestion").innerHTML=LI.htmlEncode(f)
+}}}if(!c.ec&&!!c.fieldErrors&&c.globalError){LI.injectAlert(c.globalError,"error")
+}if(c.tc){document.getElementById("tryCount").value=c.tc
+}if(c&&c.fieldErrors){for(var j in c.fieldErrors){YDom.addClass(j,"error")
+}if((c.ec!="iu")&&!(YDom.hasClass(l,"hide"))){YDom.addClass(l,"hide");
+YDom.removeClass(g,"wp-margin")
+}}};
+YEvent.onDOMReady(function(g){var h=YDom.get("session_key-login"),b=YDom.get("mini-profile"),j=YDom.get("not-me--js"),c=false,f=document.getElementById("suggestion"),a=document.getElementById("session_key-login");
+function i(e){YDom.removeClass(h,"hidden");
+YDom.addClass(b,"hidden");
+YDom.addClass(j,"hidden");
+h.focus();
+if(WebTracking){WebTracking.trackUserAction("login_page_v2_interaction_tracking","login_not_you")
+}}function d(){var l=f.text,e=(a.value).split("@"),k=e[0].concat(l);
+a.value=k;
+document.getElementById("clickedSuggestion").value="true";
+c=true
+}if(c==false){YEvent.addListener(f,"click",d,true)
+}YEvent.addListener(j,"click",i,true)
+});

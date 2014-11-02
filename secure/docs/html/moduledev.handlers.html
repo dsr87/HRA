@@ -1,0 +1,190 @@
+<HTML
+><HEAD
+><TITLE
+>Handlers</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Module development"
+HREF="moduledev.html"><LINK
+REL="PREVIOUS"
+TITLE="The event system"
+HREF="moduledev.events.html"><LINK
+REL="NEXT"
+TITLE="Using caches"
+HREF="moduledev.cache.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="moduledev.events.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Module development</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="moduledev.cache.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULEDEV.HANDLERS"
+></A
+>Handlers</H1
+><P
+>			Handlers are the other method modules use for integrating with the
+			core system (the first being <A
+HREF="moduledev.events.html"
+>events</A
+>).
+			They are used by the special module types; database, authentication and
+			log modules.
+		</P
+><P
+>			A handler is a function which is given a specific task to handle,
+			for example a database module needs to provide a function that
+			connects to the database server. A list of the various handlers is
+			available in the <A
+HREF="ref.handlers.html"
+><I
+>Handlers</I
+></A
+>
+			reference.
+		</P
+><P
+>			To register a handler you call <A
+HREF="ref.html#REF.FUNC.REGISTER_HANDLER"
+><TT
+CLASS="FUNCTION"
+>phpss_register_handler()</TT
+></A
+>,
+			giving the type of handler and the name of the handler function as
+			arguments. The arguments the handler must accept and its return value
+			varies from handler type to handler type, so you need to have a look
+			at the mentioned <A
+HREF="ref.handlers.html"
+>handler reference</A
+>
+			for more information.
+		</P
+><P
+>			As the handlers are given rather critical tasks, a handler must be
+			registered for every handler type or the system obviously will not
+			work. Consequently, a module should register a function for all handler
+			types which are related to the module type. For example, a database
+			module <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>must</I
+></SPAN
+> register functions for all the
+			database handlers.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="moduledev.events.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="moduledev.cache.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The event system</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="moduledev.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using caches</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

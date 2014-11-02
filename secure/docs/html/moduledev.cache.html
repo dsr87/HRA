@@ -1,0 +1,285 @@
+<HTML
+><HEAD
+><TITLE
+>Using caches</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Module development"
+HREF="moduledev.html"><LINK
+REL="PREVIOUS"
+TITLE="Handlers"
+HREF="moduledev.handlers.html"><LINK
+REL="NEXT"
+TITLE="Logging and error reporting"
+HREF="moduledev.logging.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="moduledev.handlers.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Module development</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="moduledev.logging.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULEDEV.CACHE"
+></A
+>Using caches</H1
+><P
+>			The cache subsystem handles temporary in-memory storage of data lookups,
+			and is useful to prevent excessive use of the database backend.
+			Module developers are encouraged to take extensive use of this.
+		</P
+><P
+>			Each module gets its own cache space, in which it can create separate
+			caches for various purposes. Usually you want to have one cache per
+			type of data. The data values are stored with a key, which is used
+			to look up the value in the cache. The cache can store all datatypes
+			supported by php.
+		</P
+><P
+>			The various cache functions are described in the <A
+HREF="ref.html#REF.FUNC.CACHE"
+><I
+>Cache</I
+></A
+>
+			function reference. Usually you will only need three functions:
+			<TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.CACHE_SET"
+>phpss_cache_set()</A
+></TT
+>,
+			<TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.CACHE_GET"
+>phpss_cache_get()</A
+></TT
+>
+			and <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.CACHE_CLEAR"
+>phpss_cache_clear()</A
+></TT
+>.
+			All functions take the module name on optionally the module type. You may also need to specify
+			a cache name, which is used to distinguish the various caches your module uses.
+		</P
+><P
+>			Let us take a look at an example. Let us say you need two functions,
+			<TT
+CLASS="FUNCTION"
+>store_data()</TT
+> and <TT
+CLASS="FUNCTION"
+>get_data()</TT
+>.
+			To make these functions use the cache, they would be implemented like
+			this:
+		</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>function store_data($key, $value) {
+	phpss_db_query("INSERT INTO mytable (id, data) VALUES ('$key', '$value')");
+	phpss_cache_set("mymodule", "data", $key, $value);
+}
+
+function get_data($key) {
+	$data = phpss_cache_get("mymodule", "data", $key);
+
+	if ($data == PHPSS_CACHE_NOTFOUND) {
+		$rs = phpss_db_query("SELECT data FROM mytable WHERE id = '$key'");
+		$data = (sizeof($rs) &#62; 0 ? $rs[0][0] : false);
+
+		phpss_cache_set("mymodule", "data", $key, $value);
+	}
+
+	return $data;
+}</PRE
+></TD
+></TR
+></TABLE
+>
+		</P
+><P
+>			As you see in <TT
+CLASS="FUNCTION"
+>get_data()</TT
+>, we use the <A
+HREF="ref.const.html#REF.CONST.CACHE.NOTFOUND"
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_NOTFOUND</TT
+></A
+>
+			constant to check if a value was found in the cache. If it was not found,
+			we fetch the data from the database.
+		</P
+><P
+>			Even if you do not need to use the cache system in your own module, you
+			may want to use <TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.CACHE_CLEAR"
+>phpss_cache_clear()</A
+></TT
+>.
+			This is used to clear a cache. If you need to change some data directly in
+			the phpSecureSite database, you must make sure that an old, cached copy of the
+			data is not used in a later lookup. For example, to clear the session data cache
+			in the core, you would call this code:
+		</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>phpss_cache_clear("phpss", PHPSS_CACHE_SESSIONDATA, PHPSS_MODULE_CORE);</PRE
+></TD
+></TR
+></TABLE
+>
+		</P
+><P
+>			Here we send <A
+HREF="ref.const.html#REF.CONST.CACHE.SESSIONDATA"
+><TT
+CLASS="CONSTANT"
+>PHPSS_CACHE_SESSIONDATA</TT
+></A
+>
+			as the cache name identifier, all the core system caches have identifiers like this.
+			A list of these can be found in the <A
+HREF="ref.const.html#REF.CONST.CACHE"
+><I
+>Cache stores</I
+></A
+>
+			constant reference.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="moduledev.handlers.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="moduledev.logging.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Handlers</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="moduledev.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Logging and error reporting</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

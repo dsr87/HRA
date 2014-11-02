@@ -1,0 +1,12 @@
+phpSecureSite 0.1.2
+===================
+
+phpSecureSite is a very modular authentication, session-handling
+and security system for web applications written in PHP.
+
+The full documentation is available under the docs/ directory,
+in plain text, html and pdf formats.
+
+The project web site is located at:
+http://oss.wired-networks.net/phpsecuresite/
+

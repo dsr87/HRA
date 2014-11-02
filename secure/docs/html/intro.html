@@ -1,0 +1,205 @@
+<HTML
+><HEAD
+><TITLE
+>Introduction</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Release Notes"
+HREF="preface.html"><LINK
+REL="NEXT"
+TITLE="Overview"
+HREF="intro.overview.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="preface.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="intro.overview.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="INTRO"
+></A
+>Chapter 1. Introduction</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="intro.html#INTRO.WHAT"
+>What is it?</A
+></DT
+><DT
+><A
+HREF="intro.overview.html"
+>Overview</A
+></DT
+><DT
+><A
+HREF="intro.licence.html"
+>Licence</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="INTRO.WHAT"
+></A
+>What is it?</H1
+><P
+>			phpSecureSite is an authentication and session-handling system for PHP.
+			It is primarily intended for use in closed web-applications, where
+			a user is required to enter a username and password to enter the
+			site. It is made to be fully integrated with the web-application,
+			which means that you will have to code a frontend (such as login
+			screens etc) for it yourself.
+		</P
+><P
+>			Authentication is done with the widely used username and password
+			scheme, where a user first identifies himself (the username) and
+			then provides a secret known only to the user (the password) to
+			prove that he is who is he claims to be.
+		</P
+><P
+>			To understand what a session handling system is, we need to take
+			a look at how the web-server sees the world. The HTTP protocol,
+			which is the language that your computer and the web-server uses
+			to communicate, is a so-called stateless protocol. What this means
+			is that when the web-server gets a request for a page it simply
+			returns that page, no questions asked. It does not know, nor does
+			it care, which user a request comes from. A session handling system
+			determines which user makes a request, so that the page returned
+			to the client can be dynamically built for that user.
+		</P
+><P
+>			The most basic use of phpSecureSite is obviously to protect access
+			to an application or a set of web-pages, but you can also do alot
+			more with it. It comes with a set of modules which provides functionality
+			such as session variables (which lets you store a piece of data for
+			a session, and retrieve that data in any page), access control lists
+			(for setting which users/groups should be allowed access to a specific
+			page) and much more.
+		</P
+><P
+>			The only downside with phpSecureSite is that it stores all its data
+			in a database. This means that each and every request will result in
+			at least one lookup in the database, which is not good for
+			performance. But to do everything phpSecureSite does there is really
+			no other way to do this. If you just need a light-weight session-handling
+			system, you may be better off with some other package.
+		</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="preface.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="intro.overview.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Release Notes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Overview</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

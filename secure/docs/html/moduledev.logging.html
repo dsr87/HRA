@@ -1,0 +1,188 @@
+<HTML
+><HEAD
+><TITLE
+>Logging and error reporting</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Module development"
+HREF="moduledev.html"><LINK
+REL="PREVIOUS"
+TITLE="Using caches"
+HREF="moduledev.cache.html"><LINK
+REL="NEXT"
+TITLE="Reference"
+HREF="ref.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="moduledev.cache.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Module development</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULEDEV.LOGGING"
+></A
+>Logging and error reporting</H1
+><P
+>			phpSecureSite includes a log subsystem, and for it to be of any use
+			all events of interest to the developer or system administrator needs
+			to be logged.
+		</P
+><P
+>			The log system can find most of the information that goes into a log
+			entry for itself, you just need to say where the message came from
+			(the module name), the severity of the event and the log message itself.
+			You generate a log entry by calling <A
+HREF="ref.html#REF.FUNC.LOG"
+><TT
+CLASS="FUNCTION"
+>phpss_log()</TT
+></A
+>,
+			and passing the following arguments: name of your module, the message class
+			(or severity), the log message, and optionally any extra information and
+			the type of module (defaults to a normal module). A list of log classes
+			can be found in the <A
+HREF="ref.const.html#REF.CONST.LOGCLASS"
+><I
+>Log classes</I
+></A
+>
+			reference.
+		</P
+><P
+>			Whenever an error occurs you should call <A
+HREF="ref.html#REF.FUNC.ERROR"
+><TT
+CLASS="FUNCTION"
+>phpss_error()</TT
+></A
+>.
+			This will display an error message to the user and abort script execution,
+			as well as log the error. The function takes four arguments: the name of
+			the module which generated the error, the error message, and optionally
+			any extra info and the type of module (defaults to a normal module).
+		</P
+><P
+>			You may notice that you can provide both an error message and some extra
+			error information. The error message itself will be displayed to the
+			user whenever something goes wrong, and so it should not be very detailed
+			so that information about the system is made available. This is why
+			you can give some extra information, which will normally not be displayed
+			to the user. The extra information will only be displayed if the
+			system has been configured to display additional information about error
+			messages, and it will also be part of the log entry for the error.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="moduledev.cache.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using caches</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="moduledev.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Reference</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,250 @@
+<HTML
+><HEAD
+><TITLE
+>Configuration options</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Module development"
+HREF="moduledev.html"><LINK
+REL="PREVIOUS"
+TITLE="Module registration"
+HREF="moduledev.reg.html"><LINK
+REL="NEXT"
+TITLE="Storing temporary data"
+HREF="moduledev.data.html"></HEAD
+><BODY
+CLASS="SECTION"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="moduledev.reg.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Module development</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="moduledev.data.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULEDEV.CONFIG"
+></A
+>Configuration options</H1
+><P
+>			Configuration options can be stored in two places; either in the module file
+			itself, or in the central phpSecureSite configuration files.
+		</P
+><P
+>			To store configuration settings in the module file you should use
+			<TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.MODULE_SET_CONFIG"
+>phpss_module_set_config()</A
+></TT
+>.
+			It takes the module name and an array of key/value pairs (your config options)
+			as arguments, and optionally a third argument specifying the type of module.
+			The function call should be placed early in the script so it can easily be
+			accessed by users, but it must be placed after the <A
+HREF="ref.html#REF.FUNC.MODULE_REGISTER"
+><TT
+CLASS="FUNCTION"
+>phpss_module_register()</TT
+></A
+>.
+			Here is an example of how to store a configuration within the module file:
+		</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>phpss_module_config_store("mymodule", array(
+    "option1"         =&#62; "test",
+    "option2"         =&#62; 14
+));</PRE
+></TD
+></TR
+></TABLE
+><P
+>			You can also store options in the central phpSecureSite config file
+			(normally <TT
+CLASS="FILENAME"
+>config/phpss.php</TT
+>). To do this, you create
+			an array named  <TT
+CLASS="VARNAME"
+>$phpss_cfg["module"][&lt;modulename&gt;]</TT
+>.
+			You put config values into this array, just as you would when calling
+			<TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.MODULE_SET_CONFIG"
+>phpss_module_set_config()</A
+></TT
+>,
+			but you must also define two more values in the same array; <TT
+CLASS="VARNAME"
+>enable</TT
+>,
+			which is a boolean value defining whether the module should be loaded or not,
+			and <TT
+CLASS="VARNAME"
+>modulefile</TT
+>, which is the path to the module file which
+			the configuration is for. Here is how the previous example would look when
+			placed in the central configuration:
+		</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$phpss_cfg["module"]["mymodule"] = array(
+	"enable"	=&#62; true,
+	"modulefile"	=&#62; PHPSS_ROOT_FS . "/modules/mymodule.php",
+
+	"option1"	=&#62; "test",
+	"option2"	=&#62; 14
+);</PRE
+></TD
+></TR
+></TABLE
+><P
+>			The configuration can then be retreived (as an array) by calling
+			<TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.MODULE_GET_CONFIG"
+>phpss_module_get_config()</A
+></TT
+>
+			with the name of the module as an argument, and an optional module type argument.
+		</P
+><P
+>			You should also set a default config for your module. This is done by calling
+			<TT
+CLASS="FUNCTION"
+><A
+HREF="ref.html#REF.FUNC.MODULE_SET_DEFAULT_CONFIG"
+>phpss_module_set_default_config()</A
+></TT
+>,
+			and passing it the default configuration. This should usually be done around the
+			time the module is being registered. It will define any options which are not
+			set in the current configuration, but leave existing ones in place.
+		</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="moduledev.reg.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="moduledev.data.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Module registration</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="moduledev.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Storing temporary data</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

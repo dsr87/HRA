@@ -1,0 +1,347 @@
+<HTML
+><HEAD
+><TITLE
+>Usage</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Using a different config file"
+HREF="config.file.html"><LINK
+REL="NEXT"
+TITLE="Accessing the database"
+HREF="usage.database.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="config.file.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="usage.database.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="USAGE"
+></A
+>Chapter 4. Usage</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="usage.html#USAGE.INTRO"
+>Introduction</A
+></DT
+><DT
+><A
+HREF="usage.database.html"
+>Accessing the database</A
+></DT
+><DT
+><A
+HREF="usage.cache.html"
+>The cache system</A
+></DT
+><DT
+><A
+HREF="usage.accountdata.html"
+>Using additional account data</A
+></DT
+><DT
+><A
+HREF="usage.example.html"
+>A simple example application</A
+></DT
+><DT
+><A
+HREF="usage.security.html"
+>Security considerations</A
+></DT
+><DT
+><A
+HREF="usage.examples.html"
+>More examples</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="USAGE.INTRO"
+></A
+>Introduction</H1
+><P
+>			One of the goals of phpSecureSite is to make it fully integrated with
+			the web-application, so that users won't notice that the authentication
+			and session system isn't a part of your application. To achieve it you will
+			need to write some code for it yourself, and this chapter will teach you
+			how to do it, and show some of the things you can do with phpSecureSite.
+		</P
+><P
+>			Currently phpSecureSite is meant for a closed application, where users
+			must log in to use it, so using it for other purposes will not be discussed.
+		</P
+><P
+>			The first thing you need to do is to load phpSecureSite. To do this, simply
+			load the main file like this: <TT
+CLASS="FUNCTION"
+>require("/opt/phpsecuresite/phpss/phpss.php")</TT
+>.
+			This will set up phpSecureSite, and must be done in every script you plan
+			on using it.
+		</P
+><P
+>			There are three main functions which are used to interface with phpSecureSite;
+			<A
+HREF="ref.html#REF.FUNC.LOGIN"
+><TT
+CLASS="FUNCTION"
+>phpss_login()</TT
+></A
+>,
+			<A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+>
+			and <A
+HREF="ref.html#REF.FUNC.LOGOUT"
+><TT
+CLASS="FUNCTION"
+>phpss_logout()</TT
+></A
+>.
+			We will have a look at each of these here, and look at an example in a later
+			section.
+		</P
+><P
+>			We'll start off with <A
+HREF="ref.html#REF.FUNC.LOGIN"
+><TT
+CLASS="FUNCTION"
+>phpss_login()</TT
+></A
+>.
+			This function is used to authenticate users, and if the user provided a
+			correct username and password it will also set up the session for the client.
+			It takes two arguments; <TT
+CLASS="VARNAME"
+>username</TT
+> and <TT
+CLASS="VARNAME"
+>password</TT
+>,
+			and returns a status code indicating the action to be taken. A list of these
+			return codes is available in the <A
+HREF="ref.html#REF.FUNC.LOGIN"
+><TT
+CLASS="FUNCTION"
+>phpss_login()</TT
+>
+			function reference</A
+>. Usernames and passwords are handled in a case-sensitive
+			fashion.
+		</P
+><P
+>			<A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+>
+			is the function which restricts access to a page to authenticated users.
+			It will check if the session is valid, and perform some other checks to
+			make sure the user is allowed access. It doesn't take any arguments, and
+			returns a status code indicating what should be done. A list of these status
+			codes is available in the <A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+>
+			function reference</A
+>.
+		</P
+><P
+>			Since <A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+>
+			needs to be called on every page in your application, it is best to set up
+			a wrapper-function for it which is included through a global-include.
+			A global include is a file which is included at the very start of every page
+			in your application, and performs actions which are common to every script.
+			The wrapper function is a function which calls <A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+>
+			and then performs an action based on its return code. By doing it this way
+			we only need to call the wrapper function in every script, instead of also
+			defining all the checks on every page in your app - this would result in
+			alot of code duplication, which is not good for alot of reasons (difficult
+			to make changes being the most important). An example of this is available
+			later in the chapter.
+		</P
+><P
+>			Both <A
+HREF="ref.html#REF.FUNC.LOGIN"
+><TT
+CLASS="FUNCTION"
+>phpss_login()</TT
+></A
+>
+			and <A
+HREF="ref.html#REF.FUNC.VALIDATE"
+><TT
+CLASS="FUNCTION"
+>phpss_validate()</TT
+></A
+>
+			set up a couple of global variables; <TT
+CLASS="VARNAME"
+>$phpss_account</TT
+> containing
+			the current accounts ID, and <TT
+CLASS="VARNAME"
+>$phpss_sessionkey</TT
+> which contains
+			the current sessions key. These may be useful for example to fetch and present
+			information about the current user.
+		</P
+><P
+>			<A
+HREF="ref.html#REF.FUNC.LOGOUT"
+><TT
+CLASS="FUNCTION"
+>phpss_logout()</TT
+></A
+>
+			destroys the client's session, ie logs the user out. It doesn't take any
+			arguments, and doesn't return anything either. Just call it, and the user
+			can be considered logged out.
+		</P
+><P
+>			This is everything you need to know about phpSecureSite in order to use it.
+			We will have a look at an example in a later section, which may help
+			clarify things if you feel confused.
+		</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="config.file.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="usage.database.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using a different config file</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Accessing the database</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

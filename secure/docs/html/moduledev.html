@@ -1,0 +1,324 @@
+<HTML
+><HEAD
+><TITLE
+>Module development</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="phpSecureSite 0.1.2 documentation"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Tools"
+HREF="tools.html"><LINK
+REL="NEXT"
+TITLE="Module registration"
+HREF="moduledev.reg.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>phpSecureSite 0.1.2 documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="tools.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="moduledev.reg.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="MODULEDEV"
+></A
+>Chapter 8. Module development</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="moduledev.html#MODULEDEV.INTRO"
+>Introduction</A
+></DT
+><DT
+><A
+HREF="moduledev.reg.html"
+>Module registration</A
+></DT
+><DT
+><A
+HREF="moduledev.config.html"
+>Configuration options</A
+></DT
+><DT
+><A
+HREF="moduledev.data.html"
+>Storing temporary data</A
+></DT
+><DT
+><A
+HREF="moduledev.events.html"
+>The event system</A
+></DT
+><DT
+><A
+HREF="moduledev.handlers.html"
+>Handlers</A
+></DT
+><DT
+><A
+HREF="moduledev.cache.html"
+>Using caches</A
+></DT
+><DT
+><A
+HREF="moduledev.logging.html"
+>Logging and error reporting</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="MODULEDEV.INTRO"
+></A
+>Introduction</H1
+><P
+>			The phpSecureSite module system is relatively simple, but it should be powerful and
+			flexible enough to accomodate most needs.
+		</P
+><P
+>			A module is a simple .php file which is loaded using a normal <TT
+CLASS="FUNCTION"
+>require()</TT
+>
+			call. Because they are loaded this way it is important that all code is located within
+			function definitions. Any code not located in functions will be executed when the module
+			is loaded, and this can obviously cause all sorts of problems. The only code that should be
+			outside of functions is code needed to set up the module, such as registering the module
+			and its event hooks etc.
+		</P
+><P
+>			A module should preferrable be contained in a single .php file. Very little validation
+			is done on modules, so it is your responsibility as a module developer that it is
+			correct. All modules should use their own namespace for variables, functions and constants,
+			of the form <TT
+CLASS="VARNAME"
+>phpss_&lt;modulename&gt;_name</TT
+>. This way you will avoid
+			clashes with phpSecureSite itself or the users application. You should also make sure
+			all SQL is SQL-99 compliant and properly escaped, and if anything goes wrong behind the
+			curtain you should exit with an error message using <A
+HREF="ref.html#REF.FUNC.ERROR"
+><TT
+CLASS="FUNCTION"
+>phpss_error()</TT
+></A
+>.
+		</P
+><P
+>			If you need to create a database table for your module then you are free to do so,
+			but prefix it in the same way you do with variables and functions. You should also
+			provide a database schema for each of the database servers phpSecureSite works with,
+			if possible. Information on accessing phpSecureSites database can be found in the
+			<A
+HREF="usage.database.html"
+><I
+>Accessing the database</I
+></A
+> section earlier
+			in the manual.
+		</P
+><P
+>			You may also find the <A
+HREF="ref.html"
+><I
+>Reference</I
+></A
+> chapter of
+			interest.
+		</P
+><P
+>			Modules are divided into four categories. Each category have been given a module
+			type ID, a list of these can be found in the <A
+HREF="ref.const.html#REF.CONST.MODULETYPE"
+><I
+>Module types</I
+></A
+>
+			reference. This ID is passed to most of the module-related functions, so that
+			a database module and a log module with the same name won't interfere with
+			each other. All module functions defaults to a normal module type.
+		</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>normal modules - type <A
+HREF="ref.const.html#REF.CONST.MODULE.NORMAL"
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_NORMAL</TT
+></A
+></DT
+><DD
+><P
+>					Normal modules are the most common module type. These extend phpSecureSites
+					functionality, either by providing functions which application developers
+					can use, or by running a piece of code when an events occurs.
+				</P
+></DD
+><DT
+>database modules - type <A
+HREF="ref.const.html#REF.CONST.MODULE.DATABASE"
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_DATABASE</TT
+></A
+></DT
+><DD
+><P
+>					Database modules are used for the basic database communication.
+					They pretty much just provide code for connecting to a database server,
+					and running SQL queries against it. All SQL queries in phpSecureSite
+					are SQL-99 conformant, and should be accepted by any database server
+					that supports SQL-99.
+				</P
+></DD
+><DT
+>authentication modules - type <A
+HREF="ref.const.html#REF.CONST.MODULE.AUTH"
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_AUTH</TT
+></A
+></DT
+><DD
+><P
+>					Authentication modules authenticates users. They receive a username and
+					password from phpSecureSite and checks it against a list of accounts.
+					They must also provide functions for retreiving account data from the
+					backend.
+				</P
+></DD
+><DT
+>log modules - type <A
+HREF="ref.const.html#REF.CONST.MODULE.LOG"
+><TT
+CLASS="CONSTANT"
+>PHPSS_MODULE_LOG</TT
+></A
+></DT
+><DD
+><P
+>					Log modules writes log messages to a certain backend, for example
+					an SQL database table, a plain text file or a syslog server.
+				</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="tools.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="moduledev.reg.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Tools</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Module registration</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
