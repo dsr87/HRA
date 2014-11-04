@@ -1,45 +1,99 @@
-      
 <?php 
-require("adminCommon.php");
-
-$currentPropertyID=$_SESSION['currentPropertyID'];
-$CurrentUserID=$_SESSION['CurrentUserID'];
-
+include("headerSteps.php");
 ?>
-		
-</div>
-      	<div class="span9">
-      		<div class="widget stacked">
-					
-				<div class="widget-header">
-					<i class="icon-check"></i>
-<h3>Add New Property &rArr;Step 2 of 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property ID&rArr; <?php echo " ".$currentPropertyID; ?> </h3>				</div> <!-- /widget-header -->
-				
-				<div class="widget-content">
-					<div class="tabs-a">
-						<ul>
-							<li>Description &amp; Location</li>
-							<li class="current">Contact</li>
-                            							<li>Photos</li>
-                                                        <li>Amenities & Attractions </li>
-                            <li>Rates</li>
-                            <li >Calendar</li>
-						</ul>
-						</div>
-					<br>
-					
-					<form action="Step2Execute.php" id="validation-form" class="form-horizontal" novalidate method="post">
-						<fieldset>
-						    <div class="control-group">
-						      <label class="control-label" for="name">Name</label>
-						      <div class="controls">
-						        <input type="text" class="input-large" name="name" id="name">
-						      </div>
-						    </div>
-						               <div class="control-group">
-				            <label class="control-label" for="validateSelect">Country</label>
-				            <div class="controls">
-				            <select name="Country" id="Country" >
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="left-side sidebar-offcanvas">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="img/avatar3.png" class="img-circle" alt="User Image" />
+                        </div>
+                        <div class="pull-left info">
+                            <p>Hello, Jane</p>
+
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div>
+
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu">
+                        <li class="active">
+                            <a href="index.html">
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pages/widgets.html">
+                                <i class="fa fa-th"></i> <span>Edit Profile</span></a>
+                        </li>
+                        <li>
+                            <a href="pages/widgets.html">
+                                <i class="fa fa-th"></i> <span>Inquiries</span></a>
+                        </li>
+                        <li>
+                            <a href="pages/widgets.html">
+                                <i class="fa fa-th"></i> <span>Add Listing</span></a>
+                        </li>
+                        <li>
+                            <a href="pages/widgets.html">
+                                <i class="fa fa-th"></i> <span>Reviews</span></a>
+                        </li>
+                        <li>
+                            <a href="pages/widgets.html">
+                                <i class="fa fa-th"></i> <span>Payment History</span> </a>
+                        </li>
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+<h5 class="row"><span class="col-lg-3">Add New Property ⇒Step 1of 5</span><span class="col-lg-3">Property ID ⇒ </span> <span class="col-lg-3">Customer ID ⇒ 13 </span></h5>
+<div class="clearfix"></div>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+
+                    <div class="row">
+                         <div class="col-md-12">
+                            <!-- general form elements -->
+                                <div class="box box-primary">
+                                <br>
+                                    <div class="mytabs">
+                                        <a href="#" class="">Description & Location</a>
+                                        <a href="#" class="active">Contact</a>
+                                        <a href="#" class="">Photos</a>
+                                        <a href="#" class="">Amenities & Attractions</a>
+                                        <a href="#" class="">Rates</a>
+                                        <a href="#" class="">Calendar</a>
+                                    </div><!-- /.box-header -->
+                                    <!-- form start -->
+                                    <form role="form" action="Step2Execute.php" method="post">
+                                        <div class="box-body col-lg-12">
+                                            <div class="box box-info">
+                                                    <div class="col-lg-12">
+                                                        
+                                                        <div class="form-group col-lg-4">
+                                                             <label>Property Owners's First Name</label>
+                                                <input type="text" class="form-control" name="name" id="name">
+                                                        </div>
+                                                          <div class="form-group col-lg-4">
+                                                <input type="hidden" class="form-control">
+                                                        </div>
+                                                          <div class="form-group col-lg-4">
+                                                             <label>Property Owners's Last Name</label>
+                                                <input type="text" class="form-control">
+                                                        </div>
+                                                          <div class="form-group col-lg-4">
+                                                             <label>Country</label>
+                                        <select name="Country" id="Country" class="form-control" >
 <option value="" selected="selected">Select One</option>
  <option value="AF">Afghanistan</option><option value="AX">Aland Islands
 </option><option value="AL">Albania</option><option value="DZ">Algeria
@@ -250,73 +304,59 @@ Bolivia, Plurinational state of</option><option value="BA">Bosnia and Herzegovin
 </option><option value="UY">Uruguay
 </option><option value="UZ">Uzbekistan
 </option><option value="VU">Vanuatu
-</option><option value="VE">Venezuela, Bolivarian Republic of</option><option value="VN">Viet Nam</option><option value="VG">Virgin Islands, British
+</option><option value="VE">Venezuela, Bolivarian Republic of</option><option value="VN">VietNam</option><option value="VG">Virgin Islands, British
 </option><option value="VI">Virgin Islands, U.S.
 </option><option value="WF">Wallis and Futuna
 </option><option value="EH">Western Sahara
 </option><option value="YE">Yemen
 </option><option value="ZM">Zambia
 </option><option value="ZW">Zimbabwe</option></select>
-				            </div>
-				          </div>
-                          <div class="control-group">
-				            <label class="control-label" for="validateSelect">State / Province</label>
-				            <div class="controls">
-				             <select name="State" id="State" >
-<option selected="selected" value="">Select State</option></select>
-				            </div>
-				          </div>
-                           <div class="control-group">
-				            <label class="control-label" for="validateSelect">City</label>
-				            <div class="controls">
-				             <select name="City" id="City" >
-</select>
-				            </div>
-				          </div>
-						    <div class="control-group">
-						      <label class="control-label" for="email">Street Address</label>
-						      <div class="controls">
-						        <input type="text" class="input-large" name="add" id="add">
-						      </div>
-						    </div>
-						   
-						    <div class="control-group">
-						      <label class="control-label" for="message">ZIP</label>
-						      <div class="controls">
-						        <input type="text" class="input-large" name="zipCode" id="zipCode">
-						      </div>
-						    </div>
-                            
-                          <hr>
-                          <div class="control-group">
-						      <label class="control-label" for="subject">Email</label>
-						      <div class="controls">
-						        <input type="email" class="input-large" name="email" id="email">
-						      </div>
-						    </div>
-                             <div class="control-group">
-						      <label class="control-label" for="subject">Retype Email</label>
-						      <div class="controls">
-						         <input type="email" class="input-large" name="reEmail" id="reEmail">
-						      </div>
-						    </div>
-                            <div class="control-group">
-						      <label class="control-label" for="subject">Mobile Number</label>
-						      <div class="controls">
-						         <input type="text" class="input-large" name="mobileNo" id="mobileNo">
-						      </div>
-						    </div>
-                            <div class="control-group">
-						      <label class="control-label" for="subject">Calling hours</label>
-						      <div class="controls">
-						         <input type="text" class="input-large" name="callingHours" id="callingHours">
-						      </div>
-						    </div>
-                            
-				          <div class="control-group">
-				            <label class="control-label" for="validateSelect">Timezone</label>
-				            <div class="controls">
-<select name="timeZone" id="timeZone">
+                                                        </div>
+                                                            <div class="form-group col-lg-4">
+                                                              <label>State</label>
+                                                <select name="State" id="State" class="form-control">
+												</select>
+                                                        </div>
+                                                            <div class="form-group col-lg-4">
+                                                             <label>City</label>
+                                                <select name="City" id="City" class="form-control" >
+												</select>
+                                                        </div>
+                                                         <div class="form-group col-lg-4">
+                                                             <label>Street Address </label>
+                                                <input type="text" class="form-control" name="add" id="add">
+                                                        </div>
+                                                         <div class="form-group col-lg-4">
+                                                             <label>Address 2</label>
+                                                <input type="text" class="form-control" name="add2" id="add2">
+                                                        </div>
+                                                         <div class="form-group col-lg-4">
+                                                             <label>Zipcode</label>
+                                                <input type="text" class="form-control" name="zipCode" id="zipCode">
+                                                        </div>
+                                                         <div class="form-group col-lg-4">
+                                                             <label>Email Address</label>
+                                                <input type="email" class="form-control" name="email" id="email">
+                                                        </div>
+                                                         <div class="form-group col-lg-4">
+                                                             <label>Alternate Email Address</label>
+                                                <input type="text" class="form-control" name="alternateEmail" id="alternateEmail">
+                                                        </div>
+                                                         <div class="form-group col-lg-4">
+                                                             <label>Landline No</label>
+                                                <input type="text" class="form-control" name="landLineNo" id="landLineNo">
+                                                        </div>
+                                                           <div class="form-group col-lg-4">
+                                                             <label>Mobile No</label>
+                                                <input type="text" class="form-control" name="mobileNo" id="mobileNo">
+                                                        </div>
+                                                           <div class="form-group col-lg-4">
+                                                             <label>Calling Hours</label>
+                                                <input type="text" class="form-control" name="callingHours" id="callingHours">
+                                                        </div>
+                                                           <div class="form-group col-lg-4">
+                                                             <label>Time Zone</label>
+                                                <select name="timeZone" id="timeZone"  class="form-control">
 	<option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12">(GMT-12:00) International Date Line West</option>
 	<option timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0" value="-11">(GMT-11:00) Midway Island, Samoa</option>
 	<option timeZoneId="3" gmtAdjustment="GMT-10:00" useDaylightTime="0" value="-10">(GMT-10:00) Hawaii</option>
@@ -399,84 +439,81 @@ Bolivia, Plurinational state of</option><option value="BA">Bosnia and Herzegovin
 	<option timeZoneId="80" gmtAdjustment="GMT+12:00" useDaylightTime="1" value="12">(GMT+12:00) Auckland, Wellington</option>
 	<option timeZoneId="81" gmtAdjustment="GMT+12:00" useDaylightTime="0" value="12">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
 	<option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku'alofa</option>
-</select>											
-				
-				            </div>
-				          </div>
-                           <div class="control-group">
-						      <label class="control-label" for="subject">Alternate Email</label>
-						      <div class="controls">
-						         <input type="email" class="input-large" name="alternateEmail" id="alternateEmail">
-						      </div>
-						    </div>
-						    <div class="form-actions">
-						      <button type="submit" class="btn btn-danger btn">Save and Go To Next Step</button>&nbsp;&nbsp;
-						      <button type="reset" class="btn">Cancel</button>
-						    </div>
-						  </fieldset>
-						</form>
-					
-				</div> <!-- /widget-content -->
-					
-			</div> <!-- /widget -->					
-			
-	    </div> <!-- /span12 -->     	
-      	
-      	
-      </div> <!-- /row -->
+</select>
+                                                        </div>
+                                                <div class="clearfix"></div>
+                                            </div> 
 
-    </div> <!-- /container -->
-    
-</div>
-			<footer id="footer">
-				<nav>
-					<div class="vcard">
-						<h3>Contact us <span class="fn org">Asean Tourist</span></h3>
-						<ul class="list-a">
-							<li><span>Tell</span> <span class="tel">(84) 888 888 888</span></li>
-							<li><span>Email</span> <a class="email">contact//travel/com</a></li>
-							<li class="adr"><span>Add</span> <span class="street-address">Street</span>, <span class="locality">Hanoi</span> City, <span class="country-name">Vn</span></li>
-						</ul>
-					</div>
-					<div>
-						<h3>Support &amp; Help</h3>
-						<ul>
-							<li><a href="admin/">Payment options</a></li>
-							<li><a href="admin/">FAQ</a></li>
-							<li><a href="admin/">Privacy &amp; Policy</a></li>
-						</ul>
-					</div>
-					<div>
-						<h3>Information</h3>
-						<ul>
-							<li><a href="admin/">My account</a></li>
-							<li><a href="admin/">Sit map</a></li>
-							<li><a href="admin/">Order history</a></li>
-						</ul>
-					</div>
-					<form action="./" method="post">
-						<fieldset>
-							<legend>Newsletter</legend>
-							<p>Lorem emphasised est dolor sit ams...</p>
-							<p>
-								<label for="na">Enter your email</label>
-								<input type="email" id="na" name="na" required>
-								<button type="submit">Submit</button>
-							</p>
-						</fieldset>
-					</form>
-				</nav>
-				<p>Copyright &copy; <span class="date">2013</span>. All rights reseved <a href="admin/">Asean Tourist</a></p>
-				<ul id="social">
-					<li class="rs"><a rel="external" href="admin/">RSS</a></li>
-					<li class="tw"><a rel="external" href="admin/">Twitter</a></li>
-					<li class="fl"><a rel="external" href="admin/">Flickr</a></li>
-					<li class="fb"><a rel="external" href="admin/">Facebook</a></li>
-				</ul>
-			</footer>
-		</div>
-		<script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;language=en"></script>
-         <script src="javascript/jquery.min.js"></script>
+
+                                        </div><!-- /.box-body -->
+
+                                        <div class="clearfix"></div>
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-danger">Save and Go To Next Step </button>
+                                            <button type="button" class="btn btn-default">Clear</button>
+                                        </div>
+                                    </form>
+                                </div><!-- /.box -->
+                          
+
+                        </div><!--/.col (left) -->
+                    </div><!-- row -->
+
+                </section><!-- /.content -->
+            </aside><!-- /.right-side -->
+        </div><!-- ./wrapper -->
+                <div class="footer">
+                    <div class="wrapper">
+                        <div class="company">
+                            <h1>Company</h1>
+                            <ul>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">The Team</a></li>
+                                <li><a href="#">Press</a></li>
+                                <li><a href="#">Careers</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="fun">
+                            <h1>Fun</h1>
+                            <ul>
+                                <li><a href="#">2014 Travelers' Favorites</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">Blogger Tools</a></li>
+                                <li><a href="#">Top Users</a></li>
+                                <li><a href="#">Recent Questions</a></li>
+                                <li><a href="#">Featured Postcards</a></li>
+                            </ul>               
+                        </div>
+                        <div class="legal">
+                            <h1>Legal</h1>
+                            <ul>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Use</a></li>
+                                <li><a href="#">Guidelines</a></li>
+                            </ul>               
+                        </div>
+                        <div class="app right">
+                            <p><img src="img/playfoot.png" alt="" class="pull-right"></p>
+                            <p><img src="img/appfoot.png" alt="" class="pull-right"></p>
+                            <ul class="social-icons">
+                                <li><a href="#"><img src="img/fb.png" alt=""></a></li>
+                                <li><a href="#"><img src="img/tw.png" alt=""></a></li>
+                                <li><a href="#"><img src="img/g.png" alt=""></a></li>
+                                <li><a href="#"><img src="img/p.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="copyright">
+                            <p><span>Copyright © 2014 Company</span></p><p> <span class="power">Powered By : <a href="http://lovesmok.com">Coderocks</a></span></p>
+                        </div>
+                    </div>
+             </div>
+
+  <!-- add new calendar event modal -->
+
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
           <script>
 	
 jQuery(document).ready(function($){
@@ -510,16 +547,25 @@ jQuery(document).ready(function($){
 })
 
 </script>
-          <script src="javascript/scripts.js"></script>
-           <script src="javascript/mobile.js"></script>
-           
-          
-		<script src="admin/js/libs/jquery-ui-1.10.0.custom.min.js"></script>
-<script src="admin/js/libs/bootstrap.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../../js/AdminLTE/app.js" type="text/javascript"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../../js/AdminLTE/demo.js" type="text/javascript"></script>        
+        <!-- CK Editor -->
+        <script src="//cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="../../js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function() {
+                // Replace the <textarea id="pDesc"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace('pDesc');
+                //bootstrap WYSIHTML5 - text editor
+                $(".textarea").wysihtml5();
+            });
+        </script>
+        
+        
 
-<script src="admin/js/plugins/validate/jquery.validate.js"></script>
-
-<script src="admin/js/Application.js"></script>
-<script src="admin/js/demo/validation.js"></script>
-	</body>
+    </body>
 </html>
